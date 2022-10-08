@@ -1,23 +1,19 @@
 import requests
+import yagmail
+import time
 from bs4 import BeautifulSoup
 from typing import List, Dict
-import yagmail
 from datetime import datetime
-import time
-
-# polskie znaki są jakoś szyfrowane w input wysyłanym do serwera - value='gdzie &#347;piewaj&#261; raki'
-
-urls = {
-    "Gdzie śpiewają raki": 'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=PI644T1937881.95392&profile=br-mar&uri=link=3100033~!2696598~!3100021~!3100029&aspect=basic_search&menu=search&ri=1&source=~!bracz&term=Gdzie+śpiewają+raki+%2F&index=ALTITLE',
-    "Osiem randek": 'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=PI644T1937881.95392&profile=br-mar&uri=link=3100033~!2710644~!3100021~!3100029&aspect=basic_search&menu=search&ri=3&source=~!bracz&term=Osiem+randek+czyli+Jak+ze+sobą+rozmawiać%2C+żeby+stworzyć+szczęśliwy+związek+%2F&index=ALTITLE',
-    "Upór": 'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=PI644T1937881.95392&profile=br-mar&uri=link=3100033~!2547714~!3100021~!3100029&aspect=basic_search&menu=search&ri=5&source=~!bracz&term=Upór+%3A+potęga+pasji+i+wytrwałości+%2F&index=ALTITLE',
-    "Pułapki myślenia": 'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=PI644T1937881.95392&profile=br-mar&uri=link=3100033~!2325882~!3100021~!3100029&aspect=basic_search&menu=search&ri=7&source=~!bracz&term=Pułapki+myślenia+%3A+o+myśleniu+szybkim+i+wolnym+%2F&index=ALTITLE',
-    }
+from app import address
 
 
 def main():
     """Main stages of program."""
     while True:
+        # somehow we need to get the title.
+        title = ...
+        # and then convert it into url.
+        url = address.get_url(title)
         books_status = search_for_status(urls)
         available_books = check_is_it_available(books_status)
         if available_books:
