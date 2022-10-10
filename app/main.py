@@ -12,8 +12,8 @@ def main():
     while True:
         # somehow we need to get the title.
         title = ...
-        # and then convert it into url.
-        url = address.get_url(title)
+        # and then convert it into SINGLE url.
+        urls = address.get_url(title)
         books_status = search_for_status(urls)
         available_books = check_is_it_available(books_status)
         if available_books:
