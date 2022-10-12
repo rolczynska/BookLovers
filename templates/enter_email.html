@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+  <h2>
+      This book is not available. We will send you e-mail notification if it will be available.
+  </h2>
+
+<form action="/e-mails" method="post">
+    <input name="email" type="email" placeholder="Email">
+    <input type="submit" value="Register for notification">
+
+
+</form>
+{% endblock body %}
