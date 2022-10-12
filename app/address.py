@@ -16,9 +16,11 @@ def get_url(title: str) -> str:
 
 
 def search_for_book_status(url):
+    """ Function will take a url and search for book status. Return True if it is available or False if not."""
     pass
 
 
 def send_mail(title, email):
+    """ Function will send email when book will be available."""
     pass
 
