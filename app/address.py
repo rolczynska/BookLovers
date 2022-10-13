@@ -1,11 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-# https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term=365+dni --> pierwszy link
+from datetime import datetime
+# https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term=siedem+żyć --> pierwszy link
 # https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=166B5852R74W9.199857&amp;profile=br-mar&amp;uri=link=3100033~!2651526~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=365+dni+%2F&amp;index=ALTITLE
 
 
+# TODO sprawdzić czy to napewno ten tytuł i autor, sprawdzić czy nie ma dwóch pozycji tego samego tytułu (inne wydanie)
 def get_url(title: str) -> str:
-    """ Function take a title and return a url where information about book status is display."""
+    """ Function take a title and return an url where information about book status is display."""
     replaced_title = title.replace(" ", "+")
     url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
     page = requests.get(url_formula)
@@ -15,12 +17,21 @@ def get_url(title: str) -> str:
     return url_with_book_status
 
 
-def search_for_book_status(url):
-    """ Function will take a url and search for book status. Return True if it is available or False if not."""
-    pass
-
-
-def send_mail(title, email):
-    """ Function will send email when book will be available."""
-    pass
-
+# TODO Co jeśli nie ma książki ? - zaimplementuj odpowiedź
+def check_for_book_status(url):
+    """ Function will take a url and check for book status. Return Boolean"""
+    page = requests.get(url)
+    parsed_page = BeautifulSoup(page.text, "html.parser")
+    tr_tags_libraries = parsed_page.find_all(["tr"], height="15")
+    book_status = []
+    for tag in tr_tags_libraries:
+        all_columns = tag.find_all("td")
+        first_column = tag.find("td")
+        name = first_column.string
+        if name == "Wypożyczalnia Al. Marcinkowskiego 23":
+            status = all_columns[5].string
+            book_status.append(status)
+    if "Na półce" in book_status:
+        return True
+    else:
+        return False
