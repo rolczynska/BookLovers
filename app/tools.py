@@ -28,6 +28,13 @@ def is_already_registered(title, email, path):
     return False
 
 
+def delete_from_searching_book_file(titles_to_delete, path):
+    file = json_load(path)
+    for title in titles_to_delete:
+        file.pop(title)
+    json_dump(file, path)
+
+
 def decode(string: str):
     address, key_value_pair = string.split('?')
     key, value = key_value_pair.split('=')
