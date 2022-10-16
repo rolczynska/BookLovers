@@ -13,7 +13,7 @@ def search_books():
             titles_to_remove = []
             for title, email in book_list.items():
                 # convert it into SINGLE url.
-                url = address.get_url(title)
+                url = address.confirm_title_author(title)
                 # checking status for book
                 availability = address.check_for_book_status(url)
                 # if it is available, send mail and delete from searching_titles.
