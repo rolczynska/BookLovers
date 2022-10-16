@@ -13,15 +13,16 @@ def index():
     return render_template("index.html")
 
 
-# TODO czy ta opcja z global jest poprawna?
 @app.route("/answer")
 def answer():
     title = request.args.get("title")
     url = get_url(title)
-    availability = check_for_book_status(url)
-    if availability:
-        return render_template("book_available.html")
-    return render_template("enter_email.html")
+    if url:
+        availability = check_for_book_status(url)
+        if availability:
+            return render_template("book_available.html")
+        return render_template("enter_email.html")
+    return render_template("no_book.html", title=title)
 
 
 # TODO zrób template "already_registered.html"
