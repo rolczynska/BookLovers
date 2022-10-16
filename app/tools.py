@@ -1,7 +1,8 @@
 import json
+import os
 from pathlib import PosixPath
 from urllib.parse import unquote
-import os
+
 HOME = PosixPath(__file__).parent
 
 
@@ -18,7 +19,7 @@ def add_to_list(title, email, path):
     json_dump(searching_books, path)
 
 
-def is_already_registered(title, email, path):
+def is_already_registered(title, email, path) -> bool:
     """Function load content of file and check if this title and email is already registered."""
     if os.path.isfile(path):
         content = json_load(path)
@@ -29,13 +30,15 @@ def is_already_registered(title, email, path):
 
 
 def delete_from_searching_book_file(titles_to_delete, path):
+    """Function delete a title from the file."""
     file = json_load(path)
     for title in titles_to_delete:
         file.pop(title)
     json_dump(file, path)
 
 
-def decode(string: str):
+def decode(string: str) -> str:
+    """Function decode url to polish characters"""
     address, key_value_pair = string.split('?')
     key, value = key_value_pair.split('=')
     return ' '.join(unquote(value).split('+'))
