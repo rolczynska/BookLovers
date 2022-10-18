@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 
 from main import search_books
 from address import confirm_title_author, check_for_book_status, get_url
@@ -6,6 +6,7 @@ from mail import send_mail, send_register_confirmation
 from tools import add_to_list, is_already_registered, decode, HOME
 
 app = Flask(__name__)
+app.secret_key = "thisissession"
 
 
 @app.route("/")
@@ -17,20 +18,24 @@ def index():
 def confirm():
     title = request.args.get("title")
     web_title, web_author = confirm_title_author(title)
+    session["title"] = web_title
     return render_template("confirm.html", web_title=web_title, web_author=web_author)
 
 
 # TODO zrób sesje żeby mieć dostęp do tytułu
 @app.route("/answer")
 def answer():
-    url = get_url(title)
-    availability = check_for_book_status(url)
-    if availability:
-        return render_template("book_available.html")
-    return render_template("enter_email.html")
+    if "title" in session:
+        title = session["title"]
+        url = get_url(title)
+        availability = check_for_book_status(url)
+        if availability:
+            return render_template("book_available.html")
+        return render_template("enter_email.html")
+    else:
+        return redirect(url_for("/"))
 
 
-# Wpisz do template jakiego tytułu książki nie ma
 @app.route("/no_book")
 def no_book():
     return render_template("no_book.html")
@@ -39,9 +44,8 @@ def no_book():
 # TODO jeśli zrobisz sesje to weź tytuł z sesji (wykasuj decode)
 @app.route("/enter_email", methods=["POST"])
 def enter_email():
-    url_title = request.referrer
+    title = session["title"]
     email = request.form.get("email")
-    title = decode(url_title)
     if is_already_registered(title, email, path=HOME / "searching_books.json"):
         return render_template("already_registered.html")
     else:
