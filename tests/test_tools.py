@@ -8,7 +8,12 @@ def test_add_to_list():
     tools.add_to_list("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
     with open(path) as file:
         result = json.load(file)
-        assert result == {"gdzie śpiewają raki": "olkiewicz.alex@gmail.com"}
+        assert result == {"gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
+
+    tools.add_to_list("gdzie śpiewają raki", "olkiewicz.alex1234@gmail.com", path)
+    with open(path) as file:
+        result = json.load(file)
+        assert result == {"gdzie śpiewają raki": ["olkiewicz.alex@gmail.com", "olkiewicz.alex1234@gmail.com"]}
     os.remove(path)
 
 

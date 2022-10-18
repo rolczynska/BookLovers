@@ -15,7 +15,7 @@ def add_to_list(title, email, path):
     if title in searching_books:
         searching_books[title].append(email)
     else:
-        searching_books[title] = email
+        searching_books[title] = [email]
     json_dump(searching_books, path)
 
 
