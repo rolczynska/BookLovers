@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from address import get_title_author_url, check_for_book_status
 from mail import send_register_confirmation
-from tools import add_to_list, is_already_registered,  HOME
+from tools import add_to_list, is_already_registered,  HOME, json_load
+import os
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
@@ -54,6 +55,26 @@ def enter_email():
 
     # postawić drugą aplikacje która obsługuje szukanie po liście tytułów i wysyła maila.
     # Ma to być w oddzielnym folderze.
+
+
+@app.route("/my_notification")
+def my_notification():
+    return render_template("my_notification.html")
+
+
+@app.route("/searching_books")
+def searching_books():
+    path = HOME / "searching_books.json"
+    email = request.args.get("email")
+    searching_books = []
+    if os.path.isfile(path):
+        content = json_load(path)
+        for title, emails in content.items():
+            if email in emails:
+                searching_books.append(title)
+        if searching_books:
+            return render_template("searching_books.html", searching_books=searching_books)
+    return render_template("not_registered.html")
 
 
 if __name__ == '__main__':

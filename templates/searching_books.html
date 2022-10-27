@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="/searching_books">
+  <h1>
+    Your notification books:
+  </h1>
+  <ol>
+    {% for book in searching_books %}
+
+    <li>{{book}}</li>
+
+    {% endfor %}
+</ol>
+
+</form>
+
+{% endblock body %}
