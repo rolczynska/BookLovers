@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from address import get_title_author_url, check_for_book_status
 from mail import send_register_confirmation
-from tools import add_to_list, is_already_registered,  HOME, json_load
+from tools import add_to_list, is_already_registered,  HOME, json_load, json_dump
 import os
 
 app = Flask(__name__)
@@ -43,7 +43,8 @@ def no_book():
 @app.route("/enter_email", methods=["POST"])
 def enter_email():
     title = session["title"]
-    email = request.form.get("email")
+    session["email"] = request.form.get("email")
+    email = session["email"]
     if is_already_registered(title, email, path=HOME / "searching_books.json"):
         return render_template("already_registered.html")
     else:
@@ -75,6 +76,17 @@ def searching_books():
         if searching_books:
             return render_template("searching_books.html", searching_books=searching_books)
     return render_template("not_registered.html")
+
+
+@app.route("/cancel_notify")
+def cancel_notify():
+    title = session["title"]
+    email = session["email"]
+    path = HOME / 'searching_books.json'
+    searching_books = json_load(path)
+    searching_books[title].remove(email)
+    json_dump(searching_books, path)
+    return render_template("cancel_subscription.html", title=title)
 
 
 if __name__ == '__main__':
