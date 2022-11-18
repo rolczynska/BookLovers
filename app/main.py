@@ -1,22 +1,23 @@
 import json
 import os
-from app import address, tools, mail
+from app import search_web, tools, mail
 import time
 from tools import json_load, HOME
 from datetime import datetime
 
 
+# TODO jakoś uprościć funkcje
 def search_books():
     path = HOME / "searching_books.json"
     while True:
         if os.path.isfile(path):
-            book_list = json_load(path)
+            searching_books = json_load(path)
             titles_to_remove = []
-            for title, email in book_list.items():
+            for title, email in searching_books.items():
                 # convert it into SINGLE url.
-                url = address.get_url(title)
+                url = search_web.get_url(title)
                 # checking status for book
-                availability = address.check_for_book_status(url)
+                availability = search_web.check_for_book_status(url)
                 # if it is available, send mail and delete from searching_titles.
                 if availability:
                     mail.send_mail(title, email)

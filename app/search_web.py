@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_title_author_url(title: str):
+def confirm_title_and_author(title: str):
     """ Function take a title from user and search for this book in library.
      Return a title, author and the url."""
     replaced_title = title.replace(" ", "+")

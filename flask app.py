@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from address import get_title_author_url, check_for_book_status
+from search_web import confirm_title_and_author, check_for_book_status
 from mail import send_register_confirmation
-from tools import add_to_list, is_already_registered,  HOME, json_load, json_dump
+from tools import add_to_list, is_already_registered,  HOME, json_load, remove_email
 import os
+from unidecode import unidecode
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
@@ -16,8 +17,8 @@ def index():
 @app.route("/confirm")
 def confirm():
     title = request.args.get("title")
-    web_title, web_author, url = get_title_author_url(title)
-    session["title"] = web_title
+    web_title, web_author, url = confirm_title_and_author(title)
+    session["title"] = unidecode(web_title).strip(" /")
     session["url"] = url
     return render_template("confirm.html", web_title=web_title, web_author=web_author)
 
@@ -49,8 +50,6 @@ def enter_email():
         return render_template("already_registered.html")
     else:
         add_to_list(title, email, path=HOME / "searching_books.json")
-        # result 404 - not found
-        # requests.get('http://localhost:4000/ ', data={title: email})
         send_register_confirmation(title, email)
         return render_template("email_registered.html")
 
@@ -78,14 +77,9 @@ def searching_books():
     return render_template("not_registered.html")
 
 
-@app.route("/cancel_notify")
-def cancel_notify():
-    title = session["title"]
-    email = session["email"]
-    path = HOME / 'searching_books.json'
-    searching_books = json_load(path)
-    searching_books[title].remove(email)
-    json_dump(searching_books, path)
+@app.route("/cancel_notify/<title>/<email>")
+def cancel_notify(title, email):
+    remove_email(title, email)
     return render_template("cancel_subscription.html", title=title)
 
 
