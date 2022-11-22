@@ -2,11 +2,15 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from search_web import confirm_title_and_author, check_for_book_status
 from mail import send_register_confirmation
 from tools import add_to_list, is_already_registered,  HOME, json_load, remove_email
-import os
+from main import search_books
 from unidecode import unidecode
+import os
+import threading
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
+searching_books_loop = threading.Thread(target=search_books, daemon=True)
+searching_books_loop.start()
 
 
 @app.route("/")
@@ -52,9 +56,6 @@ def enter_email():
         add_to_list(title, email, path=HOME / "searching_books.json")
         send_register_confirmation(title, email)
         return render_template("email_registered.html")
-
-    # postawić drugą aplikacje która obsługuje szukanie po liście tytułów i wysyła maila.
-    # Ma to być w oddzielnym folderze.
 
 
 @app.route("/my_notification")
