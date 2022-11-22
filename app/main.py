@@ -1,32 +1,42 @@
-import json
 import os
-from app import search_web, tools, mail
 import time
-from tools import json_load, HOME
 from datetime import datetime
+from app import search_web, mail
+from tools import json_load, json_dump, HOME
 
 
-# TODO jakoś uprościć funkcje
-def search_books():
-    path = HOME / "searching_books.json"
+def search_books(path=HOME / "searching_books.json"):
+    """Main stages on searching books loop."""
     while True:
         if os.path.isfile(path):
-            searching_books = json_load(path)
-            titles_to_remove = []
-            for title, email in searching_books.items():
-                # convert it into SINGLE url.
-                url = search_web.get_url(title)
-                # checking status for book
-                availability = search_web.check_for_book_status(url)
-                # if it is available, send mail and delete from searching_titles.
-                if availability:
-                    mail.send_mail(title, email)
-                    print(f'Mail sent at {datetime.now() :%d-%m-%Y %H:%M}.')
-                    titles_to_remove.append(title)
-            tools.delete_from_searching_book_file(titles_to_remove, path)
+            available_books = check_availability(path)
+            send_email_notify(available_books=available_books, path=path)
         print("Already searched for all books. Go to sleep.")
-        # jak idzie w aplikacji to się zatrzymuje w tym miejscy na sleeping
         time.sleep(60 * 60 * 12)
+
+
+def check_availability(path):
+    """Function take a path for searching books and check are they available."""
+    available_books = []
+    searching_books = json_load(path)
+    for title in searching_books.keys():
+        url = search_web.get_url(title)
+        availability = search_web.check_for_book_status(url)
+        if availability:
+            available_books.append(title)
+    return available_books
+
+
+def send_email_notify(available_books, path):
+    """Function takes titles of available books and send notifications."""
+    searching_books = json_load(path)
+    for title in available_books:
+        emails = searching_books[title]
+        for email in emails:
+            mail.send_mail(title, email)
+            print(f'Book {title} is available. Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
+        searching_books.pop(title)
+    json_dump(searching_books, path)
 
 
 if __name__ == '__main__':
