@@ -14,7 +14,7 @@ def send_register_confirmation(title, email):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_content.html', 'r') as file:
         content = file.read()
-        contents = [yagmail.inline(STATIC / 'logo3b.png'), content.format(title=title, email=email)]
+        contents = [yagmail.inline(STATIC / 'logo_mail.png'), content.format(title=title, email=email)]
         yag.send(to=mail_to, subject=subject, contents=contents)
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 

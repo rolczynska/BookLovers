@@ -28,7 +28,7 @@ def check_availability(path):
 
 
 def send_email_notify(available_books, path):
-    """Function takes titles of available books and send notifications."""
+    """Function takes list of available books and path searching_books and send notifications."""
     searching_books = json_load(path)
     for title in available_books:
         emails = searching_books[title]
