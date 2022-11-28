@@ -16,39 +16,37 @@
 
 
 ## General Information
-- Raczyński librabry is the main public library in Poznań. They have a website to check books availability and a day of expected return. 
-Unfortunatelly they don't have an option to notify you, when specific book will be available, or sigh in to reserve it, therby it is hard to get it.
-If user really want to get the specific book, he should visiting website quite often to check is it already available.
-The purpose of project is to check availability of specitif books that we are interested in and send an e-mail when it is available. 
-As I live in Poznan and I use this library, I decided to make an app which resolve this problem. 
-
+Raczyński library is the public library in Poznań. They have a website to check book availability, but they don't have the option to notify users when a specific book will be available.
+The Book Lovers app saves unavailable titles and checks the availability every day. When the books appear app will send an e-mail to subscribers. 
 
 
 ## Technologies Used
 - Python - version 3.6
+- Flask - 2.1.3
 - request library
 - BeautifulSoup library 
 - yagmail library
 - datetime library
 - typing library
 - pytest library
+- unidecode library
+
 
 
 
 ## Features
 - checking book status
-- sending an e-mail if it is available
+- sending an e-mail if book is available
+- checking users subscriptions 
 
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
+All requirements are in the requirements.txt
 
 Proceed to describe how to install / setup one's local environment / get started with the project.
 
 
 ## Usage
-User have to provide an dictionary with url directing to website where book status is display. 
-
-`{"Gdzie śpiewają raki": 'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=PI644T1937881.95392&profile=br-mar&uri=link=3100033~!2696598~!3100021~!3100029&aspect=basic_search&menu=search&ri=1&source=~!bracz&term=Gdzie+śpiewają+raki+%2F&index=ALTITLE'}`
+User visit a website, enter a title of searching book and confirm author and title. If book is not available, he can subscribe by enter an email. 
 
