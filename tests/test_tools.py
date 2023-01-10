@@ -31,11 +31,22 @@ def test_is_already_registered():
     os.remove(path)
 
 
-def test_delete_from_searching_book_file():
+def test_remove_email():
     path = "fixtures/searching_books.json"
     content = {"365 dni": ["olkiewicz.alex@gmail.com", "olkiewicz.alex1234@gmail.com"], "gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
     tools.json_dump(content, path)
-    tools.delete_from_searching_book_file(["365 dni"], path)
+    tools.remove_email("365 dni", "olkiewicz.alex1234@gmail.com", path)
     content = tools.json_load(path)
-    assert content == {"gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
+    assert content == {"365 dni": ["olkiewicz.alex@gmail.com"], "gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
+
+    tools.remove_email("365 dni", "olkiewicz.alexees@gmail.com", path)
+    content = tools.json_load(path)
+    assert content == {"365 dni": ["olkiewicz.alex@gmail.com"], "gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
+
+    tools.remove_email("567 dni", "olkiewicz.alexees@gmail.com", path)
+    content = tools.json_load(path)
+    assert content == {"365 dni": ["olkiewicz.alex@gmail.com"], "gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
+
     os.remove(path)
+
+

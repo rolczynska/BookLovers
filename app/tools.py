@@ -43,9 +43,12 @@ def is_already_registered(title, email, path) -> bool:
 def remove_email(title, email, path=HOME / 'searching_books.json'):
     if os.path.isfile(path):
         searching_books = json_load(path)
-        searching_books[title].remove(email)
-        if not searching_books[title]:
-            searching_books.pop(title)
+        try:
+            searching_books[title].remove(email)
+            if len(searching_books[title]) == 0:
+                searching_books.pop(title)
+        except (KeyError, ValueError):
+            json_dump(searching_books, path)
     else:
         searching_books = {}
     json_dump(searching_books, path)

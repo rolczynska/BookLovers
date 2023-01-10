@@ -9,6 +9,7 @@ import threading
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
+''' This is loop for searching books.'''
 searching_books_loop = threading.Thread(target=search_books, daemon=True)
 searching_books_loop.start()
 
@@ -27,8 +28,13 @@ def confirm():
     return render_template("confirm.html", web_title=web_title, web_author=web_author)
 
 
-@app.route("/answer")
-def answer():
+@app.route("/no_book")
+def no_book():
+    return render_template("no_book.html")
+
+
+@app.route("/availability")
+def availability():
     if "title" in session:
         title = session["title"]
         url = session["url"]
@@ -38,11 +44,6 @@ def answer():
         return render_template("enter_email.html")
     else:
         return redirect(url_for("/"))
-
-
-@app.route("/no_book")
-def no_book():
-    return render_template("no_book.html")
 
 
 @app.route("/enter_email", methods=["POST"])
@@ -58,13 +59,13 @@ def enter_email():
         return render_template("email_registered.html")
 
 
-@app.route("/my_notification")
-def my_notification():
-    return render_template("my_notification.html")
+@app.route("/check_notification")
+def check_notification():
+    return render_template("check_notification.html")
 
 
-@app.route("/searching_books")
-def searching_books():
+@app.route("/notification_books")
+def notification_books():
     path = HOME / "searching_books.json"
     email = request.args.get("email")
     searching_books = []
@@ -74,7 +75,7 @@ def searching_books():
             if email in emails:
                 searching_books.append(title)
         if searching_books:
-            return render_template("searching_books.html", searching_books=searching_books)
+            return render_template("notification_books.html", searching_books=searching_books)
     return render_template("not_registered.html")
 
 
