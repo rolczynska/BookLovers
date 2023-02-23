@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 def confirm_title_and_author(title: str):
     """ Function take a title from user and search for this book in library.
-     Return a title, author and the url."""
+     Return a title, author and the url of the first book on the library list."""
     replaced_title = title.replace(" ", "+")
     url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
     page = requests.get(url_formula)
@@ -14,6 +14,28 @@ def confirm_title_and_author(title: str):
     web_author = tags[1].text
     url = tags[0].get("href")
     return web_title, web_author, url
+
+
+def render_books(title: str):
+    """This function return a list of inner list of book conteins url, title, author and other info. """
+    replaced_title = title.replace(" ", "+")
+    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
+    page = requests.get(url_formula)
+    parsed_page = BeautifulSoup(page.text, "html.parser")
+    table = parsed_page.find_all(cellspacing="1", cellpadding="3")[0]
+    trs = table.find_all(height="15")
+    books = []
+    for tr in trs:
+        a_tabs = tr.find_all('a', class_="smallBoldAnchor")
+        book_url = a_tabs[0].get("href")
+        book_info = [book_url]
+        for a in a_tabs:
+            single_info = a.text
+            book_info.append(single_info)
+        if len(book_info) == 6:
+            book_info.pop(1)
+        books.append(book_info)
+    return books
 
 
 def check_for_book_status(url) -> bool:
