@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<form>
+
+  <ol>
+    {% for book in books %}
+
+    <li><a href="{{ url_for('availability', book_id=books.index(book)) }}">{{ book[1] }} by {{ book[2] }}</a></li>
+
+
+    {% endfor %}
+  </ol>
+
+</form>
+
+{% endblock body %}
