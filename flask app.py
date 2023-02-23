@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request, session, redirect, url_for
-from search_web import confirm_title_and_author, check_for_book_status
+from flask import Flask, render_template, request, session
+from search_web import check_for_book_status, render_books
 from mail import send_register_confirmation
 from tools import add_to_list, is_already_registered,  HOME, json_load, remove_email
 from main import search_books
-from unidecode import unidecode
-import os
 import threading
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
+
 ''' This is loop for searching books.'''
 searching_books_loop = threading.Thread(target=search_books, daemon=True)
 searching_books_loop.start()
@@ -19,31 +18,29 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/confirm")
-def confirm():
-    title = request.args.get("title")
-    web_title, web_author, url = confirm_title_and_author(title)
-    session["title"] = unidecode(web_title).strip(" /")
-    session["url"] = url
-    return render_template("confirm.html", web_title=web_title, web_author=web_author)
-
-
-@app.route("/no_book")
-def no_book():
-    return render_template("no_book.html")
-
-
-@app.route("/availability")
-def availability():
-    if "title" in session:
-        title = session["title"]
-        url = session["url"]
-        availability = check_for_book_status(url)
-        if availability:
-            return render_template("book_available.html", title=title)
-        return render_template("enter_email.html")
+@app.route("/display_books", methods=["GET", "POST"])
+def display_books():
+    """Teraz tytuł i url zostanie przekzany na podstawie wyboru użytkownika - w co kliknie na wyświetlanej stronie."""
+    if request.method == "POST":
+        title = request.form["title"]
+        books = render_books(title)
+        session["books"] = books
+        return render_template("display_books.html", books=books)
     else:
-        return redirect(url_for("/"))
+        return render_template("index.html")
+
+
+@app.route("/availability/<book_id>")
+def availability(book_id):
+    book_id = int(book_id)
+    books = session["books"]
+    book_url = books[book_id][0]
+    title = books[book_id][1]
+    author = books[book_id][2]
+    availability = check_for_book_status(book_url)
+    if availability:
+        return render_template("book_available.html", title=title, author=author)
+    return render_template("enter_email.html")
 
 
 @app.route("/enter_email", methods=["POST"])
