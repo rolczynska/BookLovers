@@ -41,6 +41,7 @@ def is_already_registered(title, email, path) -> bool:
 
 
 def remove_email(title, email, path=HOME / 'searching_books.json'):
+    """Function take title and email and remove book from notification list. """
     if os.path.isfile(path):
         searching_books = json_load(path)
         try:
@@ -52,5 +53,15 @@ def remove_email(title, email, path=HOME / 'searching_books.json'):
     else:
         searching_books = {}
     json_dump(searching_books, path)
+
+
+def registered_books(path, email):
+    """Function take path and email and return list of registered books for that email."""
+    searching_books = []
+    content = json_load(path)
+    for title, emails in content.items():
+        if email in emails:
+            searching_books.append(title)
+    return searching_books
 
 

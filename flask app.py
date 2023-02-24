@@ -1,8 +1,11 @@
+import os
+
 from flask import Flask, render_template, request, session
 from search_web import check_for_book_status, render_books
 from mail import send_register_confirmation
-from tools import add_to_list, is_already_registered,  HOME, json_load, remove_email
+from tools import add_to_list, is_already_registered,  HOME, remove_email, registered_books
 from main import search_books
+from unidecode import unidecode
 import threading
 
 app = Flask(__name__)
@@ -20,7 +23,6 @@ def index():
 
 @app.route("/display_books", methods=["GET", "POST"])
 def display_books():
-    """Teraz tytuł i url zostanie przekzany na podstawie wyboru użytkownika - w co kliknie na wyświetlanej stronie."""
     if request.method == "POST":
         title = request.form["title"]
         books = render_books(title)
@@ -36,9 +38,9 @@ def availability(book_id):
     books = session["books"]
     book_url = books[book_id][0]
     title = books[book_id][1]
+    session["title"] = unidecode(title).strip(" /")
     author = books[book_id][2]
-    availability = check_for_book_status(book_url)
-    if availability:
+    if check_for_book_status(book_url):
         return render_template("book_available.html", title=title, author=author)
     return render_template("enter_email.html")
 
@@ -65,14 +67,9 @@ def check_notification():
 def notification_books():
     path = HOME / "searching_books.json"
     email = request.args.get("email")
-    searching_books = []
-    if os.path.isfile(path):
-        content = json_load(path)
-        for title, emails in content.items():
-            if email in emails:
-                searching_books.append(title)
-        if searching_books:
-            return render_template("notification_books.html", searching_books=searching_books)
+    searching_books = registered_books(path, email)
+    if os.path.isfile(path) and searching_books:
+        return render_template("notification_books.html", searching_books=searching_books)
     return render_template("not_registered.html")
 
 

@@ -2,22 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def confirm_title_and_author(title: str):
-    """ Function take a title from user and search for this book in library.
-     Return a title, author and the url of the first book on the library list."""
-    replaced_title = title.replace(" ", "+")
-    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
-    page = requests.get(url_formula)
-    parsed_page = BeautifulSoup(page.text, "html.parser")
-    tags = parsed_page.find_all(class_="smallBoldAnchor")
-    web_title = tags[0].text
-    web_author = tags[1].text
-    url = tags[0].get("href")
-    return web_title, web_author, url
-
-
-def render_books(title: str):
-    """This function return a list of inner list of book conteins url, title, author and other info. """
+def render_books(title: str) -> list:
+    """This function return a list of lists with info about book like title, author"""
     replaced_title = title.replace(" ", "+")
     url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
     page = requests.get(url_formula)
@@ -33,7 +19,7 @@ def render_books(title: str):
             single_info = a.text
             book_info.append(single_info)
         if len(book_info) == 6:
-            book_info.pop(1)
+            book_info.pop(2)
         books.append(book_info)
     return books
 
