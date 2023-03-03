@@ -24,23 +24,28 @@ def render_books(title: str) -> list:
     return books
 
 
-def check_for_book_status(url) -> bool:
+def check_for_book_status(url):
     """ Function take a url and search for book status in library on Al. Marcinkowskiego 23. Return Boolean"""
     page = requests.get(url)
     parsed_page = BeautifulSoup(page.text, "html.parser")
     tr_tags_libraries = parsed_page.find_all(["tr"], height="15")
-    book_status = []
+    date = ""
     for tag in tr_tags_libraries:
         all_columns = tag.find_all("td")
-        first_column = tag.find("td")
+        first_column = all_columns[0]
         name = first_column.string
         if name == "Wypożyczalnia Al. Marcinkowskiego 23":
             status = all_columns[5].string
-            book_status.append(status)
-    if "Na półce" in book_status:
-        return True
-    else:
-        return False
+            if status == "Na półce":
+                date = status
+            elif status == "Wypożyczony":
+                date = return_date(all_columns)
+    return date
+
+
+def return_date(all_columns):
+    date = all_columns[6].text
+    return date
 
 
 def get_url(title):

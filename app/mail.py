@@ -1,6 +1,9 @@
+import os
+
 import yagmail
 from datetime import datetime
-from tools import HOME
+from tools import HOME, json_load, json_dump
+
 TEMPLATES = HOME / '..' / 'templates'
 STATIC = HOME / '..' / 'static'
 
@@ -31,3 +34,18 @@ def send_mail(title, email):
     contents = content.format(title=title)
     yag.send(to=mail_to, subject=subject, contents=contents)
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
+
+
+def remove_email(book_id, email, path=HOME / 'searching_books.json'):
+    """Function take title and email and remove book from notification list. """
+    if os.path.isfile(path):
+        searching_books = json_load(path)
+        try:
+            searching_books[book_id].remove(email)
+            if len(searching_books[book_id]) == 0:
+                searching_books.pop(book_id)
+        except (KeyError, ValueError):
+            json_dump(searching_books, path)
+    else:
+        searching_books = {}
+    json_dump(searching_books, path)
