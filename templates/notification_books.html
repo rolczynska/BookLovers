@@ -7,7 +7,7 @@
   <ol>
     {% for book in searching_books %}
 
-    <li>{{book}}</li>
+    <li>{{book[0]}} by {{book[1]}}</li>
 
     {% endfor %}
 </ol>
