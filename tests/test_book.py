@@ -4,10 +4,10 @@ import tools
 
 
 def test_is_in_book_ids():
-    result = book.is_in_books_ids(title="Zmierzch", author="Meyer, Stephanie", path=tools.HOME/"books_id.json")
+    result = book.is_in_books_index(title="Zmierzch", author="Meyer, Stephanie", path=tools.HOME / "books_id.json")
     assert result == True
 
-    result = book.is_in_books_ids(title="Gdzie spiewaja raki", author="Meyer, Stephanie", path=tools.HOME/"books_id.json")
+    result = book.is_in_books_index(title="Gdzie spiewaja raki", author="Meyer, Stephanie", path=tools.HOME / "books_id.json")
     assert result == False
 
 
@@ -23,7 +23,7 @@ def test_get_next_id():
 
 
 def test_add_to_books_ids():
-    id = book.add_to_books_ids(title="Gdzie śpiewają raki", author="Rafal, Rolczynski", url="https:blabla", path="fixtures/books_id.json")
+    id = book.add_to_books_index(title="Gdzie śpiewają raki", author="Rafal, Rolczynski", url="https:blabla", path="fixtures/books_id.json")
     content = tools.json_load(path="fixtures/books_id.json")
     assert content[id]["title"] == "Gdzie śpiewają raki"
 

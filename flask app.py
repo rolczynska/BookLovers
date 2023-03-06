@@ -1,11 +1,12 @@
 import os
+import re
 
 from flask import Flask, render_template, request, session
 from search_web import check_for_book_status, render_books
 from mail import send_register_confirmation, remove_email
 from tools import HOME
 from main import search_books
-from book import is_in_books_ids, get_id, add_to_books_ids, add_to_list, is_already_registered, registered_books
+from book import is_in_books_index, get_id, add_to_books_index, add_to_searching_list, is_mail_registered, registered_books
 from unidecode import unidecode
 import threading
 
@@ -35,21 +36,20 @@ def display_books():
         return render_template("index.html")
 
 
-# TODO jeśli kliknę w pierwszy link i nie ma tam na liście biblioteki na marcinkowskiego to wyrzuca że nie ma ksiązki.
-# TODO Można zrobić, żeby sprawdzał wszystkie linki sam o tym samym tytule i autorze?
 @app.route("/availability/<book_index>")
 def availability(book_index):
     book_index = int(book_index)
     books = session["books"]
     url = books[book_index][0]
     session["url"] = url
-    title = books[book_index][1]
-    session["title"] = unidecode(title).strip(" /")
-    author = books[book_index][2]
-    session["author"] = author
+    title = unidecode(books[book_index][1]).strip(" /")
+    session["title"] = title
+    author = unidecode(books[book_index][2])
+    stripped_author = re.sub(r'\([^)]*\)', '', author).strip(" .")
+    session["author"] = stripped_author
     date = check_for_book_status(url)
     if date == "Na półce":
-        return render_template("book_available.html", title=title, author=author)
+        return render_template("book_available.html", title=title, author=stripped_author)
     elif date == "":
         return render_template("no_book.html")
     else:
@@ -58,21 +58,18 @@ def availability(book_index):
 
 @app.route("/enter_email", methods=["POST"])
 def enter_email():
-    # TODO is_already_registered musi brać tytuł i autora lub url i e mail i sprawdzić czy jest zapisany do szukanych.
-    # TODO poprawić funkcje add_to_book_ids() i przenieść ją do pliku book.py
-
     title = session["title"]
     url = session["url"]
     author = session["author"]
     session["email"] = request.form.get("email")
     email = session["email"]
-    if is_in_books_ids(title, author, path=HOME / "books_id.json"):
-        book_id = get_id(title, author, path=HOME / "books_id.json")
-        if is_already_registered(book_id, email):
+    if is_in_books_index(title, author, path=HOME / "books_index.json"):
+        book_id = get_id(title, author, path=HOME / "books_index.json")
+        if is_mail_registered(book_id, email):
             return render_template("already_registered.html")
     else:
-        book_id = add_to_books_ids(title, author, url, path=HOME / "books_id.json")
-    add_to_list(book_id, email, path=HOME / "searching_books.json")
+        book_id = add_to_books_index(title, author, url, path=HOME / "books_index.json")
+    add_to_searching_list(book_id, email, path=HOME / "searching_books.json")
     send_register_confirmation(title, email)
     return render_template("email_registered.html")
 

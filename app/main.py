@@ -30,11 +30,14 @@ def check_availability(path):
 def send_email_notify(available_books, path):
     """Function takes list of available books, path searching_books and send notifications."""
     searching_books = json_load(path)
-    for title in available_books:
-        emails = searching_books[title]
+    books_index = json_load(path=HOME / "books_index.json")
+    for id in available_books:
+        emails = searching_books[id]
+        title = books_index[id].get("title")
+        author = books_index[id].get("author")
         for email in emails:
-            mail.send_mail(title, email)
+            mail.send_mail(title, author, email)
             print(f'Book {title} is available. Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
-        searching_books.pop(title)
+        searching_books.pop(id)
     json_dump(searching_books, path)
 

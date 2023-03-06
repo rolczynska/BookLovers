@@ -22,7 +22,7 @@ def send_register_confirmation(title, email):
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 
 
-def send_mail(title, email):
+def send_mail(title, author, email):
     """ Function will send email when book will be available."""
     mail_from = 'olkiewicz.alex1234@gmail.com'
     mail_to = email
@@ -31,7 +31,7 @@ def send_mail(title, email):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_book_available.html', 'r') as file:
         content = file.read()
-    contents = content.format(title=title)
+    contents = content.format(title=title, author=author)
     yag.send(to=mail_to, subject=subject, contents=contents)
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 
