@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
+# TODO popraw funkcję żeby przekazywała słownik gdzie klucz to index książki a value to słownik z informacjami
+#  o tej książce: tytuł, author, url --> jeśli ten sam author to do jednego klucza dwa url.
+#  Zmień wtedy template display_books bo przyjmować będzie słownik a nie listę.
 def render_books(title: str) -> list:
     """This function return a list of lists with info about book like title, author"""
     replaced_title = title.replace(" ", "+")

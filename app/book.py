@@ -27,6 +27,7 @@ def get_next_id(books_ids):
 
 
 def add_to_books_index(title, author, url, path):
+    """Function generate a new id and add book to book_index.json file. Return a book_id"""
     books_ids = tools.json_load(path=tools.HOME / "books_index.json")
     book_id = get_next_id(books_ids)
     books_ids[book_id] = {"title": title, "author": author, "url": url}
@@ -35,7 +36,7 @@ def add_to_books_index(title, author, url, path):
 
 
 def add_to_searching_list(book_id, email, path):
-    """Function load content and book_id and email to a file."""
+    """Function load content and book_id and email to a searching_books file."""
     searching_books = json_load(path)
     if book_id in searching_books:
         searching_books[book_id].append(email)
@@ -55,13 +56,11 @@ def is_mail_registered(book_id, email) -> bool:
 
 
 def get_books_from_ids(some_books_id):
-    """Funtion take list of some books id and return list of books - titles, author, url."""
+    """Function take list of some books id and return list of books - titles, author, url."""
     searching_books = []
     all_books_ids = json_load(path=tools.HOME / "books_id.json")
     for book_id in some_books_id:
-        book_info = []
-        book_info.append(all_books_ids[book_id].get("title"))
-        book_info.append(all_books_ids[book_id].get("author"))
+        book_info = [all_books_ids[book_id].get("title"), all_books_ids[book_id].get("author")]
         searching_books.append(book_info)
     return searching_books
 
