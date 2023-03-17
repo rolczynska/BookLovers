@@ -16,7 +16,7 @@ app.secret_key = "thisissession"
 
 ''' This is loop for searching books.'''
 searching_books_loop = threading.Thread(target=main.search_books, daemon=True)
-#searching_books_loop.start()
+searching_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -30,11 +30,12 @@ def index():
     return render_template("index.html", book_form=book_form)
 
 
-@app.route("/availability/<book_index>")
+# TODO zmień tego ostatniego if'a - zrób warunek w template
+@app.route("/availability/<book_index>", methods=["GET", "POST"])
 def availability(book_index):
+    email_form = forms.EmailForm(csrf_enabled=False)
     book_index = int(book_index)
     books = session["books"]
-    print(books)
     url = books[book_index][0]
     session["url"] = url
     title = unidecode(books[book_index][1]).strip(" /")
@@ -43,34 +44,15 @@ def availability(book_index):
     stripped_author = re.sub(r'\([^)]*\)', '', author).strip(" .")
     session["author"] = stripped_author
     date = search_web.check_for_book_status(url)
-    print(url)
-    print(date)
-    if date == "Na półce":
-        return render_template("book_available.html", title=title, author=stripped_author)
-    elif date == "":
-        return render_template("no_book.html")
-    else:
-        return render_template("enter_email.html", date=date)
-
-
-@app.route("/enter_email", methods=["GET", "POST"])
-def enter_email():
-    if request.method == "POST":
-        title = session["title"]
-        url = session["url"]
-        author = session["author"]
-        email = request.form.get("email")
-        if book.is_in_books_index(title, author, path=HOME / "books_index.json"):
-            book_id = book.get_id(title, author, path=HOME / "books_index.json")
-            if book.is_mail_registered(book_id, email):
-                return render_template("already_registered.html")
+    if email_form.validate_on_submit():
+        email = email_form.email.data
+        id = book.get_id(title=title, author= stripped_author, url=url, path=HOME / "books_index.json")
+        if book.add_to_searching_list(id, email, path=HOME / "searching_books.json"):
+            mail.send_register_confirmation(title, email)
+            return render_template("email_registered.html")
         else:
-            book_id = book.add_to_books_index(title, author, url, path=HOME / "books_index.json")
-        book.add_to_searching_list(book_id, email, path=HOME / "searching_books.json")
-        mail.send_register_confirmation(title, email)
-        return render_template("email_registered.html")
-    else:
-        return redirect(url_for("index"))
+            return render_template("already_registered.html")
+    return render_template("availability.html", date=date, title=title, author=stripped_author, email_form=email_form)
 
 
 @app.route("/check_notification")

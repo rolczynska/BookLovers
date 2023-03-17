@@ -2,59 +2,33 @@ import tools
 from tools import json_load, json_dump
 
 
-def is_in_books_index(title, author, path):
-    """Function check is searching book in books_index. Return boolean."""
-    books_ids = tools.json_load(path)
-    for id, info in books_ids.items():
-        if info.get("title") == title and info.get("author") == author:
-            return True
-    return False
-
-
-def get_id(title, author, path):
+def get_id(title, author, url, path):
     """Function return an id from books_index for specific title and author."""
     books_ids = tools.json_load(path)
-    result = ""
     for id, info in books_ids.items():
-        if info.get("title") == title and info.get("author") == author:
-            result = id
-    return result
-
-
-def get_next_id(books_ids):
-    """Function generate a next id for new book."""
-    return str(len(books_ids.keys()) + 1)
-
-
-def add_to_books_index(title, author, url, path):
-    """Function generate a new id and add book to book_index.json file. Return a book_id"""
-    books_ids = tools.json_load(path=tools.HOME / "books_index.json")
-    book_id = get_next_id(books_ids)
-    books_ids[book_id] = {"title": title, "author": author, "url": url}
+        if info.get("title") == title or info.get("author") == author:
+            return id
+    id = str(len(books_ids.keys()) + 1)
+    books_ids[id] = {"title": title, "author": author, "url": url}
     tools.json_dump(books_ids, path)
-    return book_id
+    return id
 
 
-def add_to_searching_list(book_id, email, path):
+def add_to_searching_list(id, email, path):
     """Function load content and book_id and email to a searching_books file."""
     searching_books = json_load(path)
-    if book_id in searching_books:
-        searching_books[book_id].append(email)
-    else:
-        searching_books[book_id] = [email]
-    json_dump(searching_books, path)
-
-
-def is_mail_registered(book_id, email) -> bool:
-    """Function check if this email is already registered for that book_id."""
-    searching_books = json_load(path=tools.HOME / "searching_books.json")
-    if book_id in searching_books:
-        emails = searching_books.get(book_id)
+    if id in searching_books:
+        emails = searching_books.get(id)
         if email in emails:
-            return True
-    return False
+            return False
+        searching_books[id].append(email)
+    else:
+        searching_books[id] = [email]
+    json_dump(searching_books, path)
+    return True
 
 
+# TODO te funkcje trzeba sprawdzić
 def get_books_from_ids(some_books_id):
     """Function take list of some books id and return list of books - titles, author, url."""
     searching_books = []
@@ -74,5 +48,4 @@ def registered_books(email):
             searching_books_id.append(book_id)
     searching_books = get_books_from_ids(searching_books_id)
     return searching_books
-
 
