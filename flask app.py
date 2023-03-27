@@ -1,8 +1,7 @@
-import os
 import re
 import threading
 from unidecode import unidecode
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session
 from tools import HOME
 import search_web
 import mail
@@ -14,9 +13,9 @@ import forms
 app = Flask(__name__)
 app.secret_key = "thisissession"
 
-''' This is loop for searching books.'''
+# This is loop for searching books.
 searching_books_loop = threading.Thread(target=main.search_books, daemon=True)
-searching_books_loop.start()
+# searching_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -30,28 +29,21 @@ def index():
     return render_template("index.html", book_form=book_form)
 
 
-# TODO zmień tego ostatniego if'a - zrób warunek w template
-@app.route("/availability/<book_index>", methods=["GET", "POST"])
+@app.route("/availability/<int:book_index>", methods=["GET", "POST"])
 def availability(book_index):
     email_form = forms.EmailForm(csrf_enabled=False)
-    book_index = int(book_index)
     books = session["books"]
-    url = books[book_index][0]
-    session["url"] = url
     title = unidecode(books[book_index][1]).strip(" /")
-    session["title"] = title
+    url = books[book_index][0]
     author = unidecode(books[book_index][2])
     stripped_author = re.sub(r'\([^)]*\)', '', author).strip(" .")
-    session["author"] = stripped_author
     date = search_web.check_for_book_status(url)
     if email_form.validate_on_submit():
         email = email_form.email.data
-        id = book.get_id(title=title, author= stripped_author, url=url, path=HOME / "books_index.json")
-        if book.add_to_searching_list(id, email, path=HOME / "searching_books.json"):
+        book_id = book.get_id(title=title, author=stripped_author, url=url, path=HOME / "books_index.json")
+        if book.add_to_searching_list(book_id, email, path=HOME / "searching_books.json"):
             mail.send_register_confirmation(title, email)
-            return render_template("email_registered.html")
-        else:
-            return render_template("already_registered.html")
+        return render_template("email_registered.html")
     return render_template("availability.html", date=date, title=title, author=stripped_author, email_form=email_form)
 
 
@@ -62,12 +54,9 @@ def check_notification():
 
 @app.route("/notification_books")
 def notification_books():
-    path = HOME / "searching_books.json"
     email = request.args.get("email")
     searching_books = book.registered_books(email)
-    if os.path.isfile(path) and searching_books:
-        return render_template("notification_books.html", searching_books=searching_books)
-    return render_template("not_registered.html")
+    return render_template("notification_books.html", searching_books=searching_books)
 
 
 @app.route("/cancel_notify/<title>/<email>")

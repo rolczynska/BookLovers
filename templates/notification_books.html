@@ -1,17 +1,24 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="/searching_books">
+
+  {% if searching_books %}
   <h1>
     Your notification books:
   </h1>
   <ol>
     {% for book in searching_books %}
 
-    <li>{{book[0]}} by {{book[1]}}</li>
+    <li>"{{book[0]}}", {{book[1]}}</li>
 
     {% endfor %}
-</ol>
+  </ol>
 
-</form>
+  {% else %}
+     <h1>
+    Sorry, you are not registered for notification yet.<br>
+      Go to home page and search for some books!
+  </h1>
+
+{% endif %}
 
 {% endblock body %}

@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-{% if date == "Na półce" %}
+
+{% if "Na półce" in date %}
   <h2>
     Huraay!
     Book "{{title}}" by {{author}} is already available!
     You can borrow it
   </h2>
-{% elif date == "" %}
+{% elif date == [] %}
 <h2>
   Sorry, it's look like Raczyński library on Marcinkowskiego street don't have {{title}} book by {{author}} yet.
   You can step over and check in another link.
@@ -14,7 +15,7 @@
 {% else %}
 
 <h2>
-    Sorry, book {{title}} is not available. It should be returned {{date}}. Enter your e-mail - we will send you notification if it will be available.
+    Sorry, book {{title}} is not available. It should be returned {{date[0]}}. Enter your e-mail - we will send you notification if it will be available.
 </h2>
 
 <form method="post">

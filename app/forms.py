@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired, Email
 
 
 class BookForm(FlaskForm):
-    title = StringField("Tytuł", validators=[DataRequired()])
-    submit = SubmitField("Wyszukaj")
+    title = StringField("Title", validators=[DataRequired()])
+    submit = SubmitField("Search")
 
 
 class EmailForm(FlaskForm):

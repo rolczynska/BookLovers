@@ -36,6 +36,7 @@ def send_mail(title, author, email):
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 
 
+# TODO book_id jest TYTUŁEM - zmień to
 def remove_email(book_id, email, path=HOME / 'searching_books.json'):
     """Function take title and email and remove book from notification list. """
     if os.path.isfile(path):

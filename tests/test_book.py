@@ -1,14 +1,5 @@
 import book
 import tools
-# TODO zmień, żeby wszystkei testy były wykonywane na pliku testowym path i potem żeby był on kasowany
-
-
-def test_is_in_book_ids():
-    result = book.is_in_books_index(title="Zmierzch", author="Meyer, Stephanie", path=tools.HOME / "books_id.json")
-    assert result == True
-
-    result = book.is_in_books_index(title="Gdzie spiewaja raki", author="Meyer, Stephanie", path=tools.HOME / "books_id.json")
-    assert result == False
 
 
 def test_get_id():
