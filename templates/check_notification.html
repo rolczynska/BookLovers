@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="/notification_books">
+
   <h1>
-    Please enter your email to see your notification books.
+   Wpisz swój email, żeby zobaczyć swoje zapisane książki do powiadomień.
   </h1>
-  <center><input type="text" id="email" name="email" placeholder="Enter a email " align="middle" autocomplete="off" autofocus><br></center>
-    <center><input type="submit" value="Wyszukaj "></center>
 
+<form method="post">
+    {{email_form.hidden_tag()}}
+    <p>
+        {{ email_form.email(placeholder="Wpisz email") }}
+        {{ email_form.submit() }}
+    </p>
 </form>
-
 {% endblock body %}

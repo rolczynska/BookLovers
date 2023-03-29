@@ -2,14 +2,14 @@
 {% block body %}
 <form method="POST">
   <h1>
-    Hello Book Lovers!
+    Cześć Book Lovers!
   </h1>
   <h2>
-    Search for your favourite book
+    Wyszukaj książkę, którą chcesz przeczytać.
   </h2>
   {{ book_form.hidden_tag() }}
   <p>
-    {{ book_form.title(placeholder='Enter book title') }} </p>
+    {{ book_form.title(placeholder='Wpisz tytuł książki') }} </p>
   <p> {{ book_form.submit() }}</p>
 </form>
 

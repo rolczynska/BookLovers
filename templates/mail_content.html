@@ -1,11 +1,18 @@
-{% extends "layout.html" %}
-{% body content %}
-    <h1>
-        You are registered for notification in Raczyński library. When the "{{title}}" book will be available we will send you an e-mail.
-    </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookLovers</title>
+</head>
+<body>
+<p>
     <h2>
-        If you want to cancel your subscription for this book please click on <a href='http://127.0.0.1:5000/cancel_notify/{title}/{email}'>THIS LINK.</a>"
-
+        Zostałeś zarejestrowany do powiadomień. Kiedy książka <i>"{title}"</i> pojawi się w bibliotece, wyślemy Ci powiadomienie.
     </h2>
+    <h3>
+        Jeśli chcesz się wypisać z powiadomień o tej książce kliknij w  <a href='http://127.0.0.1:5000/cancel_notify/{title}/{email}'>TEN LINK.</a>
 
-{% endblock body %}
+    </h3>
+</p>
+</body>
+</html>
