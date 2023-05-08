@@ -5,9 +5,9 @@ from pathlib import PosixPath
 HOME = PosixPath(__file__).parent
 
 
-def json_dump(var, file_path):
+def json_dump(var, path):
     """A function write a dictionary or list to a file."""
-    with open(file_path, 'w') as file:
+    with open(path, 'w') as file:
         json.dump(var, file, indent=3)
 
 

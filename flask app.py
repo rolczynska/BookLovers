@@ -15,7 +15,7 @@ app.secret_key = "thisissession"
 
 # This is loop for searching books.
 searching_books_loop = threading.Thread(target=main.search_books, daemon=True)
-# searching_books_loop.start()
+searching_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -41,22 +41,20 @@ def availability(book_index):
     if email_form.validate_on_submit():
         email = email_form.email.data
         book_id = book.get_id(title=title, author=stripped_author, url=url, path=HOME / "books_index.json")
-        if book.add_to_searching_list(book_id, email, path=HOME / "searching_books.json"):
+        if book.add_to_demanded_list(book_id, email, path=HOME / "demanded_books.json"):
             mail.send_register_confirmation(title, email)
         return render_template("email_registered.html")
     return render_template("availability.html", date=date, title=title, author=stripped_author, email_form=email_form)
 
 
-@app.route("/check_notification")
+@app.route("/check_notification", methods=["GET", "POST"])
 def check_notification():
-    return render_template("check_notification.html")
-
-
-@app.route("/notification_books")
-def notification_books():
-    email = request.args.get("email")
-    searching_books = book.registered_books(email)
-    return render_template("notification_books.html", searching_books=searching_books)
+    email_form = forms.EmailForm(csrf_enabled=False)
+    if email_form.validate_on_submit():
+        email = email_form.email.data
+        demanded_books = book.get_registered_books(email)
+        return render_template("notification_books.html", demanded_books=demanded_books)
+    return render_template("check_notification.html", email_form=email_form)
 
 
 @app.route("/cancel_notify/<title>/<email>")
