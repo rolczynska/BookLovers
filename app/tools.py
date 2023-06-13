@@ -12,12 +12,10 @@ def json_dump(var, path):
 
 
 def json_load(path):
-    """ A function check is the file exsists and read a file."""
+    """ A function check is the file exist and read a file."""
     if os.path.isfile(path):
         with open(path, 'r') as file:
             content = json.load(file)
     else:
         content = {}
     return content
-
-

@@ -1,7 +1,7 @@
 import re
 import threading
 from unidecode import unidecode
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, session
 from tools import HOME
 import search_web
 import mail
@@ -13,9 +13,9 @@ import forms
 app = Flask(__name__)
 app.secret_key = "thisissession"
 
-# This is loop for searching books.
-searching_books_loop = threading.Thread(target=main.search_books, daemon=True)
-searching_books_loop.start()
+# This is loop for searching demanded books.
+demanded_books_loop = threading.Thread(target=main.search_books, daemon=True)
+demanded_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -40,11 +40,13 @@ def availability(book_index):
     date = search_web.check_for_book_status(url)
     if email_form.validate_on_submit():
         email = email_form.email.data
-        book_id = book.get_id(title=title, author=stripped_author, url=url, path=HOME / "books_index.json")
+        book_id = book.get_id(title=title, author=stripped_author, url=url,
+                              path=HOME / "books_index.json")
         if book.add_to_demanded_list(book_id, email, path=HOME / "demanded_books.json"):
             mail.send_register_confirmation(title, email)
         return render_template("email_registered.html")
-    return render_template("availability.html", date=date, title=title, author=stripped_author, email_form=email_form)
+    return render_template("availability.html", date=date, title=title, author=stripped_author,
+                           email_form=email_form)
 
 
 @app.route("/check_notification", methods=["GET", "POST"])

@@ -2,13 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# TODO popraw funkcję żeby przekazywała słownik gdzie klucz to index książki a value to słownik z informacjami
-#  o tej książce: tytuł, author, url --> jeśli ten sam author to do jednego klucza dwa url.
-#  Zmień wtedy template display_books bo przyjmować będzie słownik a nie listę.
 def render_books(title: str) -> list:
     """This function return a list of lists with info about book like title, author"""
     replaced_title = title.replace(" ", "+")
-    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
+    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term=' \
+                  f'{replaced_title}'
     page = requests.get(url_formula)
     parsed_page = BeautifulSoup(page.text, "html.parser")
     table = parsed_page.find_all(cellspacing="1", cellpadding="3")[0]
@@ -27,9 +25,9 @@ def render_books(title: str) -> list:
     return books
 
 
-def check_for_book_status(url):
-    """ Function take a url and search for book status in library on Al. Marcinkowskiego 23. Return List with
-    availability or return date"""
+def check_for_book_status(url: str) -> list:
+    """ Function take a url and search for book status in library on Al. Marcinkowskiego 23.
+    Return List with availability or return date"""
     page = requests.get(url)
     parsed_page = BeautifulSoup(page.text, "html.parser")
     tr_tags_libraries = parsed_page.find_all(["tr"], height="15")
@@ -47,18 +45,18 @@ def check_for_book_status(url):
     return date
 
 
-def return_date(all_columns):
+def return_date(all_columns: list) -> list:
+    """ Function return latest return date."""
     date = all_columns[6].text
     return date
 
 
-def get_url(title):
+def get_url(title: str) -> str:
     replaced_title = title.replace(" ", "+")
-    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term={replaced_title}'
+    url_formula = f'https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?index=ALTITLE&term=' \
+                  f'{replaced_title}'
     page = requests.get(url_formula)
     parsed_page = BeautifulSoup(page.text, "html.parser")
     tags = parsed_page.find_all(class_="smallBoldAnchor")
     url = tags[0].get("href")
     return url
-
-

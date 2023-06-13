@@ -6,7 +6,7 @@ from tools import json_load, json_dump, HOME
 
 
 def search_books(path=HOME / "demanded_books.json"):
-    """Main stages on searching books loop. It starts every day."""
+    """Main stages on demanded books loop. It starts every day."""
     print("Starting searching")
     while True:
         if os.path.isfile(path):
@@ -19,8 +19,8 @@ def search_books(path=HOME / "demanded_books.json"):
             json_dump(var, path)
 
 
-def check_availability(path=HOME / "demanded_books.json"):
-    """Function take a path for searching books and check are they available."""
+def check_availability(path=HOME / "demanded_books.json") -> list:
+    """Function checks, are the demanded books available. Return list of available_books."""
     available_books = []
     demanded_books = json_load(path)
     if os.path.isfile(path=HOME / "books_index.json"):
@@ -36,8 +36,8 @@ def check_availability(path=HOME / "demanded_books.json"):
     return available_books
 
 
-def send_email_notify(available_books, path):
-    """Function takes list of available books contains book_id, title and author."""
+def send_email_notify(available_books: list, path: str):
+    """Function takes list of available books contains book_id, title and author and send notify."""
     demanded_books = json_load(path)
     for book in available_books:
         book_id = book[0]
@@ -46,8 +46,8 @@ def send_email_notify(available_books, path):
         emails = demanded_books.get(book_id)
         for email in emails:
             mail.send_mail(title, author, email)
-            print(f'Book {title} is available. Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
+            print(f'Book {title} is available. Mail sent to {email} at '
+                  f'{datetime.now() :%d-%m-%Y %H:%M}.')
         demanded_books.pop(book_id)
     json_dump(demanded_books, path)
     print("Exit send_email_notify")
-
