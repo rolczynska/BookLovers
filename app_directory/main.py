@@ -1,7 +1,7 @@
 import os
 import time
 from datetime import datetime
-from app import search_web, mail
+from app_directory import search_web, mail
 from tools import json_load, json_dump, HOME
 
 
