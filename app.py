@@ -2,12 +2,12 @@ import re
 import threading
 from unidecode import unidecode
 from flask import Flask, render_template, session
-from tools import HOME
-import search_web
-import mail
-import main
-import book
-import forms
+from app_directory.tools import HOME
+from app_directory import search_web
+from app_directory import mail
+from app_directory import main
+from app_directory import book
+from app_directory import forms
 
 
 app = Flask(__name__)

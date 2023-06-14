@@ -1,5 +1,4 @@
-import tools
-from tools import json_load, json_dump
+from app_directory import tools
 
 
 def get_id(title: str, path: str, author=None, url=None) -> str:
@@ -25,7 +24,7 @@ def add_to_demanded_list(book_id: str, email: str, path: str) -> bool:
     successfully added to the list. If the email is already associated with the specified book ID in
     the "demanded_books" file, it returns False without modifying the file.
     """
-    demanded_books = json_load(path)
+    demanded_books = tools.json_load(path)
     if book_id in demanded_books:
         emails = demanded_books.get(book_id)
         if email in emails:
@@ -33,7 +32,7 @@ def add_to_demanded_list(book_id: str, email: str, path: str) -> bool:
         demanded_books[book_id].append(email)
     else:
         demanded_books[book_id] = [email]
-    json_dump(demanded_books, path)
+    tools.json_dump(demanded_books, path)
     return True
 
 
@@ -46,7 +45,7 @@ def get_books(some_books_id: list) -> list:
     and author of a book specified by the corresponding book ID in the input list.
         """
     books_info = []
-    all_books_ids = json_load(path=tools.HOME / "books_index.json")
+    all_books_ids = tools.json_load(path=tools.HOME / "books_index.json")
     for book_id in some_books_id:
         book_info = [all_books_ids[book_id].get("title"),
                      all_books_ids[book_id].get("author")]
@@ -63,7 +62,7 @@ def get_registered_books(email: str) -> list:
     is returned.
         """
     demanded_books_id = []
-    books = json_load(path=tools.HOME / "demanded_books.json")
+    books = tools.json_load(path=tools.HOME / "demanded_books.json")
     for book_id, emails in books.items():
         if email in emails:
             demanded_books_id.append(book_id)
