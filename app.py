@@ -14,8 +14,8 @@ app = Flask(__name__)
 app.secret_key = "thisissession"
 
 # This is loop for searching demanded books.
-demanded_books_loop = threading.Thread(target=main.search_books, daemon=True)
-demanded_books_loop.start()
+# demanded_books_loop = threading.Thread(target=main.search_books, daemon=True)
+# demanded_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
