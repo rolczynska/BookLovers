@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def render_books(title: str) -> list:
+def get_books(title: str) -> list:
     """This function return a list of lists with info about book like title, author"""
     parsed_page = get_book_listing(title)
     table = parsed_page.find_all(cellspacing="1", cellpadding="3")[0]

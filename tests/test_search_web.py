@@ -8,4 +8,4 @@ def test_check_for_book_status():
 
 
 def test_render_books():
-    list_of_books = search_web.render_books(title="Zmierzch")
+    list_of_books = search_web.get_books(title="Zmierzch")
