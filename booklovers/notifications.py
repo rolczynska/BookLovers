@@ -1,8 +1,7 @@
 import os
 import time
 from datetime import datetime
-
-from booklovers import search, mail
+from booklovers import mail
 
 
 def run():
