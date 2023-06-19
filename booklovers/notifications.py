@@ -18,7 +18,7 @@ def run():
             json_dump(var, path)
 
 
-def check_availability(path=HOME / "demanded_books.json") -> list:
+def check_availability() -> list:
     """Function checks, are the demanded books available. Return list of available_books."""
     available_books = []
     demanded_books = json_load(path)
@@ -35,7 +35,7 @@ def check_availability(path=HOME / "demanded_books.json") -> list:
     return available_books
 
 
-def send_email_notify(available_books: list, path: str):
+def send_email_notify(available_books: list):
     """Function takes list of available books contains book_id, title and author and send notify."""
     demanded_books = json_load(path)
     for book in available_books:

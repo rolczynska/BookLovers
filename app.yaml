@@ -1,5 +1,7 @@
+# Find more information about the configuration file here:
+# https://cloud.google.com/appengine/docs/flexible/reference/app-yaml?tab=python
+
 runtime: python37
-env: flex
 entrypoint: gunicorn -b :$PORT app:app
 
 resources:
@@ -9,4 +11,4 @@ resources:
 
 automatic_scaling:
   target_cpu_utilization: .75
-  min_instances: 0
+  min_instances: 1
