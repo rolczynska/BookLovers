@@ -1,8 +1,9 @@
 import yagmail
+from pathlib import Path
 from datetime import datetime
-from booklovers.tools import HOME, json_load, json_dump
-from booklovers.book import get_id
+from booklovers import database
 
+HOME = Path(__file__).parent
 TEMPLATES = HOME / '..' / 'templates'
 STATIC = HOME / '..' / 'static'
 
@@ -31,17 +32,17 @@ def send_mail(title: str, author: str, email: str):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_book_available.html', 'r') as file:
         content = file.read()
-    contents = [yagmail.inline(STATIC / 'logo_mail.png'), content.format(title=title,
-                                                                         author=author)]
+    logo = yagmail.inline(STATIC / 'logo_mail.png')
+    contents = [logo, content.format(title=title, author=author)]
     yag.send(to=mail_to, subject=subject, contents=contents)
 
 
 def remove_email(title: str, email: str):
     """Function remove book from notification list. """
-    book_id = get_id(title, path=HOME / "books_index.json")
-    demanded_books = json_load(path=HOME / "demanded_books.json")
+    book_id = database.get_id(title)
+    demanded_books = database.get_registered_books(email)
     if book_id in demanded_books:
         demanded_books[book_id].remove(email)
         if len(demanded_books[book_id]) == 0:
             demanded_books.pop(book_id)
-    json_dump(demanded_books, path=HOME / "demanded_books.json")
+    # remove book from database

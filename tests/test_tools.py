@@ -8,12 +8,12 @@ import tools
 
 def test_add_to_list():
     path = "fixtures/searching_books.json"
-    book.add_to_demanded_list("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
+    book.add_to_registered("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
     with open(path) as file:
         result = json.load(file)
         assert result == {"gdzie śpiewają raki": ["olkiewicz.alex@gmail.com"]}
 
-    book.add_to_demanded_list("gdzie śpiewają raki", "olkiewicz.alex1234@gmail.com", path)
+    book.add_to_registered("gdzie śpiewają raki", "olkiewicz.alex1234@gmail.com", path)
     with open(path) as file:
         result = json.load(file)
         assert result == {"gdzie śpiewają raki": ["olkiewicz.alex@gmail.com", "olkiewicz.alex1234@gmail.com"]}
@@ -22,7 +22,7 @@ def test_add_to_list():
 
 def test_is_already_registered():
     path = "fixtures/searching_books.json"
-    book.add_to_demanded_list("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
+    book.add_to_registered("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
     result = book.is_mail_registered("gdzie śpiewają raki", "olkiewicz.alex@gmail.com", path)
     assert result
 
