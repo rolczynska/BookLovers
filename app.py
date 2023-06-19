@@ -2,20 +2,20 @@ import re
 import threading
 from unidecode import unidecode
 from flask import Flask, render_template, session
-from app_directory.tools import HOME
-from app_directory import search_web
-from app_directory import mail
-from app_directory import main
-from app_directory import book
-from app_directory import forms
+from booklovers.tools import HOME
+from booklovers import search
+from booklovers import mail
+from booklovers import main
+from booklovers import book
+from booklovers import forms
 
 
 app = Flask(__name__)
 app.secret_key = "thisissession"
 
 # This is loop for searching demanded books.
-# demanded_books_loop = threading.Thread(target=main.search_books, daemon=True)
-# demanded_books_loop.start()
+demanded_books_loop = threading.Thread(target=main.search_books, daemon=True)
+demanded_books_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -23,7 +23,7 @@ def index():
     book_form = forms.BookForm(csrf_enabled=False)
     if book_form.validate_on_submit():
         title = book_form.title.data
-        books = search_web.render_books(title)
+        books = search.render_books(title)
         session["books"] = books
         return render_template("display_books.html", books=books)
     return render_template("index.html", book_form=book_form)
@@ -37,7 +37,7 @@ def availability(book_index):
     url = books[book_index][0]
     author = unidecode(books[book_index][2])
     stripped_author = re.sub(r'\([^)]*\)', '', author).strip(" .")
-    date = search_web.check_for_book_status(url)
+    date = search.check_for_book_status(url)
     if email_form.validate_on_submit():
         email = email_form.email.data
         book_id = book.get_id(title=title, author=stripped_author, url=url,

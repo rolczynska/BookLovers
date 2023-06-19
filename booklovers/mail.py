@@ -1,8 +1,7 @@
-
 import yagmail
 from datetime import datetime
-from app_directory.tools import HOME, json_load, json_dump
-from app_directory.book import get_id
+from booklovers.tools import HOME, json_load, json_dump
+from booklovers.book import get_id
 
 TEMPLATES = HOME / '..' / 'templates'
 STATIC = HOME / '..' / 'static'

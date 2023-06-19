@@ -1,4 +1,4 @@
-from app_directory import tools
+from booklovers import tools
 
 
 def get_id(title: str, path: str, author=None, url=None) -> str:

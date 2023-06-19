@@ -1,8 +1,8 @@
 import os
 import time
 from datetime import datetime
-from app_directory import search_web, mail
-from app_directory.tools import json_load, json_dump, HOME
+from booklovers import search_web, mail
+from booklovers.tools import json_load, json_dump, HOME
 
 
 def search_books(path=HOME / "demanded_books.json"):
