@@ -35,7 +35,7 @@ def availability(book_index):
     email_form = forms.EmailForm(csrf_enabled=False)
     book_params = session["books"][book_index]
     book = parser.Book(**book_params)
-
+    date = parser.check_for_book_status(book.url)
     # If a form is validated, we add a book to demanded list and render a page.
     if email_form.validate_on_submit():
         email = email_form.email.data
@@ -47,7 +47,7 @@ def availability(book_index):
             mail.send_register_confirmation(book.title, email)
 
         return render_template("email_registered.html")
-    return render_template("availability.html", **book_params, email_form=email_form)
+    return render_template("availability.html", date=date, book=book, email_form=email_form)
 
 
 @app.route("/check_notification", methods=["GET", "POST"])

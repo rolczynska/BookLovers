@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import List
 from bs4 import BeautifulSoup
 from unidecode import unidecode
+from booklovers import connect
 
 
 @dataclass
@@ -13,7 +14,7 @@ class Book:
 
 
 def find_books(page: BeautifulSoup) -> List[Book]:
-    """This function return a list of lists with info about book like title, author"""
+    """Gets a list Books from parsed page"""
     [table] = page.find_all(cellspacing="1", cellpadding="3")
     trs = table.find_all(height="15")
     books = []
@@ -24,6 +25,7 @@ def find_books(page: BeautifulSoup) -> List[Book]:
 
 
 def convert_segment_into_book(segment) -> Book:
+    """Gets a Book object from parsed segment page."""
     a_tabs = segment.find_all('a', class_="smallBoldAnchor")
     url = a_tabs[0].get("href")
     book_info = [url]
@@ -39,12 +41,13 @@ def convert_segment_into_book(segment) -> Book:
     return Book(title, author, url)
 
 
-def check_for_book_status(page: BeautifulSoup) -> list:
+def check_for_book_status(url: str) -> list:
     """Returns a list with information about the book status."""
-    tr_tags_libraries = page.find_all(["tr"], height="15")
+    parsed_page = connect.get(url)
+    tr_tags_libraries = parsed_page.find_all(["tr"], height="15")
     date = []
-    for tag in tr_tags_libraries:
-        all_columns = tag.find_all("td")
+    for tr in tr_tags_libraries:
+        all_columns = tr.find_all("td")
         first_column = all_columns[0]
         name = first_column.string
         if name == "Wypożyczalnia Al. Marcinkowskiego 23":
