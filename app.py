@@ -35,19 +35,16 @@ def availability(book_index):
     email_form = forms.EmailForm(csrf_enabled=False)
     book_params = session["books"][book_index]
     book = parser.Book(**book_params)
-    date = parser.check_for_book_status(book.url)
+    book_status = parser.check_for_book_status(book.url)
     # If a form is validated, we add a book to demanded list and render a page.
     if email_form.validate_on_submit():
         email = email_form.email.data
-        book_id = database.get_id(book)
-
-        is_new = database.is_new_subscription(book_id, email)
-        if is_new:
-            database.add_to_registered(book_id, email)
-            mail.send_register_confirmation(book.title, email)
-
+        if database.is_new_subscription(book, email):
+            database.add_to_registered(book, email)
+            mail.send_register_confirmation(book.title, book.author, email)
         return render_template("email_registered.html")
-    return render_template("availability.html", date=date, book=book, email_form=email_form)
+    return render_template("availability.html", book_status=book_status, book=book,
+                           email_form=email_form)
 
 
 @app.route("/check_notification", methods=["GET", "POST"])
@@ -62,10 +59,11 @@ def check_notification():
     return render_template("check_notification.html", email_form=email_form)
 
 
-@app.route("/cancel_notify/<title>/<email>")
-def cancel_notify(title, email):
+@app.route("/cancel_notify/<title>/<author>/<email>")
+def cancel_notify(title, author, email):
     # Cancels user book notifications.
-    mail.remove_email(title, email)
+    book = database.get_book(title, author)
+    database.remove_email(book, email)
     return render_template("cancel_subscription.html", title=title)
 
 

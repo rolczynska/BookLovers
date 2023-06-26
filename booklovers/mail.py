@@ -8,7 +8,7 @@ TEMPLATES = HOME / '..' / 'templates'
 STATIC = HOME / '..' / 'static'
 
 
-def send_register_confirmation(title: str, email: str):
+def send_register_confirmation(title: str, author: str, email: str):
     """ Sends a registration confirmation email."""
     mail_from = 'olkiewicz.alex1234@gmail.com'
     mail_to = email
@@ -18,6 +18,7 @@ def send_register_confirmation(title: str, email: str):
     with open(TEMPLATES / 'mail_content.html', 'r') as file:
         content = file.read()
         contents = [yagmail.inline(STATIC / 'logo_mail.png'), content.format(title=title,
+                                                                             author=author,
                                                                              email=email)]
         yag.send(to=mail_to, subject=subject, contents=contents)
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
@@ -35,14 +36,3 @@ def send_mail(title: str, author: str, email: str):
     logo = yagmail.inline(STATIC / 'logo_mail.png')
     contents = [logo, content.format(title=title, author=author)]
     yag.send(to=mail_to, subject=subject, contents=contents)
-
-
-def remove_email(title: str, email: str):
-    """Function remove book from notification list. """
-    book_id = database.get_id(title)
-    demanded_books = database.get_registered_books(email)
-    if book_id in demanded_books:
-        demanded_books[book_id].remove(email)
-        if len(demanded_books[book_id]) == 0:
-            demanded_books.pop(book_id)
-    # remove book from database

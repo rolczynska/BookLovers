@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
 
-{% if "Na półce" in date %}
+{% if "Na półce" in book_status %}
   <h2>
     Hura!
       Książka <i> "{{book.title}}" </i> autora <i>{{book.author}}</i>  jest dostępna w bibliotece na Alejach Marcinkowskiego w Poznaniu.
     Zapraszamy do wypożyczalni!
   </h2>
-{% elif date == [] %}
+{% elif book_status == [] %}
 <h2>
   Niestety wygląda na to, że biblioteka na Alejach Marcinkowskiego nie posiada książki <i>{{book.title}}</i> autorstwa <i>{{book.author}}</i> .
   Może znajdziesz ją w innym linku.
@@ -15,7 +15,7 @@
 {% else %}
 
 <h2>
-    Niestety książka "{{book.title}}" nie jest obecnie dostępna. Powinna zostać zwrócona <i>{{date[0]}}</i>. Wpisz swój e-mail - wyślemy Ci powiadomienie, gdy książka będzie dostępna.
+    Niestety książka "{{book.title}}" nie jest obecnie dostępna. Powinna zostać zwrócona <i>{{book_status[0]}}</i>. Wpisz swój e-mail - wyślemy Ci powiadomienie, gdy książka będzie dostępna.
 </h2>
 
 <form method="post">
