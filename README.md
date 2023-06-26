@@ -1,4 +1,4 @@
-# BooksForYou - library app
+# BookLovers - library app
 > This app allows you to get information about available books you are interested, in Biblioteka Raczyńskich library pl. Wolności Street in Poznań. 
 
 ## Table of Contents
