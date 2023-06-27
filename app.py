@@ -1,6 +1,7 @@
 import threading
 from flask import Flask, render_template, session
 from booklovers import connect, parser, forms, database, mail, notifications
+from google.cloud import firestore
 
 # We create a Flask app.
 app = Flask(__name__)
@@ -39,9 +40,13 @@ def availability(book_index):
     # If a form is validated, we add a book to demanded list and render a page.
     if email_form.validate_on_submit():
         email = email_form.email.data
-        if database.is_new_subscription(book, email):
+        id = f'{book.title}+{book.author}'
+        book_ref = database.db.collection('books').document(id)
+        book_obj = book_ref.get()
+        if not book_obj.exists:
             database.add_to_registered(book, email)
             mail.send_register_confirmation(book.title, book.author, email)
+        book_ref.update({'emails': firestore.ArrayUnion([email])})
         return render_template("email_registered.html")
     return render_template("availability.html", book_status=book_status, book=book,
                            email_form=email_form)
