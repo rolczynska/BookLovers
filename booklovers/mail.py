@@ -25,7 +25,7 @@ def send_register_confirmation(title: str, author: str, email: str):
 
 
 def send_mail(title: str, author: str, email: str):
-    """ Sends notification email when book will be available."""
+    """ Sends notification email when book is available."""
     mail_from = 'olkiewicz.alex1234@gmail.com'
     mail_to = email
     subject = 'Dostępne książki'

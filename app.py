@@ -1,7 +1,6 @@
 import threading
 from flask import Flask, render_template, session
 from booklovers import connect, parser, forms, database, mail, notifications
-from google.cloud import firestore
 
 # We create a Flask app.
 app = Flask(__name__)
@@ -37,16 +36,11 @@ def availability(book_index):
     book_params = session["books"][book_index]
     book = parser.Book(**book_params)
     book_status = parser.check_for_book_status(book.url)
-    # If a form is validated, we add a book to demanded list and render a page.
+    # If a form is validated, we add a book to database and render a page.
     if email_form.validate_on_submit():
         email = email_form.email.data
-        id = f'{book.title}+{book.author}'
-        book_ref = database.db.collection('books').document(id)
-        book_obj = book_ref.get()
-        if not book_obj.exists:
-            database.add_to_registered(book, email)
-            mail.send_register_confirmation(book.title, book.author, email)
-        book_ref.update({'emails': firestore.ArrayUnion([email])})
+        database.add_to_registered(book, email)
+        mail.send_register_confirmation(book.title, book.author, email)
         return render_template("email_registered.html")
     return render_template("availability.html", book_status=book_status, book=book,
                            email_form=email_form)
@@ -67,8 +61,7 @@ def check_notification():
 @app.route("/cancel_notify/<title>/<author>/<email>")
 def cancel_notify(title, author, email):
     # Cancels user book notifications.
-    book = database.get_book(title, author)
-    database.remove_email(book, email)
+    database.remove_email(title, author, email)
     return render_template("cancel_subscription.html", title=title)
 
 
