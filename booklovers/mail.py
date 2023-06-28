@@ -1,7 +1,6 @@
 import yagmail
 from pathlib import Path
 from datetime import datetime
-from booklovers import database
 
 HOME = Path(__file__).parent
 TEMPLATES = HOME / '..' / 'templates'
@@ -24,10 +23,9 @@ def send_register_confirmation(title: str, author: str, email: str):
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 
 
-def send_mail(title: str, author: str, email: str):
-    """ Sends notification email when book is available."""
+def send_mail(title: str, author: str, emails: list):
+    """ Sends notifications when book is available."""
     mail_from = 'olkiewicz.alex1234@gmail.com'
-    mail_to = email
     subject = 'Dostępne książki'
     sender_password = 'epszxtotnzklwwhb'
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
@@ -35,4 +33,5 @@ def send_mail(title: str, author: str, email: str):
         content = file.read()
     logo = yagmail.inline(STATIC / 'logo_mail.png')
     contents = [logo, content.format(title=title, author=author)]
-    yag.send(to=mail_to, subject=subject, contents=contents)
+    for email in emails:
+        yag.send(to=email, subject=subject, contents=contents)

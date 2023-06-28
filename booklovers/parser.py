@@ -45,7 +45,7 @@ def check_for_book_status(url: str) -> list:
     """Returns a list with information about the book status."""
     parsed_page = connect.get(url)
     tr_tags_libraries = parsed_page.find_all(["tr"], height="15")
-    date = []
+    result = []
     for tr in tr_tags_libraries:
         all_columns = tr.find_all("td")
         first_column = all_columns[0]
@@ -53,10 +53,10 @@ def check_for_book_status(url: str) -> list:
         if name == "Wypożyczalnia Al. Marcinkowskiego 23":
             status = all_columns[5].string
             if status == "Na półce":
-                date.append(status)
+                result.append(status)
             elif status == "Wypożyczony":
-                date.append(all_columns[6].text)
-    return date
+                result.append(all_columns[6].text)
+    return result
 
 
 def clean_author_name(name: str) -> str:

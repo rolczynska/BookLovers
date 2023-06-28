@@ -14,8 +14,7 @@ db = firestore.client()
 
 
 def add_to_registered(book: Book, email: str):
-    """Adds this book and email to Firestore database."""
-
+    """ Adds this book and email to Firestore database. """
     id = f'{book.author} "{book.title}"'
     book_ref = db.collection('books').document(id)
     if not book_ref.get().exists:
@@ -24,24 +23,19 @@ def add_to_registered(book: Book, email: str):
                 "url": f"{book.url}",
                 "emails": [f'{email}']
                 }
-        db.collection('books').document(f'{book.author}-"{book.title}"').set(data)
+        db.collection('books').document(f'{book.author} "{book.title}"').set(data)
     book_ref.update({'emails': firestr.ArrayUnion([email])})
 
 
 def remove_email(title: str, author: str, email: str):
-    """Function remove book from notification list. """
+    """ Function remove book from notification list. """
     book_ref = db.collection('books').document(f'{author} "{title}"')
     book_ref.update({'emails': firestr.ArrayRemove([email])})
 
 
-def delete_book(title: str, author: str):
-    """Delete book from database."""
-    pass
-
-
 def get_registered_books(email: str) -> list:
-    """
-   Gets list of books registered for this email.
-        """
-    pass
+    """ Gets list of books registered for this email. """
+    books = db.collection('books').where('emails', 'array_contains', email).get()
+    result = [book.to_dict() for book in books]
+    return result
 

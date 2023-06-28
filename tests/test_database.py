@@ -11,4 +11,7 @@ def test_add_to_registered():
 def test_remove_email():
     database.remove_email(title="Daisy Jones & The Six", author='Reid, Taylor Jenkins',
                           email='olkiewicz.alex1234@gmail.com')
-    pass
+
+
+def test_get_registered_books():
+    result = database.get_registered_books(email='olkiewicz.alex1234@gmail.com')

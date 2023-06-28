@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
 
-  {% if demanded_books %}
+  {% if books_dict %}
   <h1>
     Twoja lista poszukiwanych książek:
   </h1>
   <ol>
-    {% for book in demanded_books %}
+    {% for book_dict in books_dict %}
 
-    <li>"{{book[0]}}", {{book[1]}}</li>
+    <li>"{{book_dict['title']}}", {{book_dict['author']}}</li>
 
     {% endfor %}
   </ol>

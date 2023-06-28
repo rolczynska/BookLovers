@@ -6,9 +6,9 @@ from booklovers import connect, parser, forms, database, mail, notifications
 app = Flask(__name__)
 app.secret_key = "69430"  # a random number
 
-# This is a loop for searching demanded books.
-demanded_books_loop = threading.Thread(target=notifications.run, daemon=True)
-demanded_books_loop.start()
+# This is a loop for notification books.
+notifications_loop = threading.Thread(target=notifications.run, daemon=True)
+notifications_loop.start()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -36,7 +36,8 @@ def availability(book_index):
     book_params = session["books"][book_index]
     book = parser.Book(**book_params)
     book_status = parser.check_for_book_status(book.url)
-    # If a form is validated, we add a book to database and render a page.
+
+    # If a form is validated, we add a book with email to database and render a page.
     if email_form.validate_on_submit():
         email = email_form.email.data
         database.add_to_registered(book, email)
@@ -52,12 +53,12 @@ def check_notification():
     email_form = forms.EmailForm(csrf_enabled=False)
     if email_form.validate_on_submit():
         email = email_form.email.data
-        demanded_books = database.get_registered_books(email)
-
-        return render_template("notification_books.html", demanded_books=demanded_books)
+        books_dict = database.get_registered_books(email)
+        return render_template("notification_books.html", books_dict=books_dict)
     return render_template("check_notification.html", email_form=email_form)
 
 
+# Czy to będzie działało na GCP ? --> link w template
 @app.route("/cancel_notify/<title>/<author>/<email>")
 def cancel_notify(title, author, email):
     # Cancels user book notifications.
