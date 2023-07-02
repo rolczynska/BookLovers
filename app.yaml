@@ -1,7 +1,7 @@
 # Find more information about the configuration file here:
 # https://cloud.google.com/appengine/docs/flexible/reference/app-yaml?tab=python
 
-runtime: python37
+runtime: python39
 entrypoint: gunicorn -b :$PORT app:app
 
 resources:
