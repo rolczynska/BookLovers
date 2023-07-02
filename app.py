@@ -58,7 +58,6 @@ def check_notification():
     return render_template("check_notification.html", email_form=email_form)
 
 
-# Czy to będzie działało na GCP ? --> link w template
 @app.route("/cancel_notify/<title>/<author>/<email>")
 def cancel_notify(title, author, email):
     # Cancels user book notifications.
