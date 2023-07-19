@@ -8,11 +8,16 @@ app.secret_key = "69430"  # a random number
 
 # This is a loop for notification books.
 notifications_loop = threading.Thread(target=notifications.run, daemon=True)
-notifications_loop.start()
+# notifications_loop.start()
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
     # Search for books.
     book_form = forms.BookForm(csrf_enabled=False)
 
@@ -26,7 +31,7 @@ def index():
         session["books"] = books
 
         return render_template("display_books.html", books=books)
-    return render_template("index.html", book_form=book_form)
+    return render_template("search.html", book_form=book_form)
 
 
 @app.route("/availability/<int:book_index>", methods=["GET", "POST"])
@@ -66,4 +71,4 @@ def cancel_notify(title, author, email):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5500)

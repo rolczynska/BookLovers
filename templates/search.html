@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+
+       <!-- Signup-->
+        <section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <h2 class="text-white mb-5">Wyszukaj książkę!</h2>
+                        <form action = "" method="post" class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
+                            {{ book_form.hidden_tag() }}
+                            <!-- Email address input-->
+                            <div class="row input-group-newsletter">
+                                <p> {{ book_form.title(class_="form-control", placeholder='Wpisz tytuł książki') }} </p>
+                                <p> {{ book_form.submit(class_="btn btn-primary") }}</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock body %}
+
+
+
