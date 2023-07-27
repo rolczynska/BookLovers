@@ -16,7 +16,7 @@ def send_register_confirmation(title: str, author: str, email: str):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_content.html', 'r') as file:
         content = file.read()
-        contents = [yagmail.inline(STATIC / 'logo_mail.png'), content.format(title=title,
+        contents = [yagmail.inline(STATIC / '/assets/logo_mail.png'), content.format(title=title,
                                                                              author=author,
                                                                              email=email)]
         yag.send(to=mail_to, subject=subject, contents=contents)
@@ -31,7 +31,7 @@ def send_mail(title: str, author: str, emails: list):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_book_available.html', 'r') as file:
         content = file.read()
-    logo = yagmail.inline(STATIC / 'logo_mail.png')
+    logo = yagmail.inline(STATIC / '/assets/logo_mail.png')
     contents = [logo, content.format(title=title, author=author)]
     for email in emails:
         yag.send(to=email, subject=subject, contents=contents)
