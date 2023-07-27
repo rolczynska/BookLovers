@@ -43,8 +43,6 @@ This handy feature ensures that book lovers never miss out on the opportunity to
 ## Setup
 All requirements are in the requirements.txt
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
 
 ## Usage
 User visit a website, enter a title of searching book and confirm author and title. If book is not available, he can subscribe by enter an email. 
