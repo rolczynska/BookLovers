@@ -1,20 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
-<h1>
-  Dostępne książki w bibliotece:
-</h1>
-
-<form>
-
-  <ol>
-    {% for book in books %}
-
-    <li><a href="{{ url_for('availability', book_index=books.index(book)) }}">{{ book.title }}, {{ book.author }}</a></li>
-
-
-    {% endfor %}
-  </ol>
-
-</form>
-
+<section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <br>
+                        <h2 class="text-white mb-5">Lista książek w bibliotece:</h2>
+                          <ul>
+                          {% for book in books %}
+                            <li><a class="text-white mb-5" href="{{ url_for('availability', book_index=books.index(book)) }}">{{ book.title }}, {{ book.author }}</a></li>
+                          {% endfor %}
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock body %}

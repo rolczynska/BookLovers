@@ -1,24 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
+       <!-- Signup-->
+        <section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <br>
+                      {% if books_dict %}
+                        <h2 class="text-white mb-5">Twoja lista zapisanych książek:</h2>
+                      <ul>
+                        {% for book_dict in books_dict %}
+                          <li class="text-white mb-5">"{{book_dict['title']}}", {{book_dict['author']}}</li>
+                        {% endfor %}
+                      </ul>
+                      {% else %}
+                        <h1 class="text-white mb-5">Niestety nie jesteś zapisany do żadnej książki.<br>
+                        Wyszukaj książkę dla siebie</h1>
+                        <a class="btn btn-primary" href="{{ url_for('search') }}">Wyszukaj</a>
 
-  {% if books_dict %}
-  <h1>
-    Twoja lista poszukiwanych książek:
-  </h1>
-  <ol>
-    {% for book_dict in books_dict %}
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <li>"{{book_dict['title']}}", {{book_dict['author']}}</li>
 
-    {% endfor %}
-  </ol>
-
-  {% else %}
-     <h1>
-    Niestety nie jesteś zapisany do żadnej książki.<br>
-      Wróć na stronę główną i poszukaj książki dla siebie!
-  </h1>
-
-{% endif %}
 
 {% endblock body %}

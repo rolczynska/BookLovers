@@ -1,32 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
-
-{% if "Na półce" in book_status %}
-  <h2>
-    Hura!
-      Książka <i> "{{book.title}}" </i> autora <i>{{book.author}}</i>  jest dostępna w bibliotece na Alejach Marcinkowskiego w Poznaniu.
-    Zapraszamy do wypożyczalni!
-  </h2>
-{% elif book_status == [] %}
-<h2>
-  Niestety wygląda na to, że biblioteka na Alejach Marcinkowskiego nie posiada książki <i>{{book.title}}</i> autorstwa <i>{{book.author}}</i> .
-  Może znajdziesz ją w innym linku.
-</h2>
-{% else %}
-
-<h2>
-    Niestety książka "{{book.title}}" nie jest obecnie dostępna. Powinna zostać zwrócona <i>{{book_status[0]}}</i>. Wpisz swój e-mail - wyślemy Ci powiadomienie, gdy książka będzie dostępna.
-</h2>
-
-<form method="post">
-    {{email_form.hidden_tag()}}
-    <p>
-        {{ email_form.email(placeholder="Wpisz email") }}
-        {{ email_form.submit() }}
-    </p>
-</form>
-
-{% endif %}
-
+ <section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <br>
+                        {% if "Na półce" in book_status %}
+                            <h2 class="text-white mb-5"> Hura! Książka <i> "{{book.title}}" </i> autora <i>{{book.author}}</i>  jest dostępna w bibliotece na Alejach Marcinkowskiego w Poznaniu. Zapraszamy do wypożyczalni!</h2>
+                        {% elif book_status == [] %}
+                            <h2 class="text-white mb-5">Niestety wygląda na to, że biblioteka na Alejach Marcinkowskiego nie posiada książki <i>{{book.title}}</i> autorstwa <i>{{book.author}}</i> . Może znajdziesz ją w innym linku.</h2>
+                        {% else %}
+                            <h2 class="text-white mb-5">Niestety książka "{{book.title}}" nie jest obecnie dostępna. Powinna zostać zwrócona <i>{{book_status[0]}}</i>. Wpisz swój e-mail - wyślemy Ci powiadomienie, gdy książka będzie dostępna.</h2>
+                        <form method="post">
+                            {{email_form.hidden_tag()}}
+                            <p>
+                                {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }}
+                                <br>
+                                {{ email_form.submit(class_="btn btn-primary") }}
+                            </p>
+                        </form>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
 
 {% endblock body %}
