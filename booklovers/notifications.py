@@ -12,7 +12,7 @@ def run():
             book = doc.to_dict()
             url = book['url']
             availability = parser.check_for_book_status(url)
-            if availability == 'Na półce':
+            if availability[0] == 'Na półce':
                 # Sends notification mail for all followers and delete book from database.
                 mail.send_mail(title=book['title'], author=book['author'], emails=book['emails'])
                 book_id = f'{book["author"]} "{book["title"]}"'
