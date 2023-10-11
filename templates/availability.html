@@ -1,16 +1,33 @@
 {% extends "layout.html" %}
 {% block body %}
- <section class="signup-section" id="signup">
+<section class="signup-section" id="signup">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
+                         <h2 class="text-white mb-5">Dostępność książki "{{book_title}}" {{book_author}} w bibliotekach w Poznaniu:</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Adres</th>
+                                    <th>Status</th>
+                                    <th>Data zwrotu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for library, info in book_availability.items() %}
+                                <tr>
+                                    <td>{{ library }}</td>
+                                    <td>{{ info[0] }}</td>
+                                    <td>{{ info[1] }}</td>
+
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+
+                        </table>
                         <br>
-                        {% if "Na półce" in book_status %}
-                            <h2 class="text-white mb-5"> Hura! Książka <i> "{{book.title}}" </i> autora <i>{{book.author}}</i>  jest dostępna w bibliotece na Alejach Marcinkowskiego w Poznaniu. Zapraszamy do wypożyczalni!</h2>
-                        {% elif book_status == [] %}
-                            <h2 class="text-white mb-5">Niestety wygląda na to, że biblioteka na Alejach Marcinkowskiego nie posiada książki <i>{{book.title}}</i> autorstwa <i>{{book.author}}</i> . Może znajdziesz ją w innym linku.</h2>
-                        {% else %}
-                            <h2 class="text-white mb-5">Niestety książka "{{book.title}}" nie jest obecnie dostępna. Powinna zostać zwrócona <i>{{book_status[0]}}</i>. Wpisz swój e-mail - wyślemy Ci powiadomienie, gdy książka będzie dostępna.</h2>
+                        <h2 class="text-white mb-5">Jeśli aktualnie nie ma książki w bibliotece obok Ciebie możesz zapisać się do powiadomień</h2>
+
                         <form method="post">
                             {{email_form.hidden_tag()}}
                             <p>
@@ -19,7 +36,6 @@
                                 {{ email_form.submit(class_="btn btn-primary") }}
                             </p>
                         </form>
-                      {% endif %}
                     </div>
                 </div>
             </div>

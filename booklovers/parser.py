@@ -6,6 +6,13 @@ from unidecode import unidecode
 from booklovers import connect
 
 
+@dataclass()
+class Book:
+    title: str
+    author: str
+    url: str
+
+
 def find_books(page: BeautifulSoup) -> List[List]:
     """Gets a list with inner lists including title and author from parsed page"""
     [table] = page.find_all(cellspacing="1", cellpadding="3")
@@ -21,17 +28,16 @@ def find_books(page: BeautifulSoup) -> List[List]:
     return books
 
 
-def get_urls(page: BeautifulSoup):
+def get_urls(title, author):
+    page = connect.get_book_listing(title)
     [table] = page.find_all(cellspacing="1", cellpadding="3")
     trs = table.find_all(height="15")
-    url_dict = {}
+    urls = []
     for tr in trs:
-        title, author, url = get_book_info_from_segment(tr)
-        if f"{title}, {author}" in url_dict:
-            url_dict[f"{title}, {author}"].append(url)
-        else:
-            url_dict[f"{title}, {author}"] = [url]
-    return url_dict
+        search_title, search_author, url = get_book_info_from_segment(tr)
+        if title == search_title and author == search_author:
+            urls.append(url)
+    return urls
 
 
 def get_book_info_from_segment(segment) -> str:
@@ -64,9 +70,9 @@ def get_libraries_availability(urls: List[str]) -> Dict:
             status = all_columns[5].string
             if status == "Wypożyczony":
                 return_date = all_columns[6].text
+                result[address] = [status, return_date]
             else:
-                return_date = None
-            result[address] = [status, return_date]
+                result[address] = [status]
     return result
 
 
