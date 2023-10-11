@@ -11,7 +11,7 @@ def run():
         for doc in docs:
             book = doc.to_dict()
             url = book['url']
-            availability = parser.check_for_book_status(url)
+            availability = parser.get_libraries_availability(url)
             if availability[0] == 'Na półce':
                 # Sends notification mail for all followers and delete book from database.
                 mail.send_mail(title=book['title'], author=book['author'], emails=book['emails'])

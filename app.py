@@ -28,19 +28,24 @@ def search():
         # We get books from search module and save them in session.
         page = connect.get_book_listing(title)
         books = parser.find_books(page)
-        session["books"] = books
+        books_urls = parser.get_urls(page)
+        # session["title"] = title
+        session["books_urls"] = books_urls
 
         return render_template("display_books.html", books=books)
     return render_template("search.html", book_form=book_form)
 
 
-@app.route("/availability/<int:book_index>", methods=["GET", "POST"])
-def availability(book_index):
+@app.route("/availability/<string:book_title><string:book_author>", methods=["GET", "POST"])
+def availability(book_title, book_author):
     # Checks the availability of a book.
     email_form = forms.EmailForm(csrf_enabled=False)
-    book_params = session["books"][book_index]
-    book = parser.Book(**book_params)
-    book_status = parser.check_for_book_status(book.url)
+
+    books_urls = session['books_urls']
+    urls = books_urls[f"{book_title}, {book_author}"]
+    # book_params = session["books"][book_index]
+    # book = parser.Book(**book_params)
+    books_status = parser.get_libraries_availability(urls)
 
     # If a form is validated, we add a book with email to database and render a page.
     if email_form.validate_on_submit():
@@ -48,7 +53,7 @@ def availability(book_index):
         database.add_to_registered(book, email)
         mail.send_register_confirmation(book.title, book.author, email)
         return render_template("email_registered.html")
-    return render_template("availability.html", book_status=book_status, book=book,
+    return render_template("availability.html", books_status=books_status,
                            email_form=email_form)
 
 
