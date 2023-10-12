@@ -1,4 +1,4 @@
-from booklovers.parser import Book
+from booklovers.forms import Search
 from booklovers.mail import STATIC
 
 import firebase_admin
@@ -13,18 +13,22 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-def add_to_registered(book: Book, email: str):
+def add_to_registered(search: Search):
     """ Adds this book and email to Firestore database. """
-    id = f'{book.author} "{book.title}"'
-    book_ref = db.collection('books').document(id)
-    if not book_ref.get().exists:
-        data = {"title": f"{book.title}",
-                "author": f"{book.author}",
-                "url": f"{book.url}",
-                "emails": [f'{email}']
-                }
-        db.collection('books').document(f'{book.author} "{book.title}"').set(data)
-    book_ref.update({'emails': firestr.ArrayUnion([email])})
+    book_id = f'{search.author} "{search.title}"'
+    data = search.libraries
+    db.collection('books').document(book_id).set(data)
+
+
+def make_libraries_collection(search, book_ref):
+    for library in search.libraries:
+        library_id = f"{library}"
+        library_ref = book_ref.collection('libraries').document(library_id)
+        book = book_ref.get()
+        if book_ref.exsists:
+            library_ref.update({'emails': firestr.ArrayUnion([search.email])})
+        library_ref.set({'emails': [f"{search.email}"]})
+
 
 
 def remove_email(title: str, author: str, email: str):
@@ -38,4 +42,10 @@ def get_registered_books(email: str) -> list:
     books = db.collection('books').where('emails', 'array_contains', email).get()
     result = [book.to_dict() for book in books]
     return result
+
+
+add_to_registered(search=Search(title="Dziewczynka z zapałkami", author="ola O.",
+                                libraries={"marcinkowskiego": ["olkiewiczka@ail.pl",
+                                                               "blablabla@kiiis.pl"],
+                                           "jackowskiego": ["buziaczke@mail.pl"]}))
 

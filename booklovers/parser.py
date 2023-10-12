@@ -76,6 +76,14 @@ def get_libraries_availability(urls: List[str]) -> Dict:
     return result
 
 
+def get_libraries_for_sign_up(libraries_availability) -> Dict:
+    new_dict = {}
+    for library, info in libraries_availability.items():
+        if info[0] == "Wypożyczony":
+            new_dict[library] = info
+    return new_dict
+
+
 def clean_author_name(name: str) -> str:
     return re.sub(r'\([^)]*\)', '', unidecode(name)).strip(" .")
 

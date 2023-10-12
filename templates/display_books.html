@@ -8,7 +8,7 @@
                         <h2 class="text-white mb-5">Lista książek w bibliotece:</h2>
                           <ul>
                           {% for book in books %}
-                            <li><a class="text-white mb-5" href="{{ url_for('availability', book_title=book[0], book_author=book[1]) }}">{{ book[0] }}, {{ book[1] }}</a></li>
+                            <li><a class="text-white mb-5" href="{{ url_for('availability', title=book[0], author=book[1]) }}">{{ book[0] }}, {{ book[1] }}</a></li>
                           {% endfor %}
                           </ul>
                     </div>

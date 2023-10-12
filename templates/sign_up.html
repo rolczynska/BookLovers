@@ -4,20 +4,20 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
-                         <h2 class="text-white mb-5">Dostępność książki "{{title}}" {{author}} w bibliotekach w Poznaniu:</h2>
-                        <a class="btn btn-primary" href=" {{url_for('sign_up', title=title, author=author) }} " >Zapisz się do powiadomień!</a>
-                        <br>
+                         <h2 class="text-white mb-5">Wybierz biblioteki, do których chcesz się zapisać na subskrypcje książki "{{ book_title }}" {{ book_author }}:</h2>
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Adres</th>
                                     <th>Status</th>
                                     <th>Data zwrotu</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for library, info in book_availability.items() %}
+                                {% for library, info in libraries_for_sign_up.items() %}
                                 <tr>
+                                    <td>{{ sign_up_form.checkbox(label=library, id=library) }}</td>
                                     <td>{{ library }}</td>
                                     <td>{{ info[0] }}</td>
                                     <td>{{ info[1] }}</td>
@@ -27,6 +27,16 @@
                             </tbody>
 
                         </table>
+                        <br>
+                        <h2 class="text-white mb-5">Wpisz swój e-mail:</h2>
+                        <form method="post">
+                            {{email_form.hidden_tag()}}
+                            <p>
+                                {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }}
+                                <br>
+                                {{ email_form.submit(class_="btn btn-primary") }}
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
