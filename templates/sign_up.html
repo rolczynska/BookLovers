@@ -15,21 +15,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for library, info in libraries_for_sign_up.items() %}
+                            <form method="post">
+                                {% for library, info in book_availability.items() %}
+                                    {% if info[0] == 'Wypożyczony' %}
                                 <tr>
-                                    <td>{{ sign_up_form.checkbox(label=library, id=library) }}</td>
+                                    <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
                                     <td>{{ library }}</td>
                                     <td>{{ info[0] }}</td>
                                     <td>{{ info[1] }}</td>
 
+                                    {% endif %}
                                 {% endfor %}
                                 </tr>
-                            </tbody>
+
 
                         </table>
                         <br>
                         <h2 class="text-white mb-5">Wpisz swój e-mail:</h2>
-                        <form method="post">
+
                             {{email_form.hidden_tag()}}
                             <p>
                                 {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }}
@@ -37,6 +40,7 @@
                                 {{ email_form.submit(class_="btn btn-primary") }}
                             </p>
                         </form>
+                        </tbody>
                     </div>
                 </div>
             </div>

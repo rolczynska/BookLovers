@@ -9,7 +9,7 @@ def run():
     while True:
         docs = database.db.collection('books').get()
         for doc in docs:
-            book = doc.to_dict()
+            book = doc.libraries_and_mails_to_dict()
             url = book['url']
             availability = parser.get_libraries_availability(url)
             if availability[0] == 'Na półce':

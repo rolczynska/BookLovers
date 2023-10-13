@@ -8,7 +8,7 @@ STATIC = HOME / '..' / 'static'
 ASSETS = HOME / '..' / 'static' / 'assets'
 
 
-def send_register_confirmation(title: str, author: str, email: str):
+def send_register_confirmation(title: str, author: str, chosen_libraries: list, email: str):
     """ Sends a registration confirmation email."""
     mail_from = 'olkiewicz.alex1234@gmail.com'
     mail_to = email
@@ -17,9 +17,9 @@ def send_register_confirmation(title: str, author: str, email: str):
     yag = yagmail.SMTP(user=mail_from, password=sender_password)
     with open(TEMPLATES / 'mail_content.html', 'r') as file:
         content = file.read()
-        contents = [yagmail.inline(ASSETS / 'logo_mail.png'), content.format(title=title,
-                                                                             author=author,
-                                                                             email=email)]
+        contents = [yagmail.inline(ASSETS / 'logo_mail.png'),
+                    content.format(title=title, author=author, chosen_libraries=chosen_libraries,
+                                   email=email)]
         yag.send(to=mail_to, subject=subject, contents=contents)
     print(f'Mail sent to {email} at {datetime.now() :%d-%m-%Y %H:%M}.')
 

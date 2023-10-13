@@ -1,13 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField, BooleanField, RadioField
 from wtforms.validators import DataRequired, Email
 from dataclasses import dataclass
+
 
 @dataclass
 class Search:
     title: str
     author: str
-    libraries: dict
+    libraries: list
+    email: str
+
+    def libraries_and_mails_to_dict(self):
+        dict_libraries = {library: [self.email] for library in self.libraries}
+        return dict_libraries
 
 
 class BookForm(FlaskForm):
@@ -23,4 +29,4 @@ class EmailForm(FlaskForm):
 
 class SignUpForm(FlaskForm):
     submit = SubmitField("Zapisz się do powiadomień!")
-    checkbox = BooleanField(label="check")
+    checkbox = BooleanField(label="library")

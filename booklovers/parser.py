@@ -1,16 +1,8 @@
 import re
-from dataclasses import dataclass
 from typing import List, Dict
 from bs4 import BeautifulSoup
 from unidecode import unidecode
-from booklovers import connect
-
-
-@dataclass()
-class Book:
-    title: str
-    author: str
-    url: str
+from booklovers import connect, forms
 
 
 def find_books(page: BeautifulSoup) -> List[List]:
@@ -82,6 +74,11 @@ def get_libraries_for_sign_up(libraries_availability) -> Dict:
         if info[0] == "Wypożyczony":
             new_dict[library] = info
     return new_dict
+
+
+def get_search_obj(title, author, chosen_libraries, email):
+    libraries_with_emails = {library: [email] for library in chosen_libraries}
+    return forms.Search(title, author, libraries_with_emails)
 
 
 def clean_author_name(name: str) -> str:

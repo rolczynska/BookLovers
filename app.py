@@ -50,17 +50,14 @@ def sign_up(title, author):
     sign_up_form = forms.SignUpForm(csrf_enabled=False)
     email_form = forms.EmailForm(csrf_enabled=False)
     book_availability = session["book_availability"]
-    libraries_for_sign_up = parser.get_libraries_for_sign_up(book_availability)
     if email_form.validate_on_submit():
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
-
-        search = forms.Search(title, author, chosen_libraries, email)
-        database_data = change_to_database_object(search)
-        database.add_to_registered(search)
+        search_obj = forms.Search(title, author, chosen_libraries, email)
+        database.add_to_registered(search_obj)
         mail.send_register_confirmation(title, author, chosen_libraries, email)
         return render_template("email_registered.html")
-    return render_template("sign_up.html", libraries_for_sign_up=libraries_for_sign_up,
+    return render_template("sign_up.html", book_availability=book_availability,
                            email_form=email_form, sign_up_form=sign_up_form, book_title=title,
                            book_author=author)
 
