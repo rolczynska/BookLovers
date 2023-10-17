@@ -6,11 +6,11 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
-                      {% if books_dict %}
+                      {% if searches %}
                         <h2 class="text-white mb-5">Twoja lista zapisanych książek:</h2>
                       <ul>
-                        {% for book_dict in books_dict %}
-                          <li class="text-white mb-5">"{{book_dict['title']}}", {{book_dict['author']}}</li>
+                        {% for search in searches %}
+                          <li class="text-white mb-5">"{{search.title}}", {{search.author}}, {{search.library}}</li>
                         {% endfor %}
                       </ul>
                       {% else %}

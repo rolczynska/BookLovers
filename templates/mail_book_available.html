@@ -10,7 +10,16 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
-                        <h2 class="text-white mb-5">Hura! Książka <i> "{title}"  {author} </i> jest dostępna w bibliotece! Pośpiesz się i wypożycz ją, zanim ktoś Cię wyprzedzi!</h2>
+                        <h2 class="text-white mb-5">Hura! Część Twoich książek jest dostępnych! </h2>
+
+                        <ul>
+                            {% for book, libraries in sorted_books.items() %}
+                                <li>{{book}}, {{libraries}} </li>
+
+                            {% endfor %}
+                        </ul>
+
+                        <h3 class="text-white mb-5">PS. Żebyś nie dostawał ciągle maili zostałeś automatycznie usunięty z subskrypcji powyższych książek</h3>
                     </div>
                 </div>
             </div>

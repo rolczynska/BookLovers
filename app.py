@@ -1,5 +1,7 @@
 import threading
 from flask import Flask, render_template, session, request
+
+import booklovers.connect
 from booklovers import connect, parser, forms, database, mail, notifications
 
 # We create a Flask app.
@@ -7,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "69430"  # a random number
 
 # This is a loop for notification books.
-notifications_loop = threading.Thread(target=notifications.run, daemon=True)
+notifications_loop = threading.Thread(target=notifications.main, daemon=True)
 # notifications_loop.start()
 
 
@@ -18,16 +20,14 @@ def index():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    # Search for books by title.
+    # Search for books by a title.
     book_form = forms.BookForm(csrf_enabled=False)
 
     # If a form is validated, we search for books.
     if book_form.validate_on_submit():
         title = book_form.title.data
 
-        # We render links - list of books which contain this title
-        # If the book is chosen we pass title and author to availability route
-        page = connect.get_book_listing(title)
+        page = connect.get_books_listing(title)
         books = parser.find_books(page)
 
         return render_template("display_books.html", books=books)
@@ -36,10 +36,8 @@ def search():
 
 @app.route("/availability/<string:title>?<string:author>", methods=["GET"])
 def availability(title, author):
-    # Checks and display the availability of a book in libraries in Poznań
-    book_urls = parser.get_urls(title, author)
-    book_availability = parser.get_libraries_availability(book_urls)
-    # create_a_sign_up_submit_button
+    # Checks and display current availability of a book in libraries in Poznań
+    book_availability = booklovers.connect.get_libraries_availability(title, author)
     session["book_availability"] = book_availability
     return render_template("availability.html", book_availability=book_availability,
                            title=title, author=author)
@@ -47,14 +45,16 @@ def availability(title, author):
 
 @app.route("/sign_up/<string:title>?<string:author>", methods=["GET", "POST"])
 def sign_up(title, author):
+    # Sign up for notification for selected libraries
     sign_up_form = forms.SignUpForm(csrf_enabled=False)
     email_form = forms.EmailForm(csrf_enabled=False)
     book_availability = session["book_availability"]
+    # If the form is validated we add the search to database
     if email_form.validate_on_submit():
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
-        search_obj = forms.Search(title, author, chosen_libraries, email)
-        database.add_to_registered(search_obj)
+        searches = forms.create_searches(title, author, chosen_libraries, email)
+        database.add_to_database(searches)
         mail.send_register_confirmation(title, author, chosen_libraries, email)
         return render_template("email_registered.html")
     return render_template("sign_up.html", book_availability=book_availability,
@@ -68,15 +68,15 @@ def check_notification():
     email_form = forms.EmailForm(csrf_enabled=False)
     if email_form.validate_on_submit():
         email = email_form.email.data
-        books_dict = database.get_registered_books(email)
-        return render_template("notification_books.html", books_dict=books_dict)
+        searches = database.get_searches(email)
+        return render_template("notification_books.html", searches=searches)
     return render_template("check_notification.html", email_form=email_form)
 
 
 @app.route("/cancel_notify/<title>/<author>/<email>")
 def cancel_notify(title, author, email):
     # Cancels user book notifications.
-    database.remove_email(title, author, email)
+    database.remove_search(title, author, email)
     return render_template("cancel_subscription.html", title=title)
 
 

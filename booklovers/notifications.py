@@ -1,5 +1,22 @@
 import time
-from booklovers import mail, parser, database
+from booklovers import database
+
+
+def main():
+    """Loop for searching books once per day"""
+    while True:
+        users = database.get_users()
+        for user in users:
+            mail = database.get_mail_obj(user)
+            sent_books = mail.send()
+            for key, item in sent_books.items():
+                author, title = key.split(" ")
+                database.remove_search(author=author, title=title, email=user)
+
+        print("Already searched for all books. Go to sleep.")
+        time.sleep(60 * 60 * 12)
+
+
 
 
 # def run():

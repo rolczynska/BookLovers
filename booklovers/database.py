@@ -1,6 +1,9 @@
-from booklovers.forms import Search
-from booklovers.mail import STATIC
+from google.cloud.firestore_v1 import FieldFilter
 
+from booklovers.forms import Book, Mail, Search
+from booklovers.mail import STATIC
+from booklovers.parser import is_free
+from booklovers.connect import get_libraries_availability
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -13,32 +16,61 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-def add_to_registered(search: Search):
-    """ Adds this book and email to Firestore database. """
-    book_id = f'{search.author} "{search.title}"'
-    book_ref = db.collection('books').document(book_id)
-    if not book_ref.get().exists:
-        book_data = {"title": f"{search.title}",
-                     "author": f"{search.author}"}
-        book_ref.set(book_data)
-    for library in search.libraries:
-        lib_ref = book_ref.collection('libraries').document(f"{library}")
-        if lib_ref.get().exists:
-            lib_ref.update({'emails': firestr.ArrayUnion([search.email])})
-        else:
-            book_ref.collection('libraries').document(f"{library}").set({'emails': [search.email]})
+def get_users() -> list[str]:
+    """ Return all signed users emails """
+    users = set()
+    searches = get_searches()
+    for search in searches:
+        users.add(search.email)
+    return users
 
 
-def remove_email(title: str, author: str, email: str):
-    """ Function remove book from notification list. """
-    book_ref = db.collection('books').document(f'{author} "{title}"')
-    book_ref.update({'emails': firestr.ArrayRemove([email])})
+def get_mail_obj(user) -> Mail:
+    """ Return Mail obj contain email and list of Books available"""
+    books = []
+    searches = get_searches(user)
+    for search in searches:
+        availability = get_libraries_availability(search.title, search.author)
+        if is_free(search, availability):
+
+            book = Book(title=search.title, author=search.author, library=search.library)
+            books.append(book)
+
+    mail = Mail(user, books)
+    return mail
 
 
-def get_registered_books(email: str) -> list:
-    """ Gets list of books registered for this email. """
-    books = db.collection('books').where('emails', 'array_contains', email).get()
-    result = [book.libraries_and_mails_to_dict() for book in books]
-    return result
+def add_to_database(searches):
+    """ Add a search object to firebase"""
+    for search in searches:
+        db.collection('search').add(search.change_to_dict())
+
+
+def get_searches(email=None) -> list[Search]:
+    """ Returns all docs from firebase,
+    if email is provided returns all searches for this email."""
+    if email is None:
+        docs = db.collection('searches').stream()
+    else:
+        docs = db.collection('searches').where(filter=FieldFilter("email", "==", email)).stream()
+    searches = []
+    for doc in docs:
+
+        # change firebase obj to python dict
+        search = doc
+        searches.append(search)
+
+    return searches
+
+
+def remove_search(title: str, author: str, email: str):
+    """ Function remove search from database. """
+    docs = db.collection('search').where(filter=FieldFilter("title", "==", title)).stream()
+    for doc in docs:
+        search = doc.to_dict()
+        if search['email'] == email and search['author'] == author:
+            key = doc.id
+            db.collection('searches').document(key).delete()
+
 
 
