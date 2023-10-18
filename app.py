@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "69430"  # a random number
 
 # This is a loop for notification books.
-notifications_loop = threading.Thread(target=notifications.main, daemon=True)
+notifications_loop = threading.Thread(target=notifications.start_loop, daemon=True)
 # notifications_loop.start()
 
 
@@ -36,8 +36,9 @@ def search():
 
 @app.route("/availability/<string:title>?<string:author>", methods=["GET"])
 def availability(title, author):
-    # Checks and display current availability of a book in libraries in Poznań
+    # Checks and display current availability of a book in libraries
     book_availability = booklovers.connect.get_libraries_availability(title, author)
+    # comment
     session["book_availability"] = book_availability
     return render_template("availability.html", book_availability=book_availability,
                            title=title, author=author)
@@ -49,17 +50,29 @@ def sign_up(title, author):
     sign_up_form = forms.SignUpForm(csrf_enabled=False)
     email_form = forms.EmailForm(csrf_enabled=False)
     book_availability = session["book_availability"]
+
+    # filter only libraries where book in not available
+    sign_up_libraries = {library: info for library, info in book_availability.items() if info[0] == "Wypożyczony"}
+
     # If the form is validated we add the search to database
     if email_form.validate_on_submit():
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
+
+        # comment
         searches = forms.create_searches(title, author, chosen_libraries, email)
+
+        # comment
         database.add_to_database(searches)
+
+        # comment
+        # TODO Zrób ładnego maila - bez listy wklejonej
         mail.send_register_confirmation(title, author, chosen_libraries, email)
+
         return render_template("email_registered.html")
-    return render_template("sign_up.html", book_availability=book_availability,
-                           email_form=email_form, sign_up_form=sign_up_form, book_title=title,
-                           book_author=author)
+    return render_template("sign_up.html", sign_up_libraries=sign_up_libraries,
+                           email_form=email_form, sign_up_form=sign_up_form,
+                           book_title=title, book_author=author)
 
 
 @app.route("/check_notification", methods=["GET", "POST"])
@@ -75,9 +88,9 @@ def check_notification():
 
 @app.route("/cancel_notify/<title>/<author>/<email>")
 def cancel_notify(title, author, email):
-    # Cancels user book notifications.
+    # Cancels user book notifications in all libraries.
     database.remove_search(title, author, email)
-    return render_template("cancel_subscription.html", title=title)
+    return render_template("cancel_subscription.html", title=title, author=author)
 
 
 if __name__ == '__main__':
