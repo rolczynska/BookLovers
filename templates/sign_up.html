@@ -16,15 +16,13 @@
                             </thead>
                             <tbody>
                             <form method="post">
-                                {% for library, info in book_availability.items() %}
-                                    {% if info[0] == 'Wypożyczony' %}
+                                {% for library, info in sign_up_libraries.items() %}
                                 <tr>
                                     <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
                                     <td>{{ library }}</td>
                                     <td>{{ info[0] }}</td>
                                     <td>{{ info[1] }}</td>
 
-                                    {% endif %}
                                 {% endfor %}
                                 </tr>
 
