@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BookLovers</title>
-</head>
-<body>
-    <section class="signup-section">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <br>
-                        <h2 class="text-white mb-5">Zostałeś zarejestrowany do powiadomień. Wyślemy Ci powiadomienie kiedy książka <i>"{title}" </i> {author} pojawi się w jednej z poniższych bibliotek:</h2>
-                        <br>
-                        <h3 class="text-white mb-5">{chosen_libraries}</h3>
+    <head>
+        <meta charset="utf-8" />
+        <title>Book Lovers</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; background-color: #A9A9A9; color: #fff; margin: 0; padding: 0;">
+        <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #A9A9A9; color: #fff;">
+            <h1 style="text-align: center; color: #fff;">BookLovers</h1>
+            <h2 style="text-align: center; color: #fff;">Zostałeś zarejestrowany do powiadomień.</h2>
+            <p style="text-align: center; color: #fff;">Wyślemy Ci powiadomienie kiedy książka <i>{{title}}</i> {{author}} pojawi się w jednej z poniższych bibliotek:</p>
 
-                        <br>
-                        <h2 class="text-white mb-5">Jeśli chcesz się wypisać z powiadomień o tej książce kliknij w  <a href='https://book-lovers-382216.lm.r.appspot.com/cancel_notify/{title}/{author}/{email}'>TEN LINK.</a></h2>
-                    </div>
-                </div>
-            </div>
-    </section>
-</body>
+            <ul style="list-style-type: none; padding-left: 0; color: #fff;">
+                {% for library in chosen_libraries %}
+                    <li style="text-align: center; color: #fff;">{{ library }}</li>
+                {% endfor %}
+            </ul>
+
+            <p style="text-align: center; color: #fff;">Jeśli chcesz się wypisać z powiadomień o tej książce kliknij w <a href='https://book-lovers-382216.lm.r.appspot.com/cancel_notify/{{title}}/{{author}}/{{email}}' style="color: #36454F; text-decoration: underline;">TEN LINK.</a></p>
+
+            <footer style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #444; color: #fff;">
+                Copyright &copy; Book Lovers 2023
+            </footer>
+        </div>
+    </body>
 </html>

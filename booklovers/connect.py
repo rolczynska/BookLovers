@@ -39,6 +39,7 @@ def get_libraries_availability(title: str, author: str) -> Dict:
             status = all_columns[5].string
             return_date = all_columns[6].text
             result[address] = [status, return_date]
+    result = result
     return result
 
 

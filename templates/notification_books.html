@@ -10,11 +10,22 @@
                         <h2 class="text-white mb-5">Twoja lista zapisanych książek:</h2>
                       <ul>
                         {% for search in searches %}
-                          <li class="text-white mb-5">"{{search.title}}", {{search.author}}, {{search.library}}</li>
+                          <li class="text-white mb-5 bigger-font">"{{search.title}}", {{search.author}}</li>
+
+                            <table class="table">
+                                <tbody>
+                                     <tr>
+                                        {% for library in search.libraries %}
+                                            <td>{{ library }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         {% endfor %}
                       </ul>
                       {% else %}
-                        <h1 class="text-white mb-5">Niestety nie jesteś zapisany do żadnej książki.<br>
+                        <h1 class="text-white mb-5 ">Niestety nie jesteś zapisany do żadnej książki.<br>
                         Wyszukaj książkę dla siebie</h1>
                         <a class="btn btn-primary" href="{{ url_for('search') }}">Wyszukaj</a>
 

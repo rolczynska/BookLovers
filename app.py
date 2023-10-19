@@ -54,20 +54,19 @@ def sign_up(title, author):
     # filter only libraries where book in not available
     sign_up_libraries = {library: info for library, info in book_availability.items() if info[0] == "Wypożyczony"}
 
-    # If the form is validated we add the search to database
+    # If the form is validated we add the search_obj to database
     if email_form.validate_on_submit():
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
 
-        # comment
-        searches = forms.create_searches(title, author, chosen_libraries, email)
+        # Create search obj
+        search_obj = forms.Search(title, author, chosen_libraries, email)
 
-        # comment
-        database.add_to_database(searches)
+        # Add to database
+        database.add_to_database(search_obj)
 
-        # comment
-        # TODO Zrób ładnego maila - bez listy wklejonej
-        mail.send_register_confirmation(title, author, chosen_libraries, email)
+        # Send register confirmation
+        search_obj.send_register_confirmation()
 
         return render_template("email_registered.html")
     return render_template("sign_up.html", sign_up_libraries=sign_up_libraries,

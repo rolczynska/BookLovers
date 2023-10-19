@@ -12,11 +12,10 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-def add_to_database(searches):
+def add_to_database(search):
     """ Add a search object to firebase"""
-    for search in searches:
-        doc_id = create_unique_id(search.author, search.title, search.library, search.email)
-        db.collection('search').document(doc_id).set(search.change_to_dict())
+    doc_id = create_unique_id(search.author, search.title, search.email)
+    db.collection('search').document(doc_id).set(search.change_to_dict())
 
 
 def get_searches(email=None) -> list[Search]:

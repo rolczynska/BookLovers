@@ -1,5 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Book Lovers</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; background-color: #A9A9A9; color: #fff; margin: 0; padding: 0;">
+        <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #A9A9A9; color: #fff;">
+            <h1 style="text-align: center; color: #fff;">BookLovers</h1>
+            <h2 style="text-align: center; color: #fff;">Hura! Ptaszki wyśpiewały, że poniższe książki czekają na wypożyczenie! </h2>
+                <ul style="list-style-type: none; padding-left: 0; color: #fff;">
+                            {% for book, libraries in sorted_books.items() %}
+
+                    <li style="text-align: center; color: #fff;"><strong>{{book}}</strong>
+                                    <ol>
+                                        {% for library in libraries %}
+                                            <li style="text-align: center; color: #fff;">{{ library }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </li>
+
+                            {% endfor %}
+                        </ul>
+            <p style="text-align: center; color: #fff;">Po otrzymaniu tego maila zostałeś automatycznie usunięty z powiadomień.</p>
+            <p style="text-align: center; color: #fff;">Życzymy miłego czytania!</p>
+
+            <footer style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #444; color: #fff;">
+                Copyright &copy; Book Lovers 2023
+            </footer>
+        </div>
+    </body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>BookLovers</title>
@@ -9,17 +45,22 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <br>
-                        <h2 class="text-white mb-5">Hura! Część Twoich książek jest dostępnych! </h2>
-
+                        <h2 class="text-white mb-5">Hura! Ptaszki wyśpiewały, że poniższe książki czekają na wypożyczenie! </h2>
                         <ul>
                             {% for book, libraries in sorted_books.items() %}
-                                <li>{{book}}, {{libraries}} </li>
+
+                                <li>{{book}}
+                                    <ol>
+                                        {% for library in libraries %}
+                                            <li>{{ library }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </li>
 
                             {% endfor %}
                         </ul>
 
-                        <h3 class="text-white mb-5">PS. Żebyś nie dostawał ciągle maili zostałeś automatycznie usunięty z subskrypcji powyższych książek</h3>
+                        <h3 class="text-white mb-5">Mamy nadzieję, że uda Ci się wypożyczyć Twoją poszukiwaną książkę!</h3>
                     </div>
                 </div>
             </div>
