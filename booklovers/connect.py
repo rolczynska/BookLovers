@@ -26,7 +26,7 @@ def get_page(url: str, username='spoxb565l6', password='3IpIum3wei9eOaoBl0') -> 
 
 
 def get_libraries_availability(title: str, author: str) -> Dict:
-    """Returns a list with information about the book status in every library."""
+    """Returns a dictionary with information about the book status in every library."""
     result = {}
     urls = get_urls(title, author)
     for url in urls:

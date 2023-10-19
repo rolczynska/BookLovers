@@ -2,7 +2,7 @@ import threading
 from flask import Flask, render_template, session, request
 
 import booklovers.connect
-from booklovers import connect, parser, forms, database, mail, notifications
+from booklovers import connect, parser, forms, database, notifications
 
 # We create a Flask app.
 app = Flask(__name__)

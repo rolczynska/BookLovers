@@ -49,6 +49,7 @@ class Search:
                                             chosen_libraries=self.libraries,
                                             email=self.email)
         # Send mail with rendered content
+        # TODO pogrubienie tytułu i autora książki w mailu
         yag.send(to=self.email, subject=subject, contents=rendered_template)
 
     @staticmethod
@@ -65,7 +66,7 @@ class Search:
 class Book:
     title: str
     author: str
-    library: str
+    available_libraries: list
 
 
 @dataclass

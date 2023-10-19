@@ -36,15 +36,6 @@ def get_book_info_from_segment(segment) -> str:
     return title, author, url
 
 
-def is_free(availability: dict[str, list[str, str]], search) -> bool:
-    """ Check is the book from search available """
-    library = search.library
-    status, date = availability.get(library)
-    if status == 'Na półce':
-        return True
-    return False
-
-
 def clean_author_name(name: str) -> str:
     return re.sub(r'\([^)]*\)', '', unidecode(name)).strip(" .")
 

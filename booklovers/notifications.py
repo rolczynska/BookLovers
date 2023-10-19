@@ -2,43 +2,65 @@ import time
 from booklovers import database
 from booklovers.connect import get_libraries_availability
 from booklovers.database import get_searches
-from booklovers.parser import is_free
-from booklovers.forms import Mail, Book
+from booklovers.forms import Mail, Book, Search
 
 
 def start_loop():
     """Loop for searching books once per day"""
     while True:
-        users = get_users()
-        for user in users:
-            available_books = get_available_books(user)
-            if available_books:
-                mail = Mail(user, available_books)
-                mail.send()
-                remove_searches(user, available_books)
+        # get the list of Search objects from database
+        searches = get_searches()
 
-        print("Already searched for all books. Go to sleep.")
+        # get unique user emails
+        users = get_users(searches)
+
+        for user in users:
+            # get available books for each_user
+            user_available_books = get_availability(user)
+            # if there is any available books send email
+            if user_available_books:
+                mail = Mail(email=user, books=user_available_books)
+                mail.send()
+                remove_searches(mail=user, available_books=user_available_books)
         time.sleep(60 * 60 * 12)
 
 
-def get_users() -> list[str]:
+def get_users(searches: list[Search]) -> list[str]:
     """ Return all signed users emails """
     users = set()
-    searches = get_searches()
     for search in searches:
         users.add(search.email)
     return users
 
 
-def get_available_books(user: str) -> list[Book]:
+def get_availability(user: str) -> list[Book]:
+    """ Take user email and return all available books in those libraries which were signed for
+    that emails """
     books = []
+    # return book searches for this user
     searches = get_searches(user)
     for search in searches:
+        # return data for this book in all libraries
         availability = get_libraries_availability(search.title, search.author)
-        if is_free(search, availability):
-            book = Book(title=search.title, author=search.author, library=search.library)
+        # check if is book available in specific library if so return list with those
+        free_wanted_books = get_available_libraries(search, availability)
+        if free_wanted_books:
+            book = Book(title=search.title, author=search.author, available_libraries=search.libraries)
             books.append(book)
     return books
+
+
+def get_available_libraries(search, availability: dict[str, list[str, str]]) -> list[str]:
+    """ Check is the book from search available """
+    available_libraries = []
+    libraries = search.libraries
+    for library in libraries:
+        # TODO in libraries is czytelnia Marcinkowskiego gdzie są dodatkowe znaki w stringu przez co info jest None
+        info = availability.get(library)
+        status = info[0]
+        if status == 'Na półce':
+            available_libraries.append(library)
+    return available_libraries
 
 
 def remove_searches(mail, available_books):
@@ -50,22 +72,3 @@ def remove_searches(mail, available_books):
                 key = doc.id
                 database.db.collection('search').document(key).delete()
 
-
-
-# def run():
-#     """Main stages on demanded books loop. It starts every day."""
-#     print("Starting searching")
-#     # Checks availability of books registered in database.
-#     while True:
-#         docs = database.db.collection('books').get()
-#         for doc in docs:
-#             book = doc.libraries_and_mails_to_dict()
-#             url = book['url']
-#             availability = parser.get_libraries_availability(url)
-#             if availability[0] == 'Na półce':
-#                 # Sends notification mail for all followers and delete book from database.
-#                 mail.send_mail(title=book['title'], author=book['author'], emails=book['emails'])
-#                 book_id = f'{book["author"]} "{book["title"]}"'
-#                 database.db.collection('books').document(book_id).delete()
-#         print("Already searched for all books. Go to sleep.")
-#         time.sleep(60 * 60 * 12)
