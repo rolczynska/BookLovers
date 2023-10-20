@@ -1,16 +1,5 @@
 result = {'Wypożyczalnia Al. Marcinkowskiego 23': ['Wypożyczony', '31/12/2020'],
           'F16 Muszkowska 1A tel. 61 8488547': ['Na półce', ''],
-          'F17 28 Czerwca 1956 r. 213/215 tel. 61 8311976': ['Blokada', ''],
           'F06 Tomickiego 14 tel. 61 8771455': ['Na półce', '\xa0'],
           'F38 Świt 34/36 tel. 61 8676028': ['Wypożyczony', '31/12/2020'],
-          'F08 Osinowa 14/16 tel. 668 350 420': ['Na półce', '\xa0'],
-          'FN Naramowicka Rubież 14a/37 tel. 61 6711167': ['Na półce', '\xa0'],
-          'F50 os.Kosmonautów "Orbita" tel. 61 8205921': ['Na półce', '\xa0'],
-          'F51 os.Lecha 15 tel. 61 8777521': ['Na półce', '\xa0'],
-          'F55 os.Zwycięstwa 125 tel. 61 8230551': ['Na półce', '\xa0'],
-          'FW/53 ul. Hetmańska 91 tel. 61 8337140': ['Na półce', '\xa0'],
-          'F26 Błękitna 1/7 tel. 61 8224099': ['Wypożyczony', '31/12/2020'],
-          'F36 Gen.S.Maczka 14 tel. 61 8490021': ['Na półce', '\xa0'],
-          'F56 Galileusza 8 tel. 61 8623318': ['Na półce', '\xa0'],
-          'F02 os.Oświecenia 59 tel. 61 8767121': ['Na półce', ''],
-          'F04 Lodowa 4 tel. 61 8662452': ['Na półce', '']}
+          }

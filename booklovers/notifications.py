@@ -17,10 +17,11 @@ def start_loop():
         for user in users:
             # get available books for each_user
             user_available_books = get_availability(user)
-            # if there is any available books send email
+            # if there is any available books for this user send email
             if user_available_books:
                 mail = Mail(email=user, books=user_available_books)
                 mail.send()
+                # remove search for sent books for this user
                 remove_searches(mail=user, available_books=user_available_books)
         time.sleep(60 * 60 * 12)
 
@@ -30,7 +31,7 @@ def get_users(searches: list[Search]) -> list[str]:
     users = set()
     for search in searches:
         users.add(search.email)
-    return users
+    return list(users)
 
 
 def get_availability(user: str) -> list[Book]:
@@ -42,10 +43,11 @@ def get_availability(user: str) -> list[Book]:
     for search in searches:
         # return data for this book in all libraries
         availability = get_libraries_availability(search.title, search.author)
-        # check if is book available in specific library if so return list with those
-        free_wanted_books = get_available_libraries(search, availability)
-        if free_wanted_books:
-            book = Book(title=search.title, author=search.author, available_libraries=search.libraries)
+        # check if is book available in specific library
+        available_libraries = get_available_libraries(search, availability)
+        if available_libraries:
+            book = Book(title=search.title, author=search.author,
+                        available_libraries=available_libraries)
             books.append(book)
     return books
 
@@ -55,9 +57,7 @@ def get_available_libraries(search, availability: dict[str, list[str, str]]) -> 
     available_libraries = []
     libraries = search.libraries
     for library in libraries:
-        # TODO in libraries is czytelnia Marcinkowskiego gdzie są dodatkowe znaki w stringu przez co info jest None
-        info = availability.get(library)
-        status = info[0]
+        status, date = availability.get(library)
         if status == 'Na półce':
             available_libraries.append(library)
     return available_libraries

@@ -3,7 +3,7 @@ from typing import Dict
 import requests
 from bs4 import BeautifulSoup
 
-from booklovers.parser import get_book_info_from_segment
+from booklovers.parser import get_book_info_from_segment, clean_author_name
 
 
 def get_books_listing(title: str) -> BeautifulSoup:
@@ -36,10 +36,10 @@ def get_libraries_availability(title: str, author: str) -> Dict:
             all_columns = tr.find_all("td")
             first_column = all_columns[0]
             address = first_column.string
+            clean_address = clean_author_name(address)
             status = all_columns[5].string
             return_date = all_columns[6].text
-            result[address] = [status, return_date]
-    result = result
+            result[clean_address] = [status, return_date]
     return result
 
 

@@ -11,7 +11,7 @@
                       <ul>
                         {% for search in searches %}
                           <li class="text-white mb-5 bigger-font">"{{search.title}}", {{search.author}}</li>
-
+                          <div class="table-responsive">
                             <table class="table">
                                 <tbody>
                                      <tr>
@@ -21,7 +21,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+                          </div>
                         {% endfor %}
                       </ul>
                       {% else %}

@@ -16,8 +16,8 @@ MAIN = HOME / '..'
 
 config = ConfigParser()
 config.read(MAIN / 'config.ini')
-EMAIL_ADDRESS = config['EMAIL']['address']  # 'olkiewicz.alex1234@gmail.com'
-EMAIL_PASSWORD = config["EMAIL"]['password']  # epszxtotnzklwwhb
+EMAIL_ADDRESS = config['EMAIL']['address']
+EMAIL_PASSWORD = config["EMAIL"]['password']
 
 
 @dataclass
@@ -49,7 +49,6 @@ class Search:
                                             chosen_libraries=self.libraries,
                                             email=self.email)
         # Send mail with rendered content
-        # TODO pogrubienie tytułu i autora książki w mailu
         yag.send(to=self.email, subject=subject, contents=rendered_template)
 
     @staticmethod
@@ -68,6 +67,12 @@ class Book:
     author: str
     available_libraries: list
 
+    def to_dict(self):
+        data = {
+            f"{self.title} {self.author}": f"{self.available_libraries}"
+        }
+        return data
+
 
 @dataclass
 class Mail:
@@ -75,17 +80,15 @@ class Mail:
     books: list
     subject: str = "Dostępne książki"
 
-    def get_books_sorted(self) -> dict[str, list]:
-        """Return dictionary with author, title as a key and list of available libraries as value"""
-        sorted_books = defaultdict(list)
+    def get_books_list(self):
+        data = []
         for book in self.books:
-            key = f'{book.author} "{book.title}"'
-            sorted_books[key].append(book.library)
-        return sorted_books
+            book.to_dict()
+            data.append(book)
+        return data
 
     def send(self) -> dict[str, list]:
         """Send a notification a mail, return dictionary with info about sent books"""
-        sorted_books = self.get_books_sorted()
         yag = yagmail.SMTP(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD)
 
         # Setup Jinja2 environment and load email template
@@ -93,13 +96,9 @@ class Mail:
         template = env.get_template('mail_book_available.html')
 
         # Render the template with the data
-        rendered_template = template.render(sorted_books=sorted_books)
-        #
-        contents = rendered_template
+        contents = template.render(books=self.books)
 
         yag.send(to=self.email, subject=self.subject, contents=contents)
-
-        return sorted_books
 
 
 class BookForm(FlaskForm):

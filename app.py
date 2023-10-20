@@ -10,7 +10,7 @@ app.secret_key = "69430"  # a random number
 
 # This is a loop for notification books.
 notifications_loop = threading.Thread(target=notifications.start_loop, daemon=True)
-# notifications_loop.start()
+notifications_loop.start()
 
 
 @app.route("/")

@@ -9,11 +9,11 @@
             <h1 style="text-align: center; color: #fff;">BookLovers</h1>
             <h2 style="text-align: center; color: #fff;">Hura! Ptaszki wyśpiewały, że poniższe książki czekają na wypożyczenie! </h2>
                 <ul style="list-style-type: none; padding-left: 0; color: #fff;">
-                            {% for book, libraries in sorted_books.items() %}
+                            {% for book in books %}
 
-                    <li style="text-align: center; color: #fff;"><strong>{{book}}</strong>
+                    <li style="text-align: center; color: #fff;"><strong>{{book.title}} {{book.author}}</strong>
                                     <ol>
-                                        {% for library in libraries %}
+                                        {% for library in book.available_libraries %}
                                             <li style="text-align: center; color: #fff;">{{ library }}</li>
                                         {% endfor %}
                                     </ol>
@@ -34,36 +34,3 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BookLovers</title>
-</head>
-<body>
-    <section class="signup-section">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <h2 class="text-white mb-5">Hura! Ptaszki wyśpiewały, że poniższe książki czekają na wypożyczenie! </h2>
-                        <ul>
-                            {% for book, libraries in sorted_books.items() %}
-
-                                <li>{{book}}
-                                    <ol>
-                                        {% for library in libraries %}
-                                            <li>{{ library }}</li>
-                                        {% endfor %}
-                                    </ol>
-                                </li>
-
-                            {% endfor %}
-                        </ul>
-
-                        <h3 class="text-white mb-5">Mamy nadzieję, że uda Ci się wypożyczyć Twoją poszukiwaną książkę!</h3>
-                    </div>
-                </div>
-            </div>
-    </section>
-</body>
-</html>
