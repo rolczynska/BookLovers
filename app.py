@@ -38,7 +38,7 @@ def search():
 def availability(title, author):
     # Checks and display current availability of a book in libraries
     book_availability = booklovers.connect.get_libraries_availability(title, author)
-    # comment
+    # Store book_availability in session
     session["book_availability"] = book_availability
     return render_template("availability.html", book_availability=book_availability,
                            title=title, author=author)
@@ -51,7 +51,7 @@ def sign_up(title, author):
     email_form = forms.EmailForm(csrf_enabled=False)
     book_availability = session["book_availability"]
 
-    # filter only libraries where book in not available
+    # Filter only libraries where book in not available
     sign_up_libraries = {library: info for library, info in book_availability.items() if info[0] == "Wypożyczony"}
 
     # If the form is validated we add the search_obj to database
@@ -79,6 +79,7 @@ def check_notification():
     # Checks user book notifications.
     email_form = forms.EmailForm(csrf_enabled=False)
     if email_form.validate_on_submit():
+        # Get from database books signed for this email
         email = email_form.email.data
         searches = database.get_searches(email)
         return render_template("notification_books.html", searches=searches)

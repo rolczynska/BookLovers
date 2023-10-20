@@ -1,4 +1,3 @@
-from collections import defaultdict
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email
@@ -87,8 +86,8 @@ class Mail:
             data.append(book)
         return data
 
-    def send(self) -> dict[str, list]:
-        """Send a notification a mail, return dictionary with info about sent books"""
+    def send(self):
+        """Send a notification a mail."""
         yag = yagmail.SMTP(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD)
 
         # Setup Jinja2 environment and load email template

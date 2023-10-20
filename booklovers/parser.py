@@ -1,10 +1,9 @@
 import re
-from typing import List
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 
 
-def find_books(page: BeautifulSoup) -> List[List]:
+def find_books(page: BeautifulSoup) -> list[list]:
     """Gets a list with inner lists including title and author from parsed page"""
     [table] = page.find_all(cellspacing="1", cellpadding="3")
     trs = table.find_all(height="15")

@@ -2,8 +2,7 @@ from google.cloud.firestore_v1 import FieldFilter
 
 from booklovers.forms import Search, MAIN
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import credentials, firestore
 
 
 cred = credentials.Certificate(MAIN / "ServiceAccountKey.json")
@@ -19,8 +18,8 @@ def add_to_database(search):
 
 
 def get_searches(email=None) -> list[Search]:
-    """ Returns all docs from firebase,
-    if email is provided returns all searches for this email."""
+    """ Returns all searches from firebase,
+    if email is provided returns all searches with this email."""
     if email is None:
         docs = db.collection('search').stream()
     else:
@@ -30,6 +29,8 @@ def get_searches(email=None) -> list[Search]:
 
         # change firebase obj to python dict
         search = doc.to_dict()
+
+        # change from dict to Search obj
         search_obj = Search.from_dict(search)
         searches.append(search_obj)
 
@@ -37,7 +38,7 @@ def get_searches(email=None) -> list[Search]:
 
 
 def remove_search(title: str, author: str, email: str):
-    """ Function remove search from database. """
+    """ Function to remove search from database. """
     docs = db.collection('search').where(filter=FieldFilter("title", "==", title)).stream()
     for doc in docs:
         search = doc.to_dict()
@@ -45,7 +46,8 @@ def remove_search(title: str, author: str, email: str):
             db.collection('search').document(doc.id).delete()
 
 
-def create_unique_id(*strings):
+def create_unique_id(*strings: str) -> str:
+    """ Function create unique id for each unique search. """
     id = ""
     for string in strings:
         id += (string[:2] + str(len(string)) + string[-2:])

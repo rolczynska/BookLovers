@@ -52,7 +52,7 @@ def get_availability(user: str) -> list[Book]:
     return books
 
 
-def get_available_libraries(search, availability: dict[str, list[str, str]]) -> list[str]:
+def get_available_libraries(search: Search, availability: dict[str, list[str, str]]) -> list[str]:
     """ Check is the book from search available """
     available_libraries = []
     libraries = search.libraries
@@ -63,7 +63,8 @@ def get_available_libraries(search, availability: dict[str, list[str, str]]) -> 
     return available_libraries
 
 
-def remove_searches(mail, available_books):
+def remove_searches(mail: str, available_books: list[Book]):
+    """Function remove searches after sending notification"""
     for book in available_books:
         docs = database.db.collection('search').where(filter=database.FieldFilter("title", "==", book.title)).stream()
         for doc in docs:
