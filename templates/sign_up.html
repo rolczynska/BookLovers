@@ -15,6 +15,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+                                                            <span>{{ message }}</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
                             <form method="post">
                                 {% for library, info in sign_up_libraries.items() %}
                                 <tr>
@@ -34,6 +44,7 @@
                             {{email_form.hidden_tag()}}
                             <p>
                                 {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }}
+
                                 <br>
                                 {{ email_form.submit(class_="btn btn-primary") }}
                             </p>

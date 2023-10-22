@@ -1,5 +1,5 @@
 import threading
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, flash, redirect
 
 import booklovers.connect
 from booklovers import connect, parser, forms, database, notifications
@@ -58,6 +58,9 @@ def sign_up(title, author):
     if email_form.validate_on_submit():
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
+        if not chosen_libraries:
+            flash("Wybierz co najmniej jedną bibliotekę żeby się zapisać!")
+            return redirect(request.url)
 
         # Create search obj
         search_obj = forms.Search(title, author, chosen_libraries, email)

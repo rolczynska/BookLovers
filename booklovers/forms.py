@@ -107,7 +107,7 @@ class BookForm(FlaskForm):
 
 class EmailForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(),
-                                             Email(message='Nieprawidłowy adres email')])
+                                             Email()])
     submit = SubmitField("Zatwierdź")
 
 
