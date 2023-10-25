@@ -1,56 +1,102 @@
-# BookLovers - library app
-> BookLovers bridges the gap between bibliophiles and their desired reads at the Biblioteka Raczyńskich in Poznań, ensuring they never miss out on a title they've been waiting for. 
+# 📚 BookLovers - Library App
+BookLovers bridges the gap between bibliophiles and their desired reads at the Biblioteka Raczyńskich in Poznań, ensuring they never miss out on a title they've been eagerly awaiting.
 
-## Table of Contents
-* [General Info](#general-information)
-* [Technologies Used](#technologies-used)
-* [Features](#features)
-* [Screenshots](#screenshots)
-* [Setup](#setup)
-* [Usage](#usage)
-* [Contact](#contact)
-<!-- * [License](#license) -->
+## 📌 Table of Contents
+- [General Information](#general-information)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Contact](#contact)
+<!-- - [License](#license) -->
+
+## 📔 General Information
+The Raczyński Library in Poznań is a haven for readers from various walks of life. While the library offers a digital platform for checking book availability, it did not have a notification system for desired titles. This is where BookLovers steps in. Users can earmark titles of interest, and our app keeps a daily tab on the library's catalog. Upon availability of a title, users are promptly notified via email, ensuring that whether it's a leisure read or crucial research material, they're always in the loop.
+
+## 💼 Technologies Used
+- **Language:** Python 3.6
+- **Web Framework:** Flask 2.1.3
+- **Template Engine:** Jinja2
+- **Database:** Firebase
+- **Hosting & Deployment:** Google App Engine
+- **Web Scraping:** BeautifulSoup
+- **Email Notification:** yagmail
+- **Testing:** pytest
+- **Text Processing:** unidecode
+- **Other Libraries:** request, datetime, typing
+
+## 🌟 Features
+- 📖 View the real-time availability of books across various branches of the Biblioteka Raczyńskich in Poznań.
+- 📌 Bookmark and manage your search preferences for upcoming notifications.
+- 📧 Get notified when a title you've subscribed to becomes available.
+- 🔍 Review and adjust your subscription details seamlessly.
+
+## 🛠️ Setup
+Setting up BookLovers locally is a breeze. Follow these steps:
+
+### Prerequisites
+- Ensure Python (version 3.6 or newer) is installed.
+- A steady internet connection for fetching external libraries and dependencies.
+
+### 1. **Installing Required Packages**
+   - Initialize a virtual environment:
+     ```bash
+     python -m venv myenv
+     ```
+
+   - Activate the environment:
+     - **Windows**:
+       ```bash
+       myenv\Scripts\activate
+       ```
+
+     - **Linux/Mac**:
+       ```bash
+       source myenv/bin/activate
+       ```
+
+   - Fetch the required packages:
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+### 2. **Flask Application Setup**
+   Pen down your Flask application and set up the necessary routes for user interaction. Here's a simple blueprint:
+
+   ```python
+   from flask import Flask
+
+   app = Flask(__name__)
+
+   @app.route('/')
+   def index():
+       return "Welcome to BookLovers!"
 
 
-## General Information
-The Raczyński Library in Poznań is a treasure trove for readers of all backgrounds. While it offers a website to check book availability, it lacked a feature to notify users about the availability of desired titles. BookLovers seamlessly fills this void. Users can save titles they're interested in, and the app checks the library's inventory daily. As soon as a title becomes available, it notifies the user via email. Whether for leisure reading or academic research, BookLovers ensures that no one misses out.
+   if __name__ == "__main__":
+       app.run(debug=True)
+```
+### 3. Firebase Integration
+Head over to the [Firebase Console](https://console.firebase.google.com/) and initiate a new project.
 
+Once set up, integrate Firebase with your app:
+- Navigate to your project settings.
+- Under "Your apps", choose the apt app type (Web, Android, iOS).
+- Adhere to the SDK setup guidelines for a smooth Firebase integration.
 
-## Technologies Used
-Language: Python 3.6
-Web Framework: Flask 2.1.3
-Template Engine: Jinja2
-Database: firebase
-Web Scraping: BeautifulSoup
-Email Notification: yagmail
-Testing: pytest
-Text Processing: unidecode
-Other Libraries: request, datetime, typing
+Ensure your Firebase data structure is adeptly set up for efficient library data storage.
 
+### 4. Deployment
+Opt for your preferred cloud provider (e.g., Google Cloud, AWS, Azure) and trail their deployment guide to make your Flask app live.
 
+**Voila!** Your app is ready to roll. Dive in and let us know if you encounter any snags or have feedback.
 
-## Features
-View the current status of books across different branches of the Biblioteka Raczyńskich in Poznań.
-Save and manage search preferences for future notifications.
-Receive email notifications when a subscribed book becomes available.
-Review and manage subscription details.
+## 🚀 Usage
+- Open the BookLovers platform.
+- Punch in the book title you're hunting for.
+- Validate the author and title from the given suggestions.
+- In case the title is unavailable, earmark your favored library branches.
+- After subscription, rest easy. We'll keep an eye out and ping you once the book is ready for borrowing.
 
-## Setup
-Setting up BookLovers for local development is straightforward. Follow these steps to get the app up and running:
-
-Prerequisites:
-Ensure you have Python (version 3.6 or newer) installed on your system.
-An active internet connection is needed to access external libraries and dependencies.
-
-
-
-## Usage
-Visit the BookLovers website.
-Enter the desired book title.
-Confirm the author and title from the provided suggestions.
-If the book isn't available, choose your preferred library branches for subscription.
-Once subscribed, the system will monitor the book's availability and notify you via email when it's ready to be borrowed.
-
-## Contact
-For further queries or feedback, reach out to [olkiewicz.alex@gmail.com].
-
+## 💌 Contact
+Got queries or feedback? Drop a line at [olkiewicz.alex@gmail.com](mailto:olkiewicz.alex@gmail.com).
