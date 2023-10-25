@@ -25,6 +25,9 @@ The Raczyński Library in Poznań is a haven for readers from various walks of l
 - **Text Processing:** unidecode
 - **Other Libraries:** request, datetime, typing
 
+### Frontend Template Credits
+The frontend design of this project was heavily influenced by [StartBootstrap/startbootstrap-grayscale](https://github.com/StartBootstrap/startbootstrap-grayscale) . A big thank you to the creators and contributors of this library for their excellent work. While the original templates provided a foundational structure, various modifications were made to align it better with the project's objectives.
+
 ## 🌟 Features
 - 📖 View the real-time availability of books across various branches of the Biblioteka Raczyńskich in Poznań.
 - 📌 Bookmark and manage your search preferences for upcoming notifications.
