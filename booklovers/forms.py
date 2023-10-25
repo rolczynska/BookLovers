@@ -68,7 +68,7 @@ class Book:
 
     def to_dict(self):
         data = {
-            f"{self.title} {self.author}": f"{self.available_libraries}"
+            f"{self.title} {self.author}": self.available_libraries
         }
         return data
 
@@ -79,7 +79,7 @@ class Mail:
     books: list
     subject: str = "Dostępne książki"
 
-    def get_books_list(self):
+    def get_list_of_books(self):
         data = []
         for book in self.books:
             book.to_dict()

@@ -1,503 +1,65 @@
-<html><head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="0" http-equiv="Expires"/><title>Horizon Information Portal</title><link href="/hipres/css/ipac.css" rel="stylesheet" title="bannerstyles" type="text/css"/><script language="JavaScript">
-<!--
-	function startTimer()
-	{
-		curUrl = window.location.href;
-		if (curUrl.indexOf("startover=true", 0) < 0)
-		{
-		  var time= new Date();
-	        hours= time.getHours();
-	        mins= time.getMinutes();
-	        secs= time.getSeconds();
-	        closeTime=hours*3600+mins*60+secs;
-	        closeTime+=300;
-	        Timer();
-		}
-	}
-	function Timer()
-	{
-	        var time= new Date();
-	        hours= time.getHours();
-	        mins= time.getMinutes();
-	        secs= time.getSeconds();
-	        curTime=hours*3600+mins*60+secs;
-	        if(curTime>=closeTime)
-		{
-		        location = "https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&profile=br-mar&lang=null&logout=true&startover=true";
-		}
-		else
-		{
-			window.setTimeout("Timer()",1000);
-		}
-	}
-//-->
-</script><script language="JavaScript">
- <!--
-	var checked = false;
-	function checkGoButton()
-	{
-		if (checked)
-		{
-			return false;
-		}
-		else
-		{
-			checked = true;
-			return true;
-		}
-	}
-    function authenticate()
-    {
-        document.security.menu.value='account';
-        window.location = window.location + "#focus";
-    }
+<a name="content" xmlns:strings="http://www.dynix.com/2001/strings"
+   xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"></a>
+<table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%"
+       xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder">
+    <tr>
+        <td bgcolor="#FFFFFF">
+            <table border="0" cellpadding="3" cellspacing="1" class="tableBackground" width="100%">
+
+                <tr bgcolor="white" height="15">
+                    <td valign="top" width="2%"> <a class="boldBlackFont1">1.
+                    </a></td>
+                    <td><a class="smallBoldAnchor" href="sample_link_1" title="Pokaż szczegóły">Zmierzch</a></td>
+                    <td> </td>
+                    <td><a class="smallBoldAnchor">Babel, Isaak (1894-1940)</a></td>
+                    <td><a class="smallBoldAnchor">Warszawa : Świat Książki,</a></td>
+                    <td><a class="smallBoldAnchor">2000.</a></td>
+                </tr>
+                <tr bgcolor="#FCFCDC" height="15">
+                    <td valign="top" width="2%"> <a class="boldBlackFont1">2.
+                    </a></td>
+                    <td><a class="smallBoldAnchor" href="sample_link_2" title="Pokaż szczegóły">Zmierzch</a></td>
+                    <td> </td>
+                    <td><a class="smallBoldAnchor">Przybyszewski, Stanisław (1868-1927)</a></td>
+                    <td><a class="smallBoldAnchor">Warszawa : Wydaw. Tygodnika Illustrowanego,</a></td>
+                    <td><a class="smallBoldAnchor">[1929]</a></td>
+                </tr>
+                <tr bgcolor="white" height="15">
+                    <td valign="top" width="2%"> <a class="boldBlackFont1">3.
 
 
-
-	function newUser()
-    {
-        document.security.newuser_prompt.value='true';
-        document.security.menu.value='account';
-        window.location = window.location + "#focus";
-    }
-    function newUserInfo()
-    {
-        document.newuser.newuser_info.value='true';
-        document.newuser.menu.value='account';
-        window.location = window.location + "#focus";
-    }
-//-->
-</script><script language="JavaScript">
-	function setfocus()
-	{
-	    var elems = document.getElementsByTagName('input');
-        for(var elementIndex=0; elementIndex<elems.length; elementIndex++)
-        {
-            if(elems[elementIndex].type == 'text')
-            {
-                if(elems[elementIndex].name == 'multi_add_remove_mylist' || elems[elementIndex].name == 'subject')
-                {
-                    //don't do anything if there is no search box
-                    break;
-                }
-                elems[elementIndex].focus();
-                elems[elementIndex].select();
-                break;
-            }
-        }
-	}
-	</script></head><body background="" bgcolor="#FFFFFF" leftmargin="0" marginheight="0" marginwidth="0" onload="startTimer();setfocus();" topmargin="0"><input name="session" type="hidden" value="169684999SU50.343292"/><table border="0" cellpadding="0" cellspacing="0" width="100%" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tbody><tr valign="bottom"><td align="middle" rowspan="2" valign="bottom" width="10%"><a class="globalAnchor" href="http://www.bracz.edu.pl/"><img alt="" border="0" src="/hipres/images/LogoBR.jpg"/></a><br/><a class="tinyAnchor" href="http://www.bracz.edu.pl/"></a><br/><table background="/hipres/images/tab_mt.gif" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="2" src="/hipres/images/spacer.gif"/></td></tr></tbody></table></td><td align="right" colspan="2" width="100%"><table border="0" cellpadding="3" cellspacing="0" valign="top"><tbody><tr><td align="right" class="globalLinks" nowrap="true" valign="middle"><table border="0" cellpadding="0" cellspacing="2" valign="top"><tr><td></td><td><a class="globalAnchor" href="javascript:loginIntoOrOutOfAccount('https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Fsession%3D169684999SU50.343292%26profile%3Dbr-mar%26auth%3Dtrue%26submenu%3Dbasic_search%26date%3D1696849999570','https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Findex%3DALTITLE%26term%3Dzmierzch%26session%3Dnull%26profile%3Dnull')" title="Logowanie"><img align="middle" alt="Kliknij w celu zalogowania." border="0" height="20" src="/hipres/images/login.gif" width="25"/>Zaloguj</a></td><td><a> </a></td></tr></table></td></tr></tbody></table></td></tr><tr><td align="center" valign="bottom" width="99%"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td valign="bottom" width="50%"><table background="/hipres/images/tab_mt.gif" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="2" src="/hipres/images/spacer.gif"/></td></tr></tbody></table></td><td valign="bottom"><table bgcolor="#ED1847" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td width="4"><img height="4" src="/hipres/images/tab_lt.gif" width="4"/></td><td background="/hipres/images/tab_mt.gif"><img height="4" src="/hipres/images/spacer.gif" width="8"/></td><td width="4"><img height="4" src="/hipres/images/tab_rt.gif" width="4"/></td></tr><tr><td background="/hipres/images/tab_lm.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td><td nowrap="true"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td><td align="middle" class="tabText" height="22" nowrap="true"> <a alt="Przeszukiwanie katalogu" class="TabActive" title="Przeszukiwanie katalogu">Wyszukiwanie</a> </td><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td></tr></tbody></table></td><td background="/hipres/images/tab_rm.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td></tr><tr><td><img height="2" src="/hipres/images/tab_lb.gif" width="4"/></td><td><img height="2" src="/hipres/images/spacer.gif" width="8"/></td><td><img height="2" src="/hipres/images/tab_rb.gif" width="4"/></td></tr></tbody></table></td><td valign="bottom"><table bgcolor="#BDC5C9" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td width="4"><img height="4" src="/hipres/images/NW0-blue.gif" width="4"/></td><td background="/hipres/images/bg-N0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="8"/></td><td width="4"><img height="4" src="/hipres/images/NE0-blue.gif" width="4"/></td></tr><tr><td background="/hipres/images/bg-W0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td><td align="middle"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td><td align="middle" class="tabText" height="22" nowrap="true"> <a alt="Podgląd konta" class="TabInactive" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=account&amp;ts=1696849999570" title="Podgląd konta">Konto Czytelnika</a> </td><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td></tr></tbody></table></td><td background="/hipres/images/bg-E0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td></tr><tr><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="4"/></td><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="8"/></td><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="4"/></td></tr></tbody></table></td><td valign="bottom"><table bgcolor="#BDC5C9" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td width="4"><img height="4" src="/hipres/images/NW0-blue.gif" width="4"/></td><td background="/hipres/images/bg-N0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="8"/></td><td width="4"><img height="4" src="/hipres/images/NE0-blue.gif" width="4"/></td></tr><tr><td background="/hipres/images/bg-W0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td><td align="middle"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td><td align="middle" class="tabText" height="22" nowrap="true"> <a alt="Katalogi bibliotek poznańskich" class="TabInactive" href="http://webpac.pfsl.poznan.pl/" title="Katalogi bibliotek poznańskich">Katalogi bibliotek poznańskich</a> </td><td><img height="8" src="/hipres/images/spacer.gif" width="2"/></td></tr></tbody></table></td><td background="/hipres/images/bg-E0-blue.gif"><img height="4" src="/hipres/images/spacer.gif" width="4"/></td></tr><tr><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="4"/></td><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="8"/></td><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif" width="4"/></td></tr></tbody></table></td><td valign="bottom" width="50%"><table background="/hipres/images/tab_mt.gif" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img height="2" src="/hipres/images/spacer.gif"/></td></tr></tbody></table></td></tr></tbody></table></td><td valign="bottom" width="1%"><table border="0" cellpadding="0" cellspacing="0" width="180"><tbody><tr><td align="right" nowrap="true" valign="top" width="100%"><a class="normalBlackFont1">   </a></td></tr><tr><td background="/hipres/images/tab_mt.gif"><img height="2" src="/hipres/images/spacer.gif"/></td></tr></tbody></table></td></tr></tbody></table><table bgcolor="#ED1847" border="0" cellpadding="3" cellspacing="0" width="100%" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tbody><tr align="middle" valign="top"><td width="100%"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img height="30" src="/hipres/images/spacer.gif" width="8"/></td><td align="middle" valign="center"><a alt="Wyszukiwanie proste" class="navBarCurrent" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=search&amp;submenu=basic_search&amp;ts=1696849999570" title="Wyszukiwanie proste">Proste</a></td><td><img height="8" src="/hipres/images/spacer.gif" width="8"/></td><td><img height="16" src="/hipres/images/bck_tan.gif" width="1"/></td><td><img height="30" src="/hipres/images/spacer.gif" width="8"/></td><td align="middle" valign="center"><a alt="Wyszukiwanie zaawansowane" class="navBarAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=search&amp;submenu=advanced&amp;ts=1696849999570" title="Wyszukiwanie zaawansowane">Zaawansowane</a></td><td><img height="8" src="/hipres/images/spacer.gif" width="8"/></td><td><img height="16" src="/hipres/images/bck_tan.gif" width="1"/></td><td><img height="30" src="/hipres/images/spacer.gif" width="8"/></td><td align="middle" valign="center"><a alt="Wyszukiwanie logiczne" class="navBarAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=search&amp;submenu=power&amp;ts=1696849999570" title="Wyszukiwanie logiczne">Logiczne</a></td><td><img height="8" src="/hipres/images/spacer.gif" width="8"/></td><td><img height="16" src="/hipres/images/bck_tan.gif" width="1"/></td><td><img height="30" src="/hipres/images/spacer.gif" width="8"/></td><td align="middle" valign="center"><a alt="Historia wyszukiwania" class="navBarAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=search&amp;submenu=history&amp;ts=1696849999570" title="Historia wyszukiwania">Historia</a></td><td><img height="8" src="/hipres/images/spacer.gif" width="8"/></td></tr></tbody></table></td></tr></tbody></table><form xmlns:sstrings="http://www.dynix.com/2001/sstrings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%"><tr action="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp" method="GET" name="search"><td align="left" bgcolor="#EEEECC" colspan="3" width="100%"><input name="session" type="hidden" value="169684999SU50.343292"/><div name="defLimBox"></div><input name="menu" type="hidden" value="search"/><input name="aspect" type="hidden" value="basic_search"/><input name="npp" size="2" type="hidden" value="10"/><input name="ipp" type="hidden" value="20"/><input name="spp" type="hidden" value="20"/><input name="profile" type="hidden" value="br-mar"/><input name="ri" type="hidden" value="1"/><input name="source" type="hidden" value="~!bracz"/><table border="0" cellpadding="3" cellspacing="0" class="tableBackgroundHighlight" width="100%"><tr><td bgcolor="#EEEECC"><a class="boldBlackFont2">Szukaj: </a></td><td bgcolor="#EEEECC"><select class="comboBox" name="index"><option selected="true" value="ALTITLE">Tytuł</option><option value="AUTHOR">Autor</option><option value="MEDIA">Multimedia</option><option value="SERIAL">Czasopisma</option><option value="SERIES">Serie, książki wielotomowe</option><option value="SUBJECT">Hasło przedmiotowe</option><option value="HLD">Hasla przedm. lit. dzieciecej</option><option value="ISBN">ISBN</option><option value="ISSN">ISSN</option><option value="CALLLC">Sygnatura</option><option value="PUBLISH">Wydawcy i drukarze</option><option value=".GW">Indeks główny</option></select></td><td bgcolor="#EEEECC"> </td><td bgcolor="#EEEECC"><input class="textInputBox" maxsize="100" name="term" size="25" type="text" value="zmierzch"/></td><td bgcolor="#EEEECC"> <input alt="arrow" border="0" class="normalBlackFont1" src="/hipres/images/b-go-red.gif" type="image"/><input name="aspect" type="hidden" value="basic_search"/></td><td bgcolor="#EEEECC"> </td><td bgcolor="#EEEECC" nowrap="true" valign="bottom"><a class="tinyAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=search&amp;aspect=history&amp;histedit=last">Zmień kryteria wyszukiwania</a></td><td bgcolor="#EEEECC" width="40%"> </td></tr><tr><td align="left" bgcolor="#EEEECC" colspan="15" nowrap="true" valign="top"><a class="normalBlackFont0">&gt;
-                            <b>Biblioteka Raczyńskich</b></a></td></tr></table></td></tr></table></form><table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%" xmlns:sstrings="http://www.dynix.com/2001/sstrings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tr><td colspan="3" width="100%"> </td></tr><tr valign="center"><td width="99%"><table border="0"><tr><td><a class="boldBlackFont3"> Wyniki wyszukiwania</a></td></tr><tr><td> Szukano :  <b>zmierzch</b></td></tr></table></td></tr></table><table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%" xmlns:sstrings="http://www.dynix.com/2001/sstrings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tr><td align="right" width="30%"><table border="0" cellpadding="0" class="tableBackground" width="100%"><tr align="right" width="100%"><td align="right" nowrap="true" width="100%"><a class="smallAnchor" href="javascript:buildNewList('https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Fsession%3D169684999SU50.343292%26profile%3Dbr-mar%26page%3Dprev%26browse%3D0%26uri%3Dlink%3Ddirect%26term%3Dzmierzch%26index%3DALTITLE%26uindex%3D%26aspect%3Dbasic_search%26menu%3Dsearch%26ri%3D1%26npp%3D10%26source%3D%7E%21bracz','https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Fsession%3D169684999SU50.343292%26profile%3Dbr-mar%26page%3Dprev%26browse%3D0%26uri%3Dlink%3Ddirect%26term%3Dzmierzch%26index%3DALTITLE%26uindex%3D%26aspect%3Dbasic_search%26menu%3Dsearch%26ri%3D1%26npp%3D10%26source%3D%7E%21bracz','false')">Poprz. 10 Tytuł</a>    <a class="smallAnchor" href="javascript:buildNewList('https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Fsession%3D169684999SU50.343292%26profile%3Dbr-mar%26page%3Dnext%26browse%3D0%26uri%3Dlink%3Ddirect%26term%3Dzmierzch%26index%3DALTITLE%26uindex%3D%26aspect%3Dbasic_search%26menu%3Dsearch%26ri%3D1%26npp%3D10%26source%3D%7E%21bracz','https%3A%2F%2Fbr-hip.pfsl.poznan.pl%2Fipac20%2Fipac.jsp%3Fsession%3D169684999SU50.343292%26profile%3Dbr-mar%26page%3Dnext%26browse%3D0%26uri%3Dlink%3Ddirect%26term%3Dzmierzch%26index%3DALTITLE%26uindex%3D%26aspect%3Dbasic_search%26menu%3Dsearch%26ri%3D1%26npp%3D10%26source%3D%7E%21bracz','false')">Nast. 10 Tytuł</a></td></tr></table></td></tr></table><script language="JavaScript" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder">
-    function smsCheckAll(pos) {
-        var smsChecked = document.getElementById('sms_check_all'+pos).checked;
-
-        document.getElementById('sms_preod_'+pos).checked = smsChecked;
-        document.getElementById('sms_od_'+pos).checked = smsChecked;
-        document.getElementById('sms_hold_'+pos).checked = smsChecked;
-        document.getElementById('sms_gen_'+pos).checked = smsChecked;
-    }
-
-    function addNewSmsNumber() {
-        var table = document.getElementById('sms_table');
-
-        //insert a row
-        var rowCount = table.rows.length;
-        var row = table.insertRow(rowCount);
-
-        var cellCt = 0;
-
-        //add an "operation" hidden input
-        var smsOperation = document.createElement("input");
-        smsOperation.type = "hidden";
-        smsOperation.name = "sms_operation";
-        smsOperation.value = "ADD";
-        row.appendChild(smsOperation);
-
-        //create a row id hidden input
-        var id = document.getElementById('sms_next_row_id').value;
-        document.getElementById('sms_next_row_id').value++;
-        var smsHiddenId = document.createElement("input");
-        smsHiddenId.type = "hidden";
-        smsHiddenId.name = "sms_row_id";
-        smsHiddenId.value = id;
-        row.appendChild(smsHiddenId);
-
-        //conditionally insert either a country code cell or a hidden input
-
-                var countryCodeElement = document.createElement("input");
-                countryCodeElement.type = "hidden";
-                countryCodeElement.name = "sms_country_code";
-
-                        countryCodeElement.value = "EMPTY";
-
-                row.appendChild(countryCodeElement);
-
-
-        //insert the phone number cell
-        var phoneNumberCell = row.insertCell(cellCt);
-        cellCt++;
-        phoneNumberCell.className = "sms_border_right";
-        var phoneNumberElement = document.createElement("input");
-        phoneNumberElement.type="text";
-        phoneNumberElement.name="sms_phone_number";
-        phoneNumberElement.size="20";
-        phoneNumberElement.maxlength="20";
-        phoneNumberCell.appendChild(phoneNumberElement);
-        phoneNumberElement.focus();
-        phoneNumberElement.select();
-
-        //conditionally insert either a phone type cell or a hidden input
-
-                var phoneTypeElement = document.createElement("input");
-                phoneTypeElement.type = "hidden";
-                phoneTypeElement.name = "sms_phone_type";
-                phoneTypeElement.value = "";
-                row.appendChild(phoneTypeElement);
-
-
-        //add the pre-overdue checkbox
-        var preOdCell = row.insertCell(cellCt);
-        cellCt++;
-        preOdCell.className = "space_right";
-        preOdCell.align = "center";
-        var preOdElement = document.createElement("input");
-        preOdElement.type = "checkbox";
-        preOdElement.name = "sms_pre_overdue";
-        preOdElement.id = "sms_preod_" + id;
-        preOdElement.value = id;
-        preOdCell.appendChild(preOdElement);
-
-        //add the overdue checkbox
-        var odCell = row.insertCell(cellCt);
-        cellCt++;
-        odCell.className = "space_right";
-        odCell.align = "center";
-        var odElement = document.createElement("input");
-        odElement.type = "checkbox";
-        odElement.name = "sms_overdue";
-        odElement.id = "sms_od_" + id;
-        odElement.value = id;
-        odCell.appendChild(odElement);
-
-        //add the holds checkbox
-        var holdCell = row.insertCell(cellCt);
-        cellCt++;
-        holdCell.className = "space_right";
-        holdCell.align = "center";
-        var holdElement = document.createElement("input");
-        holdElement.type = "checkbox";
-        holdElement.name = "sms_hold";
-        holdElement.id = "sms_hold_" + id;
-        holdElement.value = id;
-        holdCell.appendChild(holdElement);
-
-        //add the general checkbox
-        var genCell = row.insertCell(cellCt);
-        cellCt++;
-        genCell.className = "space_right";
-        genCell.align = "center";
-        var genElement = document.createElement("input");
-        genElement.type = "checkbox";
-        genElement.name = "sms_general";
-        genElement.id = "sms_gen_" + id;
-        genElement.value = id;
-        genCell.appendChild(genElement);
-
-        //add the select all checkbox (and the empty cell before it)
-        row.insertCell(cellCt);
-        cellCt++;
-        var checkAllCell = row.insertCell(cellCt);
-        cellCt++;
-        checkAllCell.align = "center";
-        var checkAllElement = document.createElement("input");
-        checkAllElement.type = "checkbox";
-        checkAllElement.name = "sms_check_all";
-        checkAllElement.id = "sms_check_all" + id;
-        checkAllElement.onclick = (function() {
-                return function() {
-                    smsCheckAll(id);
-                }
-            })();
-        checkAllCell.appendChild(checkAllElement);
-
-        //add the delete image
-        var deleteCell = row.insertCell(cellCt);
-        cellCt++;
-        var deleteImage = new Image();
-        deleteImage.src = "/hipres/images/delete-sms-pref.png";
-        deleteImage.alt = "Delete this phone number";
-        deleteImage.border = "0";
-        deleteImage.title = "Delete";
-        deleteImage.className = "pointer_cursor";
-        deleteImage.onclick = (function() {
-                return function() {
-                    deleteSmsRow(row);
-                }
-            })();
-        deleteCell.appendChild(deleteImage);
-    }
-
-    function deleteSmsRow(row) {
-        var ord = row.sectionRowIndex;
-        var table = document.getElementById('sms_table');
-        table.deleteRow(ord);
-    }
-
-    function changeSmsOperation(pos) {
-        document.getElementById('sms_operation_' + pos).value = "UPDATE";
-    }
-
-    setReturnFlag=0;
-
-    function buildReturnPageNewList(thisurl,returnurl) {
-        if(document.buildLink.returnURL ) {
-            if(returnurl != '') {
-                document.buildLink.returnURL.value = unescape(returnurl);
-            }
-        }
-
-        if(navigator.appName == "Netscape") {
-            document.buildLink.action=unescape(thisurl);
-        }
-        else {
-            document.buildLink.action=thisurl;
-        }
-
-        document.buildLink.submit();
-    }
-
-    function  ReturnSearchPage(url) {
-        if(document.SearchResult) {
-            document.SearchResult.action = unescape(url);
-            document.SearchResult.submit();
-        }
-        else if(document.buildLink) {
-            document.buildLink.action = unescape(url);
-            document.buildLink.submit();
-        }
-        else {
-            window.location = unescape(url);
-        }
-    }
-
-    function buildNewList(url,retURL,summary) {
-        url = unescape(url);
-        retURL = unescape(retURL);
-
-
-        var defLimit = "";
-
-        url += defLimit;
-        retURL += defLimit;
-
-        if(document.buildLink.returnURL ) {
-            if(setReturnFlag == 1) {
-                if(retURL) {
-                    if(summary == 'false') {
-                        document.buildLink.returnURL.value = retURL;
-                    } else {
-                        document.buildLink.returnURL.value = document.location.toString();
-                    }
-                }
-                else {
-                    document.buildLink.returnURL.value = document.location.toString();
-                }
-            }
-        }
-        document.buildLink.action=url;
-        document.buildLink.submit();
-    }
-
-    function buildMyList(URL,retURL) {
-        if(document.buildLink) {
-            if(document.buildLink.returnURL ) {
-                if(setReturnFlag == 1 || retURL != '') {
-                    if(retURL != '') {
-                        document.buildLink.returnURL.value = retURL;
-                    } else {
-                        document.buildLink.returnURL.value = document.location.toString();
-
-                        index = document.buildLink.returnURL.value.indexOf('#focus');
-                        if(index >-1) {
-                            document.buildLink.returnURL.value = document.buildLink.returnURL.value.substring(0,index);
-                        }
-                         document.buildLink.returnURL.value = unescape(document.buildLink.returnURL.value);
-                    }
-                }
-            }
-
-            document.buildLink.action=unescape(URL);
-            document.buildLink.submit();
-        }
-        else {
-            window.location = unescape(URL);
-        }
-    }
-
-    function loginIntoOrOutOfAccount(URL,retURL) {
-        i = 0;
-        setReturnFlag = 1;
-
-        if(document.buildLink) {
-            document.buildLink.action=unescape(URL);
-            if(document.buildLink.returnURL || setReturnFlag == 1 ) {
-                if(retURL != '') {
-                    document.buildLink.returnURL.value = retURL;
-                }
-                else {
-                    document.buildLink.returnURL.value = document.location.toString();
-                }
-                document.buildLink.returnURL.value = unescape(document.buildLink.returnURL.value);
-            }
-            document.buildLink.submit();
-        }
-        else {
-            if(navigator.appName == "Netscape") {
-                window.location = unescape(URL);
-            }
-            else {
-                window.location = URL;
-            }
-        }
-    }
-
-    function popUpHelp(URL) {
-        day = new Date();
-        id = day.getTime();
-        eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=1,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=350,height=650');");
-    }
-
-    function changeBookbagText(text) {
-        if (document.getElementById) {
-            document.getElementById('bookbag').innerHTML=text;
-        }
-        else if (document.layers) {
-            document.anchors["viewlist"].text=text;
-        }
-        else {
-            bookbag.innerHTML=text;
-        }
-    }
-</script><!--
-****************************************************
-Security
-****************************************************
---><a name="content" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"></a><table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tr><td bgcolor="#FFFFFF"><table border="0" cellpadding="3" cellspacing="1" class="tableBackground" width="100%"><tr height="20"><td bgcolor="#EEEECC"></td><td bgcolor="#EEEECC"><a class="boldBlackFont3" title="Tytuł">Tytuł</a></td><td bgcolor="#EEEECC"><a class="boldBlackFont3" title="Edycja">Edycja</a></td><td bgcolor="#EEEECC"><a class="boldBlackFont3" title="Autor">Autor</a></td><td bgcolor="#EEEECC"><a class="boldBlackFont3" title="Wydawca">Wydawca</a></td><td bgcolor="#EEEECC"><a class="boldBlackFont3" title="Rok wydania">Rok wydania</a></td></tr><tr bgcolor="white" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">1.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!1940157~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch</a></td><td> </td><td><a class="smallBoldAnchor">Babel, Isaak (1894-1940)</a></td><td><a class="smallBoldAnchor">Warszawa : Świat Książki,</a></td><td><a class="smallBoldAnchor">2000.</a></td></tr><tr bgcolor="#FCFCDC" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">2.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2065117~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch</a></td><td> </td><td><a class="smallBoldAnchor">Przybyszewski, Stanisław (1868-1927)</a></td><td><a class="smallBoldAnchor">Warszawa : Wydaw. Tygodnika Illustrowanego,</a></td><td><a class="smallBoldAnchor">[1929]</a></td></tr><tr bgcolor="white" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">3.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2102464~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td> </td><td><a class="smallBoldAnchor">Meyer, Stephenie (1973- ).</a></td><td><a class="smallBoldAnchor">Wrocław : Wydawnictwo Dolnośląskie,</a></td><td><a class="smallBoldAnchor">2007.</a></td></tr><tr bgcolor="#FCFCDC" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">4.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2109384~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch</a></td><td> </td><td><a class="smallBoldAnchor">Putrament, Jerzy (1910-1986)</a></td><td><a class="smallBoldAnchor">Warszawa : "Czytelnik",</a></td><td><a class="smallBoldAnchor">1980.</a></td></tr><tr bgcolor="white" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">5.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2112513~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td> </td><td><a class="smallBoldAnchor">Dazai, Osamu (1909-1948).</a></td><td><a class="smallBoldAnchor">Warszawa : Wydawnictwo Akademickie Dialog,</a></td><td><a class="smallBoldAnchor">2001.</a></td></tr><tr bgcolor="#FCFCDC" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">6.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2146148~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td><a class="smallBoldAnchor">Wydanie I.</a></td><td><a class="smallBoldAnchor">Theorin, Johan (1963- ).</a></td><td><a class="smallBoldAnchor">Wołowiec : Wydawnictwo "Czarne",</a></td><td><a class="smallBoldAnchor">2008.</a></td></tr><tr bgcolor="white" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">7.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2158358~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td> </td><td><a class="smallBoldAnchor">Meyer, Stephenie (1973- ).</a></td><td><a class="smallBoldAnchor">Wrocław : Wydawnictwo Dolnośląskie,</a></td><td><a class="smallBoldAnchor">copyright 2008.</a></td></tr><tr bgcolor="#FCFCDC" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">8.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2167480~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td> </td><td><a class="smallBoldAnchor">Meyer, Stephenie (1973- ).</a></td><td><a class="smallBoldAnchor">Wrocław : Wydawnictwo Dolnośląskie ; Poznań : Publicat,</a></td><td><a class="smallBoldAnchor">2009.</a></td></tr><tr bgcolor="white" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">9.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2171667~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch+%2F&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch /</a></td><td> </td><td><a class="smallBoldAnchor">Lekki, Adolf (1922-1991).</a></td><td><a class="smallBoldAnchor">Lublin : Wydawnictwo Lubelskie,</a></td><td><a class="smallBoldAnchor">1966.</a></td></tr><tr bgcolor="#FCFCDC" height="15"><td valign="top" width="2%"> <a class="boldBlackFont1">10.
-                    </a></td><td><a class="smallBoldAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;uri=link=3100033~!2188920~!3100021~!3100029&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;source=~!bracz&amp;term=Zmierzch&amp;index=ALTITLE" title="Pokaż szczegóły">Zmierzch</a></td><td> </td><td><a class="smallBoldAnchor">Gor'kij, Maksim (1868-1936). Egor Bulyčov i drugie (pol.)</a></td><td><a class="smallBoldAnchor">Warszawa : Państwowy Instytut Wydawniczy,</a></td><td><a class="smallBoldAnchor">1967.</a></td></tr></table></td></tr></table><table border="0" cellpadding="0" cellspacing="0" class="tableBackground" width="100%" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><tr><td align="right" nowrap="true" width="100%"><a class="smallAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;page=prev&amp;browse=0&amp;uri=link=direct&amp;term=zmierzch&amp;index=ALTITLE&amp;uindex=&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;npp=10&amp;source=~!bracz" id="browsing_prev">Poprz. 10 Tytuł</a>    <a class="smallAnchor" href="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;page=next&amp;browse=0&amp;uri=link=direct&amp;term=zmierzch&amp;index=ALTITLE&amp;uindex=&amp;aspect=basic_search&amp;menu=search&amp;ri=1&amp;npp=10&amp;source=~!bracz" id="browsing_next">Nast. 10 Tytuł</a></td></tr></table><p align="right" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><table border="0" cellpadding="0" class="tableBackground" width="100%"><tr align="right"><td width="100%"> </td></tr></table></p><script language="javascript" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder">
-
-
-function validateBrowseMultiselectRange()
-{
-
-
-    var keys = new Array(
-    "1940157","2065117","2102464","2109384","2112513","2146148","2158358","2167480","2171667","2188920"
-    );
-
-
-    if ( document.browse_multiselect.browse_multiselect_list.value == '' )
-    {
-        window.alert('Zdefiniowano niepoprawny zakres');
-        document.browse_multiselect.multi_add_remove_mylist.value = '1-10';
-        return false;
-    }
-    selection = document.browse_multiselect.browse_multiselect_list.value;
-    selection = selection.replace( ";", "," );
-    selection = selection.replace( ":", "," );
-    selection = selection + ',';
-
-
-    number = "";
-    row = -1;
-    maxRow = keys.length;
-    rows = new Array(maxRow);
-    beginRange = -1;
-    error = false;
-
-    for (i = 0; i < selection.length; i++)
-    {
-        c = selection.charAt(i);
-        if (c >= '0' && c <= '9')
-        {
-            number = number + c;
-        }
-        else if (c == ',' || c == '-' || c == ' ')
-        {
-            if (number.length > 0)
-            {
-                row = parseInt(number);
-            }
-            if (row > 0 && row <= maxRow)
-            {
-                if (beginRange == -1)
-                {
-                    if (c == '-')
-                    {
-                        beginRange = row;
-                        row = -1;
-                    }
-                    else
-                    {
-                        rows[row-1] = true;
-                        if (c == ',')
-                            row = -1;
-                    }
-                }
-                else if (c == ',' || c == ' ')
-                {
-                    for (j = beginRange; j <= row; j++)
-                        rows[j-1] = true;
-                    beginRange = -1;
-                    row = -1;
-                }
-                else
-                {
-                    error = true;
-                }
-                number = "";
-            }
-            else if (c == ',' || c == '-')
-            {
-                error = true;
-            }
-        }
-        else
-        {
-            error = true;
-        }
-        if (error)
-            break;
-    }
-    if (error)
-        alert('Zdefiniowano niepoprawny zakres');
-    if (error)
-        return false;
-    keyList = "";
-    for (i = 0; i < maxRow; i++)
-    {
-        if (rows[i])
-        {
-            if (keyList.length == 0)
-                keyList = keys[i];
-            else
-                keyList = keyList + '+' + keys[i];
-        }
-    }
-    document.browse_multiselect.selectedkeys.value = keyList;
-    return true;
-}
-
-</script><form action="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp" method="POST" name="browse_multiselect" onsubmit="return validateBrowseMultiselectRange();" xmlns:strings="http://www.dynix.com/2001/strings" xmlns:urlencoder="/com.dynix.util.IpacURLEncoder"><input name="session" type="hidden" value="169684999SU50.343292" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><div name="defLimBox" xmlns:sstrings="http://www.dynix.com/2001/sstrings"></div><input name="menu" type="hidden" value="search" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="aspect" type="hidden" value="basic_search" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="npp" size="2" type="hidden" value="10" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="ipp" type="hidden" value="20" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="spp" type="hidden" value="20" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="profile" type="hidden" value="br-mar" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="ri" type="hidden" value="1" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><input name="source" type="hidden" value="~!bracz" xmlns:sstrings="http://www.dynix.com/2001/sstrings"/><center><table class="tableBackground"><tr><td align="right"><a class="boldBlackFont1">Wybierz (np. 1,2 5-10)</a></td><td align="left"><input class="textInputBox" maxlength="40" name="browse_multiselect_list" size="40" type="text" value="1-10"/></td><td align="left"><input class="button" name="browse_multiselect_search" type="submit" value="Szukaj"/></td></tr></table></center><input name="selectedkeys" type="hidden" value=""/><input name="term" type="hidden" value="zmierzch"/><input name="index" type="hidden" value="ALTITLE"/><input name="uri" type="hidden" value="link=3100033~!1940157~!3100021~!3100029"/></form><center><table class="tableBackground" valign="bottom" width="100%"><tr><td><div align="left" style="margin:20px; padding:10px;               border:1px solid red; font-size:100%;"><a class="boldBlackFont2">Uwaga !</a><br/><a class="normalBlackFont2">Informujemy, że aktualne informacje dotyczące możliwości korzystania ze zbiorów Biblioteki Raczyńskich można znaleźć na stronie </a><a class="normalBlackFont2" href="http://www.bracz.edu.pl/event/biblioteka-w-lipcu-i-sierpniu/">Biblioteki.</a></div></td></tr><tr><td><div align="left" style="margin:20px; padding:10px;               border:1px solid red; font-size:100%;"><a class="boldBlackFont2">Uwaga !</a><br/><a class="normalBlackFont2">Poszukując książek, sprawdź również w tradycyjnym katalogu kartkowym znajdującym się w INFORMATORIUM.</a></div></td></tr><tr><td align="center"><a class="boldBlackFont1">Horizon Information Portal 3.23.1_6655</a></td></tr><tr><td align="center"> <a href="http://www.sirsidynix.com"><img alt="Powered by Dynix" border="0" src="/hipres/logos/poweredbydynix.gif"/></a></td></tr><tr><td align="center"><font size="1">© 2001-2013 <a class="mediumAnchor" href="http://www.sirsidynix.com">SirsiDynix</a> All rights reserved.</font></td></tr><tr><td><div align="center"><br/><a class="normalBlackFont2" href="http://www.bracz.edu.pl/dostepnosc-katalog/">Deklaracja dostępności</a></div></td></tr><br/></table></center><form action="https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169684999SU50.343292&amp;profile=br-mar&amp;menu=mylist&amp;listkey=ipac_my_list" method="post" name="buildLink"><input name="returnURL" type="hidden" value=""/></form></body><!-- See Microsoft article Q222064 for reason why there are two head tags --><head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="0" http-equiv="Expires"/><title>Horizon Information Portal</title><link href="/hipres/css/ipac.css" rel="stylesheet" title="bannerstyles" type="text/css"/></head></html>
+                <tr height="15">
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">Wypożyczalnia Al.
+                        Marcinkowskiego 23</a></td>
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">Literatura beletrystyczna</a>
+                    </td>
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">CW98611</a></td>
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">Lit szwedz</a></td>
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">Wypożyczane na 30 dni</a></td>
+                    <td bgcolor="white"><a class="normalBlackFont1" title="Egzemplarze">Na półce</a></td>
+                    <td bgcolor="white"> </td>
+                    <td bgcolor="white" nowrap="true" width="1%"><input class="button"
+                                                                        onclick="javascript:location='https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=O6S8225990273.460072&amp;profile=br-mar&amp;menu=request&amp;aspect=none&amp;bibkey=518080&amp;itemkey=1677129&amp;time=1698225991466'"
+                                                                        type="button" value="Zamów do Książkomatu"/>
+                    </td>
+                </tr>
+                ,
+                <tr height="15">
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1" title="Egzemplarze">F14
+                        Chrobrego"Dąbrówka" tel.
+                        61 8223283</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1" title="Egzemplarze">Literatura
+                        beletrystyczna</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1"
+                                             title="Egzemplarze">14F/67298</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1"
+                                             title="Egzemplarze">821.113.6-3</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1" title="Egzemplarze">Filia 14
+                        wypożyczane na 30
+                        dni</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1"
+                                             title="Egzemplarze">Wypożyczony</a></td>
+                    <td bgcolor="#FCFCDC"><a bgcolor="#FCFCDC" class="normalBlackFont1"
+                                             title="Egzemplarze">27/10/2023</a></td>
+                    <td bgcolor="#FCFCDC" nowrap="true" width="1%"></td>
+                </tr>

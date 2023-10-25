@@ -1,6 +1,6 @@
 import time
 from booklovers import database
-from booklovers.connect import get_libraries_availability
+from booklovers.parser import get_libraries_availability
 from booklovers.database import get_searches
 from booklovers.forms import Mail, Book, Search
 

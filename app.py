@@ -2,7 +2,7 @@ import threading
 from flask import Flask, render_template, session, request, flash, redirect
 
 import booklovers.connect
-from booklovers import connect, parser, forms, database, notifications
+from booklovers import parser, forms, database, notifications
 
 # We create a Flask app.
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def search():
     if book_form.validate_on_submit():
         title = book_form.title.data
 
-        page = connect.get_books_listing(title)
+        page = parser.get_books_listing(title)
         books = parser.find_books(page)
 
         return render_template("display_books.html", books=books)
@@ -37,7 +37,7 @@ def search():
 @app.route("/availability/<string:title>?<string:author>", methods=["GET"])
 def availability(title, author):
     # Checks and display current availability of a book in libraries
-    book_availability = booklovers.connect.get_libraries_availability(title, author)
+    book_availability = booklovers.parser.get_libraries_availability(title, author)
     # Store book_availability in session
     session["book_availability"] = book_availability
     return render_template("availability.html", book_availability=book_availability,

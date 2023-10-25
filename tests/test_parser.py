@@ -1,26 +1,73 @@
-import booklovers.connect
-from booklovers import parser, connect, forms
+from unittest.mock import patch, MagicMock
+
+import pytest
 from bs4 import BeautifulSoup
 
+import booklovers.parser
+from booklovers.parser import find_books, get_book_info_from_segment, get_books_listing, \
+    get_libraries_availability, get_urls, clean_title, clean_string
 
-def test_find_books():
-    with open("parsed_searching_page.html", "r") as file:
-        parsed_page = BeautifulSoup(file, "html.parser")
-        result = parser.find_books(parsed_page)
-    assert result == [('Zmierzch', 'Babel, Isaak'), ('Zmierzch', 'Przybyszewski, Stanislaw'),
-                      ('Zmierzch', 'Meyer, Stephenie'), ('Zmierzch', 'Putrament, Jerzy'),
-                      ('Zmierzch', 'Dazai, Osamu'), ('Zmierzch', 'Theorin, Johan'),
-                      ('Zmierzch', 'Lekki, Adolf'),
-                      ('Zmierzch', "Gor'kij, Maksim . Egor Bulycov i drugie")]
+# Create a sample BeautifulSoup response for testing
 
 
-def test_get_urls():
-    result = booklovers.connect.get_urls("Gdzie spiewaja raki", "Owens, Delia")
-    assert type(result) == list
+@pytest.fixture
+def sample_page():
+    content = open('fixtures/book_listing.html').read()
+    result = BeautifulSoup(content, 'html.parser')
+    return result
 
 
-# TODO mock this test
-def test_get_libraries_availability():
-    list_urls = ["https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=1RQ703A004143.362212&profile=br-mar&uri=link=3100033~!2696598~!3100021~!3100029&aspect=basic_search&menu=search&ri=1&source=~!bracz&term=Gdzie+śpiewają+raki+%2F&index=ALTITLE", "https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=169C0310D59J3.362215&profile=br-mar&uri=link=3100033~!2849535~!3100021~!3100029&aspect=basic_search&menu=search&ri=1&source=~!bracz&term=Gdzie+śpiewają+raki+%2F&index=ALTITLE", "https://br-hip.pfsl.poznan.pl/ipac20/ipac.jsp?session=1H9I03104I652.362217&profile=br-mar&uri=link=3100033~!2910511~!3100021~!3100029&aspect=basic_search&menu=search&ri=1&source=~!bracz&term=Gdzie+śpiewają+raki+%2F&index=ALTITLE"]
-    booklovers.connect.get_books_listing(list_urls)
+@pytest.fixture
+def sample_segment():
+    content = open('fixtures/tr_segment.html').read()
+    result = BeautifulSoup(content, 'html.parser')
+    return result
 
+
+@patch('booklovers.parser.get_book_info_from_segment',
+       return_value=("Sample Title", "Sample Author", "url"))
+def test_find_books(mocked_get_book_info: MagicMock, sample_page):
+    books = find_books(sample_page)
+    expected = [('Sample Title', 'Sample Author')]
+
+    assert isinstance(books, list)
+    assert books == expected
+
+
+@patch('booklovers.parser.clean_string', return_value='TEST_CLEAN_AUTHOR')
+@patch('booklovers.parser.clean_title', return_value='TEST_CLEAN_TITLE')
+def test_get_book_info_from_segment(mocked_clean_name, mocked_clean_title, sample_segment):
+    info = get_book_info_from_segment(sample_segment)
+    assert isinstance(info, tuple)
+    assert len(info) == 3
+    assert info == ("TEST_CLEAN_TITLE", "TEST_CLEAN_AUTHOR", "https://TEST_URL.com")
+
+
+@patch('booklovers.parser.get_page', return_value="sample_page")
+def test_get_books_listing(mocked_get_page):
+    title = "SampleTitle"
+    parsed_page = get_books_listing(title)
+    assert parsed_page == "sample_page"
+
+
+@patch('booklovers.parser.get_urls')
+@patch('booklovers.parser.get_page')
+@patch('booklovers.parser.clean_string', return_value="Sample library")
+def test_get_libraries_availability(sample_page, mocked_get_urls, mocked_get_page):
+    mocked_get_page.return_value = sample_page
+    mocked_get_urls.return_value = ["http://sample-url.com"]
+    title, author = "SampleTitle", "SampleAuthor"
+    result = get_libraries_availability(title, author)
+    assert isinstance(result, dict)
+
+
+def test_clean_string():
+    name = "SampleAuthor (SampleInfo)"
+    clean_name = clean_string(name)
+    assert clean_name == "SampleAuthor"
+
+
+def test_clean_title():
+    title = " SampleTitle /"
+    clean_t = clean_title(title)
+    assert clean_t == "SampleTitle"
