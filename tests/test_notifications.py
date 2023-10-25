@@ -1,30 +1,62 @@
-from booklovers import notifications, forms
+from booklovers.notifications import get_users, get_availability, get_available_libraries
+from booklovers.forms import Search, Book
+from unittest.mock import patch
 
 
-def test_get_available_libraries():
-    search = forms.Search(title='W pustyni i w puszczy', author='Sienkiewicz, Henryk',
-                          libraries=['F02 os.Oswiecenia 59 tel. 61 8767121',
-                                     'F06 Tomickiego 14 tel. 61 8771455',
-                                     'F15 Fabianowo 2 tel. 61 8304016',
-                                     'F62 os.Sobieskiego paw.103 tel. 61 8252075',
-                                     'F11dz Al. Marcinkowskiego 23'],
-                          email='olkiewicz.alex1234@gmail.com')
-    availability = {'F04 Lodowa 4 tel. 61 8662452': ['Na półce', '\xa0'],
-                    'MHS Stary Rynek 84 tel. 61 8528971': ['Czytelnia', '\xa0'],
-                    'F49 os.Pod Lipami tel. 61 8770637': ['Wypożyczony', '31/12/2020'],
-                    'F62 os.Sobieskiego paw.103 tel. 61 8252075': ['Wypożyczony', '13/11/2023'],
-                    'Czytelnia Al. Marcinkowskiego 23': ['Na półce', ''],
-                    'F02 os.Oswiecenia 59 tel. 61 8767121': ['Wypożyczony', '13/11/2023'],
-                    'F11dz Al. Marcinkowskiego 23': ['Na półce', ''],
-                    'FW/53 ul. Hetmanska 91 tel. 61 8337140': ['Na półce', '\xa0'],
-                    'F06 Tomickiego 14 tel. 61 8771455': ['Wypożyczony', '06/11/2023'],
-                    'F55 os.Zwyciestwa 125 tel. 61 8230551': ['Na półce', ''],
-                    'F42 os.Pod Lipami tel. 61 8200793': ['Na półce', ''],
-                    'F15 Fabianowo 2 tel. 61 8304016': ['Na półce', '\xa0'],
-                    'F12/46 Arciszewskiego 27 tel. 61 8627715': ['Na półce', '\xa0'],
-                    'F51 os.Lecha 15 tel. 61 8777521': ['Na półce', '\xa0'],
-                    'F50 os.Kosmonautow "Orbita" tel. 61 8205921': ['Na półce', '']}
+def test_get_users():
+    search1 = Search("Sample Title", "Sample Author", ["lib1", "lib2"], "sample@mail.com")
+    search2 = Search("Sample Title", "Sample Author", ["lib1", "lib2"], "sample@mail.com")
+    search3 = Search("Sample Title", "Sample Author", ["lib1", "lib2"], "anothersample@mail.com")
+    search4 = Search("Another Sample Title", "Sample Author", ["lib1", "lib2"],
+                     "anothersample@mail.com")
+    searches = [search1, search2, search3, search4]
+    result = get_users(searches)
 
-    result = notifications.get_available_libraries(search=search, availability=availability)
-    assert 'F11dz Al. Marcinkowskiego 23' in result
-    assert 'F15 Fabianowo 2 tel. 61 8304016' in result
+    assert len(result) == 2
+    assert len(result) == len(set(result))
+
+
+class TestAvailableLibraries:
+    def test_get_available_lib_two_available(self):
+        search = Search("Sample Title", "Sample Author", ["lib1", "lib2"], "sample@mail.com")
+        availability = {"lib1": ["Na półce", " "], "lib2": ["Na półce", " "]}
+
+        result = get_available_libraries(search, availability)
+        expected = ["lib1", "lib2"]
+        assert result == expected
+
+    def test_get_available_lib_one_available(self):
+        search = Search("Sample Title", "Sample Author", ["lib1", "lib2"], "sample@mail.com")
+        availability = {"lib1": ["Na półce", " "], "lib2": ["Wypożyczony", "25/04/2023"]}
+
+        result = get_available_libraries(search, availability)
+        expected = ["lib1"]
+        assert result == expected
+
+    def test_get_available_lib_not_available(self):
+        search = Search("Sample Title", "Sample Author", ["lib2"], "sample@mail.com")
+        availability = {"lib1": ["Na półce", " "], "lib2": ["Wypożyczony", "25/04/2023"]}
+
+        result = get_available_libraries(search, availability)
+        expected = []
+        assert result == expected
+
+
+@patch('booklovers.notifications.get_searches')
+@patch('booklovers.notifications.get_libraries_availability')
+@patch('booklovers.notifications.get_available_libraries')
+def test_get_availability(mocked_get_available_libraries, mocked_get_libraries_availability,
+                          mocked_get_searches):
+    mocked_get_searches.return_value = [
+        Search("Sample Title", "Sample Author", ["lib1", "lib2"], "sample@mail.com"),
+        Search("Another Sample Title", "Sample Author", ["lib2"], "sample@mail.com")]
+    mocked_get_libraries_availability.return_value = {"lib1": ["Na półce", " "],
+                                                      "lib2": ["Na półce", " "]}
+    mocked_get_available_libraries.return_value = ["lib1", "lib2"]
+
+    result = get_availability("sample@mail.com")
+    expected = [
+        Book(title='Sample Title', author='Sample Author', available_libraries=['lib1', 'lib2']),
+        Book(title='Another Sample Title', author='Sample Author',
+             available_libraries=['lib1', 'lib2'])]
+    assert result == expected

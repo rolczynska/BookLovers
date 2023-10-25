@@ -34,6 +34,17 @@ def get_users(searches: list[Search]) -> list[str]:
     return list(users)
 
 
+def get_available_libraries(search: Search, availability: dict[str, list[str, str]]) -> list[str]:
+    """ Get search, check is the book available """
+    available_libraries = []
+    libraries = search.libraries
+    for library in libraries:
+        status, date = availability.get(library)
+        if status == 'Na półce':
+            available_libraries.append(library)
+    return available_libraries
+
+
 def get_availability(user: str) -> list[Book]:
     """ Take user email and return all available books in those libraries which were signed for
     that emails """
@@ -50,17 +61,6 @@ def get_availability(user: str) -> list[Book]:
                         available_libraries=available_libraries)
             books.append(book)
     return books
-
-
-def get_available_libraries(search: Search, availability: dict[str, list[str, str]]) -> list[str]:
-    """ Check is the book from search available """
-    available_libraries = []
-    libraries = search.libraries
-    for library in libraries:
-        status, date = availability.get(library)
-        if status == 'Na półce':
-            available_libraries.append(library)
-    return available_libraries
 
 
 def remove_searches(mail: str, available_books: list[Book]):

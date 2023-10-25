@@ -1,13 +1,9 @@
-from unittest.mock import patch, MagicMock
-
+from unittest.mock import patch
 import pytest
 from bs4 import BeautifulSoup
 
-import booklovers.parser
 from booklovers.parser import find_books, get_book_info_from_segment, get_books_listing, \
-    get_libraries_availability, get_urls, clean_title, clean_string
-
-# Create a sample BeautifulSoup response for testing
+    get_libraries_availability, clean_title, clean_string
 
 
 @pytest.fixture
@@ -24,9 +20,9 @@ def sample_segment():
     return result
 
 
-@patch('booklovers.parser.get_book_info_from_segment',
-       return_value=("Sample Title", "Sample Author", "url"))
-def test_find_books(mocked_get_book_info: MagicMock, sample_page):
+@patch('booklovers.parser.get_book_info_from_segment')
+def test_find_books(mocked_get_book_info, sample_page):
+    mocked_get_book_info.return_value = ("Sample Title", "Sample Author", "url")
     books = find_books(sample_page)
     expected = [('Sample Title', 'Sample Author')]
 
@@ -52,13 +48,18 @@ def test_get_books_listing(mocked_get_page):
 
 @patch('booklovers.parser.get_urls')
 @patch('booklovers.parser.get_page')
-@patch('booklovers.parser.clean_string', return_value="Sample library")
-def test_get_libraries_availability(sample_page, mocked_get_urls, mocked_get_page):
+def test_get_libraries_availability(mocked_get_page, mocked_get_urls):
+    content = open('fixtures/library_rows.html').read()
+    sample_page = BeautifulSoup(content, 'html.parser')
     mocked_get_page.return_value = sample_page
     mocked_get_urls.return_value = ["http://sample-url.com"]
     title, author = "SampleTitle", "SampleAuthor"
+
     result = get_libraries_availability(title, author)
+
+    expected = {'lib1': ['Wypożyczony', '30/10/2023'], 'lib2': ['Na półce', '']}
     assert isinstance(result, dict)
+    assert result == expected
 
 
 def test_clean_string():
