@@ -14,7 +14,7 @@ db = firestore.client()
 def add_to_database(search):
     """ Add a search object to firebase"""
     doc_id = create_unique_id(search.author, search.title, search.email)
-    db.collection('search').document(doc_id).set(search.change_to_dict())
+    db.collection('search').document(doc_id).set(search.change_to_dict(), merge=True)
 
 
 def get_searches(email=None) -> list[Search]:
