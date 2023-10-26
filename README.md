@@ -95,7 +95,7 @@ Opt for your preferred cloud provider (e.g., Google Cloud, AWS, Azure) and trail
 **Voila!** Your app is ready to roll. Dive in and let us know if you encounter any snags or have feedback.
 
 ## 🚀 Usage
-- Open the BookLovers platform.
+- Open the BookLovers platform on [booklovers-poznan.online](https://booklovers-poznan.online)
 - Punch in the book title you're hunting for.
 - Validate the author and title from the given suggestions.
 - In case the title is unavailable, earmark your favored library branches.
