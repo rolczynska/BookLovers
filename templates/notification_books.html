@@ -7,7 +7,7 @@
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
                       {% if searches %}
-                        <h2 class="text-white mb-5">Twoja lista zapisanych książek:</h2>
+                        <h2 class="text-white mb-5">You are currently subscribed to notifications for these books:</h2>
                       <ul>
                         {% for search in searches %}
                           <li class="text-white mb-5 bigger-font">"{{search.title}}", {{search.author}}</li>
@@ -25,9 +25,9 @@
                         {% endfor %}
                       </ul>
                       {% else %}
-                        <h1 class="text-white mb-5 ">Niestety nie jesteś zapisany do żadnej książki.<br>
+                        <h1 class="text-white mb-5 ">Looks like you haven't signed up for any book notifications yet. Dive in and search for your next great read!<br>
                         Wyszukaj książkę dla siebie</h1>
-                        <a class="btn btn-primary" href="{{ url_for('search') }}">Wyszukaj</a>
+                        <a class="btn btn-primary" href="{{ url_for('search') }}">Search</a>
 
                       {% endif %}
                     </div>

@@ -6,13 +6,13 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
-                        <h2 class="text-white mb-5">Wpisz email, żeby zobaczyć swoje książki zapisane do powiadomień</h2>
+                        <h2 class="text-white mb-5">Enter your email to sign up for notifications</h2>
                         <form action = "" method="post" class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
                             {{ email_form.hidden_tag() }}
                             <!-- Email address input-->
                             <div class="row input-group-newsletter">
 
-                                <p> {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }} </p>
+                                <p> {{ email_form.email(class_= "form-control", placeholder="Enter email") }} </p>
                                 <p> {{ email_form.submit(class_="btn btn-primary") }}</p>
                             </div>
                         </form>

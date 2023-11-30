@@ -19,16 +19,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">Wypożycz i czytaj</a>
+                <a class="navbar-brand" href="#page-top">Borrow and read</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Strona główna</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('search') }}">Wyszukaj książkę</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_notification') }}">Lista Twoich książek</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Main</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('search') }}">Search book</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_notification') }}">You notification books:</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
-                        <h2 class="text-white mb-5">Usunąłeś swoją subskrypcję dla książki <i>{{title}} {{author}}</i>  we wszystkich zapisanych bibliotekach. Mamy nadzieję, że udało Ci się ją zdobyć!</h2>
+                        <h2 class="text-white mb-5">You deleted your subscription for <i>{{title}} {{author}}</i> book. We hope you managed to get it!</h2>
                     </div>
                 </div>
             </div>

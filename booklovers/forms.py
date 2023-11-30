@@ -77,7 +77,7 @@ class Book:
 class Mail:
     email: str
     books: list
-    subject: str = "Dostępne książki"
+    subject: str = "Available books"
 
     def get_list_of_books(self):
         data = []
@@ -101,16 +101,16 @@ class Mail:
 
 
 class BookForm(FlaskForm):
-    title = StringField("Tytuł", validators=[DataRequired()])
-    submit = SubmitField("Wyszukaj")
+    title = StringField("Title", validators=[DataRequired()])
+    submit = SubmitField("Search")
 
 
 class EmailForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(),
                                              Email()])
-    submit = SubmitField("Zatwierdź")
+    submit = SubmitField("Submit")
 
 
 class SignUpForm(FlaskForm):
-    submit = SubmitField("Zapisz się do powiadomień!")
+    submit = SubmitField("Sign up for notifications")
     checkbox = BooleanField(label="library")

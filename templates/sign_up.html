@@ -4,14 +4,14 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
-                         <h2 class="text-white mb-5">Wybierz biblioteki, do których chcesz się zapisać na subskrypcje książki "{{ book_title }}" {{ book_author }}:</h2>
+                         <h2 class="text-white mb-5">Choose the libraries to receive notifications for '{{ book_title }}' by {{ book_author }}:</h2>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Adres</th>
+                                    <th>Address</th>
                                     <th>Status</th>
-                                    <th>Data zwrotu</th>
+                                    <th>Date of return</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,11 +39,11 @@
 
                         </table>
                         <br>
-                        <h2 class="text-white mb-5">Wpisz swój e-mail:</h2>
+                        <h2 class="text-white mb-5">Enter your email to receive notifications:</h2>
 
                             {{email_form.hidden_tag()}}
                             <p>
-                                {{ email_form.email(class_= "form-control", placeholder="Wpisz email") }}
+                                {{ email_form.email(class_= "form-control", placeholder="Enter email") }}
 
                                 <br>
                                 {{ email_form.submit(class_="btn btn-primary") }}

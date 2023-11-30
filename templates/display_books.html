@@ -5,7 +5,7 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <br>
-                        <h2 class="text-white mb-5">Lista książek w bibliotece:</h2>
+                        <h2 class="text-white mb-5">List of books in Biblioteka Raczyńskich:</h2>
                           <ul>
                           {% for book in books %}
                             <li><a class="text-white mb-5" href="{{ url_for('availability', title=book[0], author=book[1]) }}">{{ book[0] }}, {{ book[1] }}</a></li>

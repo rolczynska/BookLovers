@@ -7,8 +7,8 @@
     <body style="font-family: Arial, sans-serif; background-color: #A9A9A9; color: #fff; margin: 0; padding: 0;">
         <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #A9A9A9; color: #fff;">
             <h1 style="text-align: center; color: #fff;">BookLovers</h1>
-            <h2 style="text-align: center; color: #fff;">Zostałeś zarejestrowany do powiadomień.</h2>
-            <p style="text-align: center; color: #fff;">Wyślemy Ci powiadomienie kiedy książka <strong>"{{title}}" {{author}} </strong>pojawi się w jednej z poniższych bibliotek:</p>
+            <h2 style="text-align: center; color: #fff;">You have been registered for notifications.</h2>
+            <p style="text-align: center; color: #fff;">We will send you an alert when the book <strong>"{{title}}" by {{author}} </strong> becomes available at any of the following libraries:</p>
 
             <ul style="list-style-type: none; padding-left: 0; color: #fff;">
                 {% for library in chosen_libraries %}
@@ -16,7 +16,7 @@
                 {% endfor %}
             </ul>
 
-            <p style="text-align: center; color: #fff;">Jeśli chcesz się wypisać z powiadomień o tej książce kliknij w <a href='https://book-lovers-382216.lm.r.appspot.com/cancel_notify/{{title}}/{{author}}/{{email}}' style="color: #36454F; text-decoration: underline;">TEN LINK.</a></p>
+            <p style="text-align: center; color: #fff;">If you wish to unsubscribe from notifications for this book, click on <a href='https://book-lovers-382216.lm.r.appspot.com/cancel_notify/{{title}}/{{author}}/{{email}}' style='color: #36454F; text-decoration: underline;'>THIS LINK.</a></p>
 
             <footer style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #444; color: #fff;">
                 Copyright &copy; Book Lovers 2023
