@@ -7746,7 +7746,7 @@ textarea.form-control-lg {
 }
 
 .mt-2 {
-  margin-top: 0.5rem !important;
+  margin-top: 3rem !important;
 }
 
 .mt-3 {
@@ -11120,7 +11120,7 @@ body {
 }
 
 .projects-section {
-  padding: 10rem 0;
+  padding: 2rem 0;
 }
 .projects-section .featured-text {
   padding: 2rem;
@@ -11133,7 +11133,7 @@ body {
 }
 .projects-section .project-text {
   padding: 3rem;
-  font-size: 90%;
+  font-size: 110%;
 }
 @media (min-width: 992px) {
   .projects-section .project-text {
@@ -11161,7 +11161,7 @@ body {
 }
 
 .contact-section {
-  padding-top: 5rem;
+  padding-top: 1rem;
 }
 .contact-section .card {
   border: 0;
@@ -11180,7 +11180,7 @@ body {
   width: 3rem;
 }
 .contact-section .social {
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 .contact-section .social a {
   text-align: center;
@@ -11199,9 +11199,12 @@ body {
 }
 
 .footer {
-  padding: 5rem 0;
+  padding: 1rem 0;
 }
 
 .bigger-font{
     font-size: 24px;
+}
+#onas {
+padding: 20px;
 }
