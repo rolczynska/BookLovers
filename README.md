@@ -11,8 +11,7 @@ BookLovers bridges the gap between bibliophiles and their desired reads at the B
 <!-- - [License](#license) -->
 
 ## 📔 General Information
-The Raczyński Library in Poznań is a haven for readers from various walks of life. While the library offers a digital platform for checking book availability, it did not have a notification system for desired titles. This is where BookLovers steps in. Users can earmark titles of interest, and our app keeps a daily tab on the library's catalog. Upon availability of a title, users are promptly notified via email, ensuring that whether it's a leisure read or crucial research material, they're always in the loop.
-
+Welcome to the BookLovers! This application is designed to help you explore and track the availability of books across various branches of the Biblioteka Raczyńskich in Poznań. With this tool, you can effortlessly stay updated on the status of your favorite books and be instantly notified when they become available.
 ## 💼 Technologies Used
 - **Language:** Python 3.6
 - **Web Framework:** Flask 2.1.3
@@ -26,18 +25,18 @@ The Raczyński Library in Poznań is a haven for readers from various walks of l
 - **Other Libraries:** request, datetime, typing
 
 ### Frontend Template Credits
-The frontend design of this project was heavily influenced by [StartBootstrap/startbootstrap-grayscale](https://github.com/StartBootstrap/startbootstrap-grayscale) . A big thank you to the creators and contributors of this library for their excellent work. While the original templates provided a foundational structure, various modifications were made to align it better with the project's objectives.
+The frontend design of this project was heavily influenced by [StartBootstrap/startbootstrap-grayscale](https://github.com/StartBootstrap/startbootstrap-grayscale) . While the original templates provided a foundational structure, various modifications were made to align it better with the project's objectives.
 
 ## 🌟 Features
-- 📖 Explore the real-time availability of books across various branches of the Biblioteka Raczyńskich in Poznań.
+- 📖 **Real-Time Book Availability:** Explore the real-time availability of books across various branches of the Biblioteka Raczyńskich in Poznań.
 
-- 🚫 If a desired book is unavailable at certain library branches, users can subscribe for notifications across multiple branches of their choice.
+- 🚫 **Subscription for Unavailable Books:** If a desired book is unavailable at certain library branches, users can subscribe for notifications across multiple branches of their choice.
 
-- 📌 Set up subscriptions to be alerted when the sought-after title becomes available at any of the selected branches.
+- 📌 **Alert Subscriptions:** Set up subscriptions to be alerted when the sought-after title becomes available at any of the selected branches.
 
-- 📧 Receive alerts when a book of interest is ready to be borrowed.
+- 📧 **Receive Borrowing Alerts:** Receive alerts when a book of interest is ready to be borrowed.
 
-- 🔍 View active subscriptions. For those wishing to discontinue alerts, a link is provided in the subscription email.
+- 🔍 **Manage Subscriptions:** View and manage active subscriptions. For those wishing to discontinue alerts, a link is provided in the subscription email.
   
 ## 🛠️ Setup
 Setting up BookLovers locally is a breeze. Follow these steps:
@@ -99,7 +98,7 @@ Opt for your preferred cloud provider (e.g., Google Cloud, AWS, Azure) and trail
 **Voila!** Your app is ready to roll. Dive in and let us know if you encounter any snags or have feedback.
 
 ## 🚀 **Usage**
-- Open the BookLovers platform on [booklovers-poznan.online](https://book-lovers-382216.lm.r.appspot.com)
+- Open the BookLovers platform on [booklovers-poznan.online](https://booklovers-poznan.online)
 - Punch in the book title you're hunting for.
 - Validate the author and title from the given suggestions.
 - In case the title is unavailable, earmark your favored library branches.
@@ -108,4 +107,4 @@ Opt for your preferred cloud provider (e.g., Google Cloud, AWS, Azure) and trail
 - If at any point you wish to cancel the notification, simply follow the 'unsubscribe' link provided in the notification email.
 
 ## 💌 **Contact**
-Got queries or feedback? Drop a line at [olkiewicz.alex@gmail.com](mailto:olkiewicz.alex@gmail.com).
+Got queries or feedback? Drop a line at [alexandra.rolczynska@gmail.com](mailto:alexandra.rolczynska@gmail.com).
