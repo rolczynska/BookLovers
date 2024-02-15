@@ -15,28 +15,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                    {% for message in messages %}
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" >
-                                                            <span>{{ message }}</span>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+                                                                <span>{{ message }}</span>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                <form method="post">
+                                    {% for library, info in sign_up_libraries.items() %}
+                                    <tr>
+                                        <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
+                                        <td>{{ library }}</td>
+                                        <td>Rented</td>
+                                        <td>{{ info[1] }}</td>
+
                                     {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-                            <form method="post">
-                                {% for library, info in sign_up_libraries.items() %}
-                                <tr>
-                                    <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
-                                    <td>{{ library }}</td>
-                                    <td>{{ info[0] }}</td>
-                                    <td>{{ info[1] }}</td>
-
-                                {% endfor %}
-                                </tr>
-
-
+                                    </tr>
+                                </form>
+                            </tbody>
                         </table>
                         <br>
                         <h2 class="text-white mb-5">Enter your email to receive notifications:</h2>
@@ -48,8 +48,6 @@
                                 <br>
                                 {{ email_form.submit(class_="btn btn-primary") }}
                             </p>
-                        </form>
-                        </tbody>
                     </div>
                 </div>
             </div>

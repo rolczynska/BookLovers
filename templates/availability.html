@@ -19,7 +19,11 @@
                                 {% for library, info in book_availability.items() %}
                                 <tr>
                                     <td>{{ library }}</td>
-                                    <td>{{ info[0] }}</td>
+                                    {% if info[0] == "Na półce" %}
+                                        <td>Available</td>
+                                    {% else %}
+                                        <td>Rented</td>
+                                    {% endif %}
                                     <td>{{ info[1] }}</td>
 
                                 {% endfor %}
