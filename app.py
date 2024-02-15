@@ -1,12 +1,19 @@
 import threading
 from flask import Flask, render_template, session, request, flash, redirect
+from configparser import ConfigParser
 
 import booklovers.connect
 from booklovers import parser, forms, database, notifications
+from booklovers.forms import MAIN
+
+
+config = ConfigParser()
+config.read(MAIN / 'config.ini')
+SECRET_KEY = config['FLASK']['secret_key']
 
 # We create a Flask app.
 app = Flask(__name__)
-app.secret_key = "69430"  # a random number
+app.secret_key = SECRET_KEY  # a random number save in config file
 
 # This is a loop for notification books.
 notifications_loop = threading.Thread(target=notifications.start_loop, daemon=True)
@@ -59,7 +66,7 @@ def sign_up(title, author):
         email = email_form.email.data
         chosen_libraries = request.form.getlist('checkbox')
         if not chosen_libraries:
-            flash("Wybierz co najmniej jedną bibliotekę żeby się zapisać!")
+            flash("Please select at least one library to sign up!")
             return redirect(request.url)
 
         # Create search obj
