@@ -1,56 +1,55 @@
 {% extends "layout.html" %}
 {% block body %}
 <section class="signup-section" id="signup">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                         <h2 class="text-white mb-5">Choose the libraries to receive notifications for '{{ book_title }}' by {{ book_author }}:</h2>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Address</th>
-                                    <th>Status</th>
-                                    <th>Date of return</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% with messages = get_flashed_messages() %}
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                            <div class="alert alert-danger alert-dismissible fade show" role="alert" >
-                                                                <span>{{ message }}</span>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endwith %}
-                                <form method="post">
-                                    {% for library, info in sign_up_libraries.items() %}
-                                    <tr>
-                                        <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
-                                        <td>{{ library }}</td>
-                                        <td>Rented</td>
-                                        <td>{{ info[1] }}</td>
-
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-10 col-lg-8 mx-auto text-center">
+                <h2 class="text-white mb-5">Choose the libraries to receive notifications for '{{ book_title }}' by {{ book_author }}:</h2>
+                <!-- Start of the unified form -->
+                <form method="post" class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    {{ email_form.hidden_tag() }}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Date of return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <span>{{ message }}</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
                                     {% endfor %}
-                                    </tr>
-                                </form>
-                            </tbody>
-                        </table>
+                                {% endif %}
+                            {% endwith %}
+                            {% for library, info in sign_up_libraries.items() %}
+                            <tr>
+                                <td><input type="checkbox" name="checkbox" value="{{ library }}"></td>
+                                <td>{{ library }}</td>
+                                <td>Rented</td>
+                                <td>{{ info[1] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <h2 class="text-white mb-5">Enter your email to receive notifications:</h2>
+                    <p>
+                        {{ email_form.email(class_= "form-control", placeholder="Enter email") }}
                         <br>
-                        <h2 class="text-white mb-5">Enter your email to receive notifications:</h2>
+                        {{ email_form.submit(class_="btn btn-primary") }}
+                    </p>
+                </form>
+                <!-- End of the unified form -->
 
-                            {{email_form.hidden_tag()}}
-                            <p>
-                                {{ email_form.email(class_= "form-control", placeholder="Enter email") }}
-
-                                <br>
-                                {{ email_form.submit(class_="btn btn-primary") }}
-                            </p>
-                    </div>
-                </div>
             </div>
-        </section>
-
+        </div>
+    </div>
+</section>
 {% endblock body %}
